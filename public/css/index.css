@@ -172,7 +172,7 @@ header nav ul li:first-of-type {
   border: 1px solid #ddd;
 }
 
-.extended-options {
+#keyListContainer.extended-options {
   top: 135px;
 }
 

@@ -124,12 +124,13 @@ websocket(function(socket) {
       currentDatasource = 'usrdb';
       $visualizations.hide();
     }
-    else if (this.id == 'nav-vis' || this.id == 'nav-tags') {
+    else if (this.id == 'nav-vis') {
       currentDatasource = 'tagdb';
-
-      if (this.id == 'nav-vis') {
-        $visualizations.show();
-      }
+      $visualizations.show();
+    }
+    else if (this.id === 'nav-tags') {
+      currentDatasource = 'tagdb';
+      $visualizations.hide();
     }
     else if (this.id == 'nav-fav') {
       currentDatasource = 'favdb';
