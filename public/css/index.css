@@ -161,6 +161,35 @@ header nav ul li:first-of-type {
   z-index: 400;
 }
 
+#visualizations .left {
+  width: 200px;
+}
+
+#visualizations .right {
+  left: 225px;
+}
+
+#visualizations a {
+  text-decoration: none;
+  color: #666;
+}
+
+#visualizations a.selected {
+  text-decoration: none;
+  color: #3c7cd4;
+}
+
+#visualizations a:hover {
+  text-decoration: underline;
+}
+
+#visualizations p {
+  text-decoration: none;
+  font-size: 12px;
+  color: #999;
+  padding-right: 10px;
+}
+
 #keyListContainer {
   
   position: absolute;
