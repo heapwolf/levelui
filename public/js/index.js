@@ -11,13 +11,15 @@ websocket(function(socket) {
   var veryLarge = $('#veryLarge');
   var selectOne = $('#selectOne');
 
-  var keyTemplate = '<option value="{{key}}" title="{{key}}">{{key}}</option>'; 
+  var keyTemplate = '<option value="{{key}}" title="{{key}}">{{key}}</option>';
 
   var currentSelection = [];
+  var currentDatasource = 'usrdb';
 
-  function write(message, dbname) {
-    message.dbname = dbname || 'usrdb';
-    socket.write(JSON.stringify(message));
+  function write(message) {
+    message.dbname = currentDatasource;
+    message = JSON.stringify(message);
+    socket.write(message);
   }
 
   function getOpts() {
@@ -36,6 +38,19 @@ websocket(function(socket) {
     }
 
     return opts;
+  }
+
+  function keyListUpdate() {
+
+    clearTimeout(inputBounce);
+    inputBounce = setTimeout(function() {
+
+      write({ 
+        request: 'keyListUpdate', 
+        value: getOpts()
+      });
+
+    }, 16);
   }
 
   //
@@ -62,7 +77,7 @@ websocket(function(socket) {
         veryLarge.on('click', function() {
           editor_json.doc.setValue(JSON.stringify(value.value, 2, 2));
           veryLarge.hide();
-        })
+        });
       }
     }
 
@@ -90,6 +105,21 @@ websocket(function(socket) {
     //
 
   });
+
+  $('nav.secondary input').on('click', function() {
+
+    if(this.id === 'nav-all') {
+      currentDatasource = 'usrdb';
+    }
+    else {
+      currentDatasource = 'sysdb';
+    }
+
+    selectOne.show();
+    keyListUpdate();
+
+  });
+  
 
   //
   // when a user selects a single item from the key list
@@ -157,18 +187,7 @@ websocket(function(socket) {
   //
   var inputBounce;
 
-  controls.on('keyup mouseup click', function() {
-
-    clearTimeout(inputBounce);
-    inputBounce = setTimeout(function() {
-
-      write({ 
-        request: 'keyListUpdate', 
-        value: getOps()
-      });
-
-    }, 1512);
-  });
+  controls.on('keyup mouseup click', keyListUpdate);
 
   //
   // build the editor.
