@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+var stshttp = require('../lib');
+var net = require('net');
+var argv = require('optimist').argv;
+
+stshttp({
+  http: argv.http,
+  tcp: argv.tcp,
+  location: argv._[0],
+  encoding: argv.encoding
+});

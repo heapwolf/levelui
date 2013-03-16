@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Levelweb</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="js/codemirror-3.1/lib/codemirror.css">
+    <link rel="stylesheet" href="js/codemirror-3.1/addon/lint/lint.css">
+    <link href="/css/index.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <header>
+
+      <nav role="navigation" class="primary">
+        <ul class="cf">
+          <li>Levelweb</li>
+          <li id="pathtodb"></li>
+        </ul>
+      </nav>
+
+      <nav role="navigation" class="secondary">
+        <input type="radio" id="nav-1" name="radio-nav" class="radio-nav" />
+        <label for="nav-1">
+          <div class="ss-icon">key</div>
+            Search Keys
+          </div>
+        </label>
+
+        <input type="radio" id="nav-2" name="radio-nav" class="radio-nav" />
+        <label for="nav-2" class="border-right">
+          <div class="ss-icon">favorite</div>
+            Favorite Keys
+          </div>
+        </label>
+
+        <input type="radio" id="nav-3" name="radio-nav" class="radio-nav" />
+        <label for="nav-3">
+          <div class="ss-icon">piechart</div>
+            Visualize
+          </div>
+        </label>
+
+        <input type="radio" id="nav-4" name="radio-nav" class="radio-nav" />
+        <label for="nav-4">
+          <div class="ss-icon">tag</div>
+          Tagged Keys
+          </div>
+        </label>
+      </nav>
+
+    </header>
+
+    <a id="nav1"></a>
+    <a id="nav2"></a>
+    <a id="nav3"></a>
+    <a id="nav4"></a>
+
+    <div class="main-container">
+        <div class="left">
+
+          <div class="input-prepend" id="startKeyContainer">
+            <span class="add-on">Search</span>
+            <input id="startKey" class="control" type="text">
+          </div>
+          <div class="input-prepend" id="endKeyContainer">
+            <span class="add-on">End</span>
+            <input id="endKey" class="control" type="text">
+          </div>
+          <div class="input-prepend inline-block">
+            <span class="add-on">Limit Results</span>
+            <input id="limit" class="control" placeholder="100" type="text">
+          </div>
+          <div class="input-check inline-block">
+            <input type="checkbox" id="reverse" class="control regular-checkbox" /><label for="reverse">Reverse</label>
+          </div>
+          <div class="input-check inline-block">
+            <input type="checkbox" id="range" class="control regular-checkbox" /><label for="range">Define Range</label>
+          </div>
+          <br/>
+
+          <div class="keyList">
+            <select id="keyContainer" multiple="">
+            </select>
+          </div>
+
+          <div class=" inline-block" id="addto-bucket">
+          </div>
+
+          <div id="key-management-controls">
+            <button class="regular-button" id="delete-keys">
+              <span class="ss-icon">trash</span>
+              Delete selected
+            </button>
+            <button class="regular-button" id="addto-bucket">
+              <span class="ss-icon">tag</span>
+              Tag selected
+            </button>
+            <button class="regular-button" id="addto-bucket">
+              <span class="ss-icon">favorite</span>
+              Favorite selected
+            </button>
+          </div>
+
+        </div>
+        <div class="right">
+          <textarea id="code-json">
+          </textarea>
+          <div id="veryLarge" class="overlay">
+            <h1 class="ss-icon">ban</h1>
+            <h3>The value may be too large to view.<br/>
+            Click here to view anyway.</h3>
+          </div>
+          <div id="selectOne" class="overlay">
+            <h1 class="ss-icon">navigateleft</h1>
+            <h3>Select a single item from the list.</h3>
+          </div>
+        </div>
+    </div>
+
+
+
+    <script src="/js/jquery.js"></script>
+
+    <script src="js/codemirror-3.1/lib/codemirror.js"></script>
+    <script src="js/codemirror-3.1/mode/javascript/javascript.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script>
+    <script src="https://raw.github.com/zaach/jsonlint/79b553fb65c192add9066da64043458981b3972b/lib/jsonlint.js"></script>
+    <script src="js/codemirror-3.1/addon/lint/lint.js"></script>
+    <script src="js/codemirror-3.1/addon/lint/javascript-lint.js"></script>
+    <script src="js/codemirror-3.1/addon/lint/json-lint.js"></script>
+
+    <script src="/js/d3.v2.js"></script>
+    <script src="/js/cubism.v1.js"></script>
+    <script src="/js/websocket.min.js"></script>
+
+    <script src="/js/index.js"></script>
+
+  </body>
+</html>
+
+
