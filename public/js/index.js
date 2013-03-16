@@ -203,14 +203,15 @@ websocket(function(socket) {
   var saveBounce;
   editor_json.on('change', function(cm, change) {
 
-    console.log('CHANGE', change)
-
     clearTimeout(saveBounce);
     saveBounce = setTimeout(function() {
 
       if(cm._lintState.marked.length === 0 && cm.doc.isClean() === false) {
 
-        var value = { key: currentSelection, value: JSON.parse(editor_json.doc.getValue()) };
+        var value = { 
+          key: currentSelection,
+          value: JSON.parse(editor_json.doc.getValue())
+        };
 
         write({
           request: 'updateValue',
