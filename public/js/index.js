@@ -10,6 +10,7 @@ websocket(function(socket) {
   var $keyList = $('#keyList');
   var $veryLarge = $('#veryLarge');
   var $selectOne = $('#selectOne');
+  var $noKeys = $('#noKeys');
   var $visualizations = $('#visualizations');
 
   var keyTemplate = '<option value="{{key}}" title="{{key}}">{{key}}</option>';
@@ -100,9 +101,17 @@ websocket(function(socket) {
 
       $keyList.empty();
 
+      if (message.value.length > 0) {
+        $noKeys.hide();
+      }
+      else {
+        $noKeys.show();
+      }
+
       message.value.forEach(function(key) {
         $keyList.append(keyTemplate.replace(/{{key}}/g, key));
       });
+
     }
 
     else if (response === 'metaUpdate') {
