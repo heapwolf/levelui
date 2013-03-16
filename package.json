@@ -1,13 +1,13 @@
 {
-  "name": "tsd-web",
+  "name": "levelweb",
   "version": "0.1.2",
-  "description": "spins up a server to receive time-series data via tcp streams and then graphs it in the browser via web-sockets",
+  "description": "a simple front end for leveldb",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin" : { 
-    "tsd-web" : "./bin/tsd-web"
+    "levelweb" : "./bin/levelweb"
   },
   "dependencies": {
     "ws": "*",
