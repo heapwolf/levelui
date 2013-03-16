@@ -13,7 +13,7 @@ websocket(function(socket) {
 
   var keyTemplate = '<option value="{{key}}" title="{{key}}">{{key}}</option>';
 
-  var currentSelection = [];
+  var currentSelection = '';
   var currentDatasource = 'usrdb';
 
   function write(message) {
@@ -40,6 +40,7 @@ websocket(function(socket) {
     return opts;
   }
 
+  var inputBounce;
   function keyListUpdate() {
 
     clearTimeout(inputBounce);
@@ -139,6 +140,7 @@ websocket(function(socket) {
     else {
 
       selectOne.hide();
+      currentSelection = this.value;
 
       write({
         request: 'editorUpdate', 
@@ -185,8 +187,6 @@ websocket(function(socket) {
   //
   // when a user is trying to enter query criteria
   //
-  var inputBounce;
-
   controls.on('keyup mouseup click', keyListUpdate);
 
   //
@@ -200,4 +200,28 @@ websocket(function(socket) {
     viewportMargin: Infinity
   });
 
+  var saveBounce;
+  editor_json.on('change', function(cm, change) {
+
+    console.log('CHANGE', change)
+
+    clearTimeout(saveBounce);
+    saveBounce = setTimeout(function() {
+
+      if(cm._lintState.marked.length === 0 && cm.doc.isClean() === false) {
+
+        var value = { key: currentSelection, value: JSON.parse(editor_json.doc.getValue()) };
+
+        write({
+          request: 'updateValue',
+          value: value
+        });
+      }
+
+    }, 800);
+
+  });
 });
+
+
+
