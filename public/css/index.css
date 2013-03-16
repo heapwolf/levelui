@@ -45,6 +45,7 @@ html, body {
  */
 
 header {
+  -webkit-user-select: none;
   height: 95px;
   background-color: #f5f5f5;
   border-bottom: 1px solid #e5e5e5;
@@ -148,7 +149,19 @@ header nav ul li:first-of-type {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
-.keyList {
+#visualizations {
+  padding: 10px;
+  display: none;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  background-color: #fff;
+  z-index: 400;
+}
+
+#keyListContainer {
   
   position: absolute;
   width: 400px;
@@ -170,7 +183,7 @@ header nav ul li:first-of-type {
   top: none;
 }
 
-#keyContainer {
+#keyList {
 
   width: 100%;
   height: 100%;
@@ -218,7 +231,7 @@ label {
   background-color: #fff;
   text-align: center;
   color: #666;
-  z-index: 20000;
+  z-index: 200;
 }
 
 .overlay h1 {
@@ -239,7 +252,7 @@ label {
 
   cursor: pointer;
   position: relative;
-  color: #99a1a7;
+  color: #666;
   background-color: #fff;
 
   border: 1px solid #cacece;

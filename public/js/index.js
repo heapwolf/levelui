@@ -3,13 +3,14 @@ websocket(function(socket) {
   //
   // cache some of the frequently referred to DOM elements.
   //
-  var startKey = $('#startKey');
-  var endKey = $('#endKey');
-  var limit = $('#limit');
-  var controls = $('.control');
-  var keyList = $('#keyContainer');
-  var veryLarge = $('#veryLarge');
-  var selectOne = $('#selectOne');
+  var $startKey = $('#startKey');
+  var $endKey = $('#endKey');
+  var $limit = $('#limit');
+  var $controls = $('.control');
+  var $keyList = $('#keyList');
+  var $veryLarge = $('#veryLarge');
+  var $selectOne = $('#selectOne');
+  var $visualizations = $('#visualizations');
 
   var keyTemplate = '<option value="{{key}}" title="{{key}}">{{key}}</option>';
 
@@ -25,19 +26,29 @@ websocket(function(socket) {
   function getOpts() {
 
     var opts = {
-      limit: parseInt(limit.val()) || 100,
+      limit: parseInt($limit.val()) || 100,
       reverse: !!$('#reverse:checked').length,
     };
 
-    if (startKey.val().length > 0) {
-      opts.start = startKey.val();
+    if ($startKey.val().length > 0) {
+      opts.start = $startKey.val();
     }
 
-    if (endKey.val().length > 0 && $('#range:checked').length) {
-      opts.end = endKey.val();
+    if ($endKey.val().length > 0 && $('#range:checked').length) {
+      opts.end = $endKey.val();
     }
 
     return opts;
+  }
+
+  function getSelectedKeys() {
+    var keys = [];
+
+    $keyList.find('option:selected').each(function(key){
+      keys.push(this.value);
+    });
+
+    return keys;
   }
 
   var inputBounce;
@@ -69,15 +80,15 @@ websocket(function(socket) {
     //
     if (response === 'editorUpdate') {
       if (JSON.stringify(value.value).length < 1e4) {
-        veryLarge.hide();
+        $veryLarge.hide();
         editor_json.doc.setValue(JSON.stringify(value.value, 2, 2));
       }
       else {
-        veryLarge.show();
-        veryLarge.unbind('click');
-        veryLarge.on('click', function() {
+        $veryLarge.show();
+        $veryLarge.unbind('click');
+        $veryLarge.on('click', function() {
           editor_json.doc.setValue(JSON.stringify(value.value, 2, 2));
-          veryLarge.hide();
+          $veryLarge.hide();
         });
       }
     }
@@ -87,10 +98,10 @@ websocket(function(socket) {
     //
     else if (response === 'keyListUpdate') {
 
-      keyList.empty();
+      $keyList.empty();
 
       message.value.forEach(function(key) {
-        keyList.append(keyTemplate.replace(/{{key}}/g, key));
+        $keyList.append(keyTemplate.replace(/{{key}}/g, key));
       });
     }
 
@@ -111,12 +122,21 @@ websocket(function(socket) {
 
     if(this.id === 'nav-all') {
       currentDatasource = 'usrdb';
+      $visualizations.hide();
     }
-    else {
-      currentDatasource = 'sysdb';
+    else if (this.id == 'nav-vis' || this.id == 'nav-tags') {
+      currentDatasource = 'tagdb';
+
+      if (this.id == 'nav-vis') {
+        $visualizations.show();
+      }
+    }
+    else if (this.id == 'nav-fav') {
+      currentDatasource = 'favdb';
+      $visualizations.hide();
     }
 
-    selectOne.show();
+    $selectOne.show();
     keyListUpdate();
 
   });
@@ -125,21 +145,21 @@ websocket(function(socket) {
   //
   // when a user selects a single item from the key list
   //
-  keyList.on('change', function() {
+  $keyList.on('change', function() {
 
     var values = [];
 
-    keyList.find('option:selected').each(function(key){
+    $keyList.find('option:selected').each(function(key){
       values.push({ type: 'del', key: this.value });
     });
 
     if (values.length > 1) {
 
-      selectOne.show();
+      $selectOne.show();
     }
     else {
 
-      selectOne.hide();
+      $selectOne.hide();
       currentSelection = this.value;
 
       write({
@@ -156,7 +176,7 @@ websocket(function(socket) {
 
     var operations = [];
 
-    keyList.find('option:selected').each(function(key){
+    $keyList.find('option:selected').each(function(key){
       operations.push({ type: 'del', key: this.value });
     });
 
@@ -167,30 +187,55 @@ websocket(function(socket) {
       value: value
     });
 
-    selectOne.show();
+    $selectOne.show();
   });
 
+  //
+  // when the user wants to do more than just find a key.
+  //
   $('#range').on('click', function() {
 
     if ($('#range:checked').length === 0) {
       $('#endKeyContainer').hide();
       $('#startKeyContainer .add-on').text('Search');
-      $('.keyList').removeClass('extended-options');
+      $('#keyListContainer').removeClass('extended-options');
     }
     else {
       $('#endKeyContainer').show();
       $('#startKeyContainer .add-on').text('Start');
-      $('.keyList').addClass('extended-options');
+      $('#keyListContainer').addClass('extended-options');
     }
+  });
+
+  //
+  // when the user wants to favorite the currently selected keys
+  //
+  $('#addto-favs').click(function() {
+
+    write({
+      request: 'favKeys',
+      value: getSelectedKeys()
+    });
+  });
+
+  //
+  // when the user wants to tag the currently selected keys
+  //
+  $('#addto-tags').click(function() {
+    
+    write({
+      request: 'tagKeys',
+      value: getSelectedKeys()
+    });
   });
 
   //
   // when a user is trying to enter query criteria
   //
-  controls.on('keyup mouseup click', keyListUpdate);
+  $controls.on('keyup mouseup click', keyListUpdate);
 
   //
-  // build the editor.
+  // build the editor
   //
   var editor_json = CodeMirror.fromTextArea(document.getElementById("code-json"), {
     lineNumbers: true,
@@ -200,6 +245,9 @@ websocket(function(socket) {
     viewportMargin: Infinity
   });
 
+  //
+  // if the data changes, save it when its valid
+  //
   var saveBounce;
   editor_json.on('change', function(cm, change) {
 
@@ -223,6 +271,3 @@ websocket(function(socket) {
 
   });
 });
-
-
-
