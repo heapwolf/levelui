@@ -9,5 +9,8 @@ A web based interface for leveldb, with some other neat stuff.
 ./bin/levelweb ./test/data
 ```
 
-# WUT?
+## Explore and manage keys and values
 ![screenshot](/screenshot.png)
+
+## Visualize on custom buckets of data
+![screenshot](/screenshot2.png)

@@ -192,7 +192,7 @@ header nav ul li:first-of-type {
 
 #visualizations .right .visualization .container {
   position: absolute;
-  top: 55px;
+  top: 75px;
   left: 0px;
   right: 0px;
   bottom: 0px;
@@ -219,6 +219,13 @@ header nav ul li:first-of-type {
   font-size: 12px;
   color: #999;
   padding-right: 10px;
+}
+
+#visualizations #currentKey {
+  height: 25px;
+  font-size: 14px;
+  color: #888;
+  margin: 5px;
 }
 
 .axis text {
@@ -386,7 +393,7 @@ label {
 
 .input-prepend {
   display: inline-block;
-  margin-bottom: 10px;
+  margin: 4px;
   font-size: 0;
   white-space: nowrap;
   vertical-align: middle;
@@ -469,3 +476,19 @@ label {
 .cm-s-default .cm-string {color: #3c7cd4 !important;}
 .cm-s-default .cm-string-2 {color: #3c7cd4 !important;}
 
+svg {
+  cursor: default;
+}
+
+select.regular-button {
+  -webkit-appearance: none;
+  position: relative;
+  font-size: 12px;
+}
+
+select.regular-button:after {
+  content: 'X';
+  position: absolute;
+  top: 2px;
+  right: 3px;
+}

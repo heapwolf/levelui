@@ -475,8 +475,8 @@ websocket(function(socket) {
 
     $("#vis-tree-map .container").empty();
 
-    var w = $("#vis-tree-map .container").width() - 80,
-        h = $("#vis-tree-map .container").height() - 180,
+    var w = $("#vis-tree-map .container").width(),
+        h = $("#vis-tree-map .container").height(),
         x = d3.scale.linear().range([0, w]),
         y = d3.scale.linear().range([0, h]),
         color = d3.scale.category20c(),
@@ -489,7 +489,7 @@ websocket(function(socket) {
         .sticky(true)
         .value(function(d) { return d.size; });
 
-    var svg = d3.select("#vis-tree-map .container")
+    var svg = d3.select("#vis-tree-map .container").append('div')
         .attr("class", "chart")
       .append("svg:svg")
         .attr("width", w)
@@ -509,6 +509,8 @@ websocket(function(socket) {
           .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
           .on("click", function(d) { return zoom(node == d.parent ? root : d.parent); });
 
+      cell.on("mouseover", function(d) { $('#currentKey').text(d.name); })
+
       cell.append("svg:rect")
           .attr("width", function(d) { return d.dx - 1; })
           .attr("height", function(d) { return d.dy - 1; })
@@ -517,14 +519,14 @@ websocket(function(socket) {
       cell.append("svg:text")
           .attr("x", function(d) { return d.dx / 2; })
           .attr("y", function(d) { return d.dy / 2; })
-          .attr("dy", ".35em")
+          .attr("dy", ".20em")
           .attr("text-anchor", "middle")
-          .text(function(d) { return d.name; })
+          .text(function(d) { return d.size })
           .style("opacity", function(d) { d.w = this.getComputedTextLength(); return d.dx > d.w ? 1 : 0; });
 
       d3.select(window).on("click", function() { zoom(root); });
 
-      d3.select("select").on("change", function() {
+      d3.select("#vis-tree-map select").on("change", function() {
         treemap.value(this.value == "size" ? size : count).nodes(root);
         zoom(node);
       });
@@ -559,6 +561,10 @@ websocket(function(socket) {
       d3.event.stopPropagation();
     }
   }
+
+  // $(".cell text").on('mouseover', function() {
+  //   console.log('this')
+  // })
 
 });
 
