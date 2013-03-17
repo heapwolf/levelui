@@ -25,6 +25,11 @@ html, body {
   font-family: 'ProximaNova Regular';
 }
 
+hr {
+  height: 1px;
+  border: none;
+  border-bottom: 1px dotted #ddd;
+}
 
 /*
  * Basic stuff
@@ -149,6 +154,10 @@ header nav ul li:first-of-type {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
+/*
+ * Visualization stuff.
+ */
+
 #visualizations {
   padding: 10px;
   display: none;
@@ -169,6 +178,27 @@ header nav ul li:first-of-type {
   left: 225px;
 }
 
+#visualizations .right .visualization {
+  display: none;
+}
+
+#visualizations .right .visualization:target {
+  display: block;
+}
+
+#visualizations .right .visualization .controls {
+  margin: 10px;
+}
+
+#visualizations .right .visualization .container {
+  position: absolute;
+  top: 55px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  border-top: 1px solid #eee;
+}
+
 #visualizations a {
   text-decoration: none;
   color: #666;
@@ -179,8 +209,9 @@ header nav ul li:first-of-type {
   color: #3c7cd4;
 }
 
-#visualizations a:hover {
-  text-decoration: underline;
+#visualizations a span {
+  margin: 4px;
+  font-size: 12px;
 }
 
 #visualizations p {
@@ -189,6 +220,28 @@ header nav ul li:first-of-type {
   color: #999;
   padding-right: 10px;
 }
+
+.axis text {
+  font: 10px sans-serif;
+  color: #aaa;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #aaa;
+  shape-rendering: crispEdges;
+}
+
+.hexagon {
+  fill: none;
+  stroke: #aaa;
+  stroke-width: .5px;
+}
+
+/*
+ * Key Lists 
+ */
 
 #keyListContainer {
   

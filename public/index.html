@@ -126,21 +126,54 @@
 
       <div id="visualizations">
         <div class="left">
-          <a href="#vis-time-series" class="selected">Time Series Data</a>
-          <p>
-            Incoming keys and values are plotted against a time-line.
-          </p>
 
-          <a href="#vis-historic-data">Historic Data</a>
-          <p>
-            Existing keys and values are plotted against a zoom-able and 
-            pan-able time-line for which a range can be specified.
-          </p>
+          <a href="#vis-tree-map"><span class="ss-icon">grid</span>Tree Map</a>
+          <hr/>
+          <a href="#vis-time-series"><span class="ss-icon">clock</span>Time Series</a>
+          <hr/>
+          <a href="#vis-historic-density"><span class="ss-icon">calendar</span>Historic Density</a>
+          <hr/>
+          <a href="#vis-stacked-area"><span class="ss-icon">rows</span>Stacked Area</a>
 
-            
         </div>
         <div class="right">
-          <div id="selectOne" class="overlay">
+
+          <div id="vis-tree-map" class="visualization">
+            
+            <div class="controls">
+              <div class="input-prepend" id="startKeyContainer">
+                <span class="add-on">Token</span>
+                <input id="treeMapToken" class="control" placeholder="The character used to group your keys" type="text">
+              </div>
+              <button class="regular-button" id="generateTreeMap">
+                <span class="ss-icon">flask</span>
+                Generate
+              </button>
+            </div>
+
+            <div class="container">
+            </div>
+          </div>
+
+          <div id="vis-time-series" class="visualization">
+            b
+            <div class="container">
+            </div>
+          </div>
+
+          <div id="vis-historic-density" class="visualization">
+            c
+            <div class="container">
+            </div>
+          </div>
+
+          <div id="vis-stacked-area" class="visualization">
+            d
+            <div class="container">
+            </div>
+          </div>
+
+          <div id="selectKeys" class="overlay">
             <h1 class="ss-icon">talk</h1>
             <h3>Tag the keys that you want to visualize.</h3>
           </div>
@@ -148,8 +181,6 @@
       </div>
 
     </div>
-
-
 
     <script src="/js/jquery.js"></script>
 
@@ -161,7 +192,8 @@
     <script src="js/codemirror-3.1/addon/lint/javascript-lint.js"></script>
     <script src="js/codemirror-3.1/addon/lint/json-lint.js"></script>
 
-    <script src="/js/d3.v2.js"></script>
+    <script src="/js/d3.v3.js"></script>
+    <script src="/js/d3.hexbin.js"></script>
     <script src="/js/cubism.v1.js"></script>
     <script src="/js/websocket.min.js"></script>
 
