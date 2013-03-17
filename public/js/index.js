@@ -473,7 +473,7 @@ websocket(function(socket) {
 
   function buildTreeMap(data) {
 
-    //console.log(data)
+    $("#vis-tree-map .container").empty();
 
     var w = $("#vis-tree-map .container").width() - 80,
         h = $("#vis-tree-map .container").height() - 180,
