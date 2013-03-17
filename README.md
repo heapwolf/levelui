@@ -4,9 +4,14 @@ levelweb(3)
 # SYNOPSIS
 A web based interface for leveldb, with some other neat stuff.
 
+# USAGE
+## Streaming data to Levelweb
+Level web accepts new line delimited writes over tcp. Each line should be an 
+object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
+
 # EXAMPLES
 ```bash
-./bin/levelweb ./test/data
+./bin/levelweb ./test/data --tcp 9997 --http 8080
 ```
 
 ## Explore and manage keys and values
