@@ -5,14 +5,14 @@ levelweb(3)
 A web based interface for leveldb, with some other neat stuff.
 
 # USAGE
-## Streaming data to Levelweb
-Level web accepts new line delimited writes over tcp. Each line should be an 
-object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
-
-# EXAMPLES
+Point the app at your database and specify what ports you want to run on.
 ```bash
 ./bin/levelweb ./test/data --tcp 9997 --http 8080
 ```
+
+## Streaming data to Levelweb
+Level web accepts new line delimited writes over tcp. Each line should be an 
+object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
 
 ## Explore and manage keys and values
 ![screenshot](/screenshot.png)
