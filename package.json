@@ -1,6 +1,6 @@
 {
   "name": "levelweb",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "a simple front end for leveldb",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,6 @@
   "dependencies": {
     "ws": "*",
     "levelup": "*",
-    "st": "*",
     "event-stream": "*"
   },
   "repository": "",
