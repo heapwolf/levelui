@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="js/codemirror-3.1/lib/codemirror.css">
     <link rel="stylesheet" href="js/codemirror-3.1/addon/lint/lint.css">
+    <link rel="stylesheet" href="css/jquery.tagsinput.css" />
     <link href="/css/index.css" rel="stylesheet">
 
   </head>
@@ -92,15 +93,15 @@
         <div id="key-management-controls">
           <button class="regular-button" id="delete-keys">
             <span class="ss-icon">trash</span>
-            Delete selected
+            Delete <span class="selected-key-count"></span>
           </button>
           <button class="regular-button" id="addto-tags">
             <span class="ss-icon">tag</span>
-            Tag selected
+            Tag <span class="selected-key-count"></span>
           </button>
           <button class="regular-button" id="addto-favs">
             <span class="ss-icon">favorite</span>
-            Favorite selected
+            Favorite <span class="selected-key-count"></span>
           </button>
         </div>
 
@@ -176,14 +177,13 @@
 
           <div id="vis-stacked-area" class="visualization">
             <div class="controls">
+              <div class="input-prepend-top">
+                <span class="add-on">Objects to Plot</span>
+                <input id="pathsToValues" />
+              </div>             
               <div class="input-prepend">
-                <span class="add-on">Path To Date</span>
+                <span class="add-on">Date Object</span>
                 <input id="pathToDate" class="control" placeholder="foo.bar.date" type="text">
-              </div>
-
-              <div class="input-prepend">
-                <span class="add-on">Paths To Plot</span>
-                <input id="pathsToValues" class="control" placeholder="foo.bar, bazz" type="text">
               </div>
 
               <button class="regular-button" id="buildStackedAreaChart">
@@ -191,6 +191,7 @@
                 Generate
               </button>
             </div>
+
 
             <div class="container">
             </div>
@@ -209,16 +210,18 @@
 
     <script src="js/codemirror-3.1/lib/codemirror.js"></script>
     <script src="js/codemirror-3.1/mode/javascript/javascript.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js"></script>
-    <script src="https://raw.github.com/zaach/jsonlint/79b553fb65c192add9066da64043458981b3972b/lib/jsonlint.js"></script>
+    <script src="js/jsonlint.js"></script>
     <script src="js/codemirror-3.1/addon/lint/lint.js"></script>
     <script src="js/codemirror-3.1/addon/lint/javascript-lint.js"></script>
     <script src="js/codemirror-3.1/addon/lint/json-lint.js"></script>
+
 
     <script src="/js/d3.v3.js"></script>
     <script src="/js/d3.hexbin.js"></script>
     <script src="/js/cubism.v1.js"></script>
     <script src="/js/websocket.min.js"></script>
+
+    <script src="js/jquery.tagsinput.min.js"></script>  
 
     <script src="/js/index.js"></script>
 

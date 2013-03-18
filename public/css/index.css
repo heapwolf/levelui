@@ -250,10 +250,18 @@ header nav ul li:first-of-type {
   shape-rendering: crispEdges;
 }
 
+.areachart text {
+  text-anchor: end;
+}
+
 .hexagon {
   fill: none;
   stroke: #aaa;
   stroke-width: .5px;
+}
+
+#visualizations .right .visualization .container {
+  top: 150px;
 }
 
 /*
@@ -401,6 +409,26 @@ label {
   left: 8px;
   color: #99a1a7;
 }*/
+
+
+.input-prepend-top {
+  width: 90%;
+  display: inline-block;
+  margin: 4px;
+}
+
+.input-prepend-top .add-on {
+  display: block;
+  height: 18px;
+  padding: 5px 5px;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 20px;
+  text-shadow: 0 1px 0 #ffffff;
+  margin-bottom: -1px;
+  background-color: #eeeeee;
+  border: 1px solid #ccc;
+}
 
 .input-prepend {
   display: inline-block;

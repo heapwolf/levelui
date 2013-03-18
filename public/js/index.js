@@ -8,6 +8,7 @@ websocket(function(socket) {
   var $limit = $('#limit');
   var $controls = $('.control');
   var $keyList = $('#keyList');
+  var $selectedKeyCount = $('.selected-key-count');
   var $veryLarge = $('#veryLarge');
   var $selectOne = $('#selectOne');
   var $selectKeys = $('#selectKeys');
@@ -243,17 +244,20 @@ websocket(function(socket) {
   //
   $keyList.on('change', function() {
 
-    var values = [];
+    var count = 0;;
 
     $keyList.find('option:selected').each(function(key){
-      values.push({ type: 'del', key: this.value });
+      count ++;
     });
 
-    if (values.length > 1) {
+    if (count > 1) {
 
+      $selectedKeyCount.text(count);
       $selectOne.show();
     }
     else {
+
+      $selectedKeyCount.text('');
 
       $selectOne.hide();
       currentSelection = this.value;
@@ -382,6 +386,15 @@ websocket(function(socket) {
 
   });
 
+  //
+  // stacked area chart stuff
+  //
+  $('#pathsToValues').tagsInput({
+    width: '',
+    height: '55px',
+    defaultText: 'Add an object path'
+  });
+
   $('#buildStackedAreaChart').on('click', function() {
 
     var value = {
@@ -460,7 +473,7 @@ websocket(function(socket) {
       var browser = svg.selectAll(".browser")
           .data(browsers)
         .enter().append("g")
-          .attr("class", "browser");
+          .attr("class", "areachart");
 
       browser.append("path")
           .attr("class", "area")
@@ -483,15 +496,7 @@ websocket(function(socket) {
           .attr("class", "y axis")
           .call(yAxis);
   }
-
-
-
-
-
-
-
-
-
+  
   //
   // tree-map stuff
   //
