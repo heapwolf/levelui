@@ -74,11 +74,11 @@ websocket(function(socket) {
   var cache = {};
   var metrics = [];
 
-  var context = cubism.context()
-    .serverDelay(0)
-    .clientDelay(0)
-    .step(1e3)
-    .size(960);
+  // var context = cubism.context()
+  //   .serverDelay(0)
+  //   .clientDelay(0)
+  //   .step(1e3)
+  //   .size(960);
 
   function visualizationUpdate() {
 
@@ -195,7 +195,6 @@ websocket(function(socket) {
     // tagged keys
     //
     else if (response === 'buildTreeMap') {
-      console.log(JSON.stringify(value, 2, 2))
       buildTreeMap(value);
     }
 
@@ -383,108 +382,28 @@ websocket(function(socket) {
 
   });
 
-
-  //
-  // Hexagonal/Historic/Aggregate View
-  //
-
-  // var largestKey = 0;
-
-  // for(var i = 0, l = keys.length; i<l; i++) {
-  //   if (keys[i].size > largestKey) {
-  //     largestKey = keys.size;
-  //   }
-  // }
-
-  // var margin = {top: 20, right: 20, bottom: 30, left: 40},
-  //     width = 460 - margin.left - margin.right,
-  //     height = 500 - margin.top - margin.bottom;
-
-  // var points = [
-  //       [100, 50],
-  //       [0, 0],
-  //       [100, 50],
-  //       [100, 50],
-  //       [100, 50]
-  //     ];
-
-  //     // d3.range(2000).map(function() { return [randomX(), randomY()]; });
-
-  // var color = d3.scale.linear()
-  //     .domain([0, 20])
-  //     .range(["white", "steelblue"]) // #3c7cd4
-  //     .interpolate(d3.interpolateLab);
-
-  // var hexbin = d3.hexbin()
-  //     .size([width, height])
-  //     .radius(20);
-
-  // var x = d3.scale.identity()
-  //     .domain([0, width]);
-
-  // var y = d3.scale.linear()
-  //     .domain([0, height])
-  //     .range([height, 0]);
-
-  // var xAxis = d3.svg.axis()
-  //     .scale(x)
-  //     .orient("bottom")
-  //     .tickSize(6, -height);
-
-  // var yAxis = d3.svg.axis()
-  //     .scale(y)
-  //     .orient("left")
-  //     .tickSize(6, -width);
-
-  // var svg = d3.select("#vis-historic-data").append("svg")
-  //     .attr("width", width + margin.left + margin.right)
-  //     .attr("height", height + margin.top + margin.bottom)
-  //   .append("g")
-  //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  // svg.append("clipPath")
-  //     .attr("id", "clip")
-  //   .append("rect")
-  //     .attr("class", "mesh")
-  //     .attr("width", width)
-  //     .attr("height", height);
-
-  // svg.append("g")
-  //     .attr("clip-path", "url(#clip)")
-  //   .selectAll(".hexagon")
-  //     .data(hexbin(points))
-  //   .enter().append("path")
-  //     .attr("class", "hexagon")
-  //     .attr("d", hexbin.hexagon())
-  //     .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-  //     .style("fill", function(d) { return color(d.length); });
-
-  // svg.append("g")
-  //     .attr("class", "y axis")
-  //     .call(yAxis);
-
-  // svg.append("g")
-  //     .attr("class", "x axis")
-  //     .attr("transform", "translate(0," + height + ")")
-  //     .call(xAxis);
-
-
   $('#buildStackedAreaChart').on('click', function() {
+
+    var value = {
+      pathToDate: $('#pathToDate').val(),
+      pathsToValues: $('#pathsToValues').val(),
+    };
 
     request({
       request: 'buildStackedAreaChart',
-      value: {
-        pathToDate: $('#pathToDate').val(),
-        pathToValue: $('#pathToValue').val(),
-      }
+      value: value
     });
   });
 
   function buildStackedAreaChart(data) {
 
+    var $container = $("#vis-stacked-area .container");
+
+    $container.empty();
+
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
-        width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        width = $container.width() - margin.left - margin.right,
+        height = $container.height() - margin.top - margin.bottom;
 
     var parseDate = d3.time.format("%y-%b-%d").parse,
         formatPercent = d3.format(".0%");
@@ -535,7 +454,6 @@ websocket(function(socket) {
         };
       }));
 
-      console.log(browsers);
 
       x.domain(d3.extent(data, function(d) { return d.date; }));
 

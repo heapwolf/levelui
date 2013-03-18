@@ -41,3 +41,6 @@ simultaneously.
 ### Write History
 
 ### Stacked Area
+A work in progress, not quite happy with the UI.
+
+![screenshot](/screenshot3.png)
