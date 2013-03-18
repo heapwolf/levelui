@@ -139,13 +139,13 @@
         <div class="right">
 
           <div id="vis-tree-map" class="visualization">
-            
+
             <div class="controls">
               <div class="input-prepend" id="startKeyContainer">
                 <span class="add-on">Token</span>
-                <input id="treeMapToken" class="control" placeholder="The character used to group your keys" type="text">
+                <input id="treeMapToken" class="control" value="~" placeholder="The character used to group your keys" type="text">
               </div>
-              <button class="regular-button" id="generateTreeMap">
+              <button class="regular-button" id="buildTreeMap">
                 <span class="ss-icon">flask</span>
                 Generate
               </button>
@@ -154,8 +154,8 @@
                 <option value="count">Count</option>
               </select>
               <br/>
-              <div id="currentKey">
-              </div>
+
+              <div id="currentKey" class="dynamic-label"></div>
             </div>
 
             <div class="container">
@@ -175,7 +175,23 @@
           </div>
 
           <div id="vis-stacked-area" class="visualization">
-            d
+            <div class="controls">
+              <div class="input-prepend">
+                <span class="add-on">Path To Date</span>
+                <input id="pathToDate" class="control" placeholder="foo.bar.date" type="text">
+              </div>
+
+              <div class="input-prepend">
+                <span class="add-on">Path To Value</span>
+                <input id="pathToValue" class="control" placeholder="foo.bar.value" type="text">
+              </div>
+
+              <button class="regular-button" id="buildStackedAreaChart">
+                <span class="ss-icon">flask</span>
+                Generate
+              </button>
+            </div>
+
             <div class="container">
             </div>
           </div>

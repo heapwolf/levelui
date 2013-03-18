@@ -190,9 +190,14 @@ header nav ul li:first-of-type {
   margin: 10px;
 }
 
+#visualizations .right .visualization .controls input {
+  min-width: 50px;
+  width: auto;
+}
+
 #visualizations .right .visualization .container {
   position: absolute;
-  top: 75px;
+  top: 60px;
   left: 0px;
   right: 0px;
   bottom: 0px;
@@ -223,9 +228,14 @@ header nav ul li:first-of-type {
 
 #visualizations #currentKey {
   height: 25px;
+  width: auto;
   font-size: 14px;
   color: #888;
   margin: 5px;
+  position: absolute;
+  z-index: 50000;
+  font-family: 'Courier New';
+  background-color: #fff;
 }
 
 .axis text {
@@ -364,8 +374,9 @@ label {
   box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
 }
 
-.regular-checkbox:checked + label a {
-  text-decoration: underline;
+.regular-checkbox + label {
+  top: 5px;
+  margin-right: 5px;
 }
 
 .regular-checkbox:checked + label {
@@ -405,7 +416,7 @@ label {
   width: auto;
   height: 18px;
   padding: 4px 5px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: normal;
   line-height: 20px;
   text-align: center;
@@ -448,6 +459,10 @@ label {
   text-shadow: none;
   padding-left: 4px;
   outline: none;
+}
+
+input {
+  font-family: 'Courier New';
 }
 
 /*
