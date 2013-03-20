@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +11,7 @@
     <link rel="stylesheet" href="js/codemirror-3.1/lib/codemirror.css">
     <link rel="stylesheet" href="js/codemirror-3.1/addon/lint/lint.css">
     <link rel="stylesheet" href="css/jquery.tagsinput.css" />
+    <link rel="stylesheet" href="css/jquery.datepicker.css" />
     <link href="/css/index.css" rel="stylesheet">
 
   </head>
@@ -74,10 +74,10 @@
           <input id="limit" class="control" placeholder="100" type="text">
         </div>
         <div class="input-check inline-block">
-          <input type="checkbox" id="reverse" class="control regular-checkbox" /><label for="reverse">Reverse</label>
+          <input type="checkbox" id="reverse" class="control checkbox" /><label for="reverse">Reverse</label>
         </div>
         <div class="input-check inline-block">
-          <input type="checkbox" id="range" class="control regular-checkbox" /><label for="range">Define Range</label>
+          <input type="checkbox" id="range" class="control checkbox" /><label for="range">Define Range</label>
         </div>
         <br/>
 
@@ -91,15 +91,15 @@
         </div>
 
         <div id="key-management-controls">
-          <button class="regular-button" id="delete-keys">
+          <button class="button" id="delete-keys">
             <span class="ss-icon">trash</span>
             Delete <span class="selected-key-count"></span>
           </button>
-          <button class="regular-button" id="addto-tags">
+          <button class="button" id="addto-tags">
             <span class="ss-icon">tag</span>
             Tag <span class="selected-key-count"></span>
           </button>
-          <button class="regular-button" id="addto-favs">
+          <button class="button" id="addto-favs">
             <span class="ss-icon">favorite</span>
             Favorite <span class="selected-key-count"></span>
           </button>
@@ -125,38 +125,81 @@
 
 
 
-      <div id="visualizations">
+      <div id="visualizations" class="panel">
         <div class="left">
 
-          <a href="#vis-tree-map"><span class="ss-icon">grid</span>Tree Map</a>
+          <a href="#vis-tree-map" class="primary"><span class="ss-icon">grid</span>Tree Map</a>
+          <div class="links">
+            <a href="#" class="secondary">Configure and Generate</a>
+          </div>
           <hr/>
-          <a href="#vis-time-series"><span class="ss-icon">clock</span>Time Series</a>
+          <a href="#vis-bar" class="primary"><span class="ss-icon">thumbnails</span>Heat Map</a>
+          <div class="links">
+            <a href="#" class="secondary">Configure and Generate</a>
+          </div>
           <hr/>
-          <a href="#vis-historic-density"><span class="ss-icon">calendar</span>Write History</a>
+          <a href="#vis-time-series" class="primary"><span class="ss-icon">clock</span>Time Series</a>
+          <div class="links">
+            <a href="#" class="secondary">Configure and Generate</a>
+          </div>
           <hr/>
-          <a href="#vis-stacked-area"><span class="ss-icon">rows</span>Stacked Area</a>
+          <a href="#vis-bar" class="primary"><span class="ss-icon">barchart</span>Bar Chart</a>
+          <div class="links">
+            <a href="#" class="secondary">Configure and Generate</a>
+          </div>
+          <hr/>
+          <a href="#vis-stacked-area" class="primary"><span class="ss-icon">rows</span>Stacked Area Chart</a>
+          <div class="links">
+            <a href="#" class="secondary">Configure and Generate</a>
+          </div>
+          <hr/>
 
         </div>
         <div class="right">
 
           <div id="vis-tree-map" class="visualization">
 
-            <div class="controls">
+            <div class="options">
+
+              <h3>Setup</h3>
+              <hr/>
+              <p>
+                Build a hierarchical tree of this database by dividing keys based
+                on a token. This should be done using the `tilde` character since
+                it doesn't affect sorting.
+              </p>
+
               <div class="input-prepend" id="startKeyContainer">
                 <span class="add-on">Token</span>
                 <input id="treeMapToken" class="control" value="~" placeholder="The character used to group your keys" type="text">
               </div>
-              <button class="regular-button" id="buildTreeMap">
+
+              <br/>
+
+              <button class="button submit" id="buildTreeMap">
                 <span class="ss-icon">flask</span>
                 Generate
               </button>
-              <select class="regular-button">
-                <option value="size">Size</option>
-                <option value="count">Count</option>
-              </select>
-              <br/>
 
-              <div id="currentKey" class="dynamic-label"></div>
+              <br/>
+              <h3>Adjustments</h3>
+              <hr/>
+              <p>
+                After the tree map has been created, you can choose to organize
+                the regions by size or by count.
+              </p>
+
+              <div class="custom-select">
+                <select class="button">
+                  <option value="size">Size</option>
+                  <option value="count">Count</option>
+                </select>
+              </div>
+
+              <div class="close">
+                <span class="ss-icon">close</span>
+              </div>
+
             </div>
 
             <div class="container">
@@ -164,37 +207,141 @@
           </div>
 
           <div id="vis-time-series" class="visualization">
-            b
+
+            <div class="options">
+
+              <h3>Setup</h3>
+              <hr/>
+
+              <br/>
+              <h3>After</h3>
+              <hr/>
+
+
+              <div class="close">
+                <span class="ss-icon">close</span>
+              </div>
+
+            </div>
+
             <div class="container">
             </div>
           </div>
 
           <div id="vis-historic-density" class="visualization">
-            c
+            
+            <div class="options">
+
+              <h3>Setup</h3>
+              <hr/>
+
+              <br/>
+              <h3>Adjustments</h3>
+              <hr/>
+
+
+              <div class="close">
+                <span class="ss-icon">close</span>
+              </div>
+
+            </div>
+
             <div class="container">
             </div>
           </div>
 
           <div id="vis-stacked-area" class="visualization">
-            <div class="controls">
+
+            <div class="options">
+
+              <h3>Stacked Area Chart</h3>
+              <hr/>
+              <p>
+                Displays graphically quantitive data. Generally compares two or 
+                more quantities. Using Javascript dot notation, specify a path to
+                one or more values in the JSON that will occur in every key.
+              </p>
               <div class="input-prepend-top">
                 <span class="add-on">Objects to Plot</span>
                 <input id="pathsToValues" />
               </div>             
+              <p>
+                There needs to be at least one value in the key's value that 
+                contains a Javascript parsable date.
+              </p>
               <div class="input-prepend">
                 <span class="add-on">Date Object</span>
                 <input id="pathToDate" class="control" placeholder="foo.bar.date" type="text">
               </div>
 
-              <button class="regular-button" id="buildStackedAreaChart">
+              Granularity
+              <div class="custom-select">
+                <select class="button" id="stackedAreaGranularity">
+                  <option value="date">Date</option>
+                  <option value="time">Time</option>
+                </select>
+              </div>
+
+              <h3>Ranges</h3>
+              <hr/>
+              <div class="input-prepend">
+                <span class="add-on">Start Date</span>
+                <input type="text" placeholder="(Optional)"  class="dateStart">
+              </div>
+              <div class="input-prepend">
+                <span class="add-on">End Date</span>
+                <input type="text" placeholder="(Optional)" class="dateEnd">
+              </div>
+              <br/>
+              <br/>
+
+              <button class="button submit" id="buildStackedAreaChart">
                 <span class="ss-icon">flask</span>
                 Generate
               </button>
-            </div>
 
+              <div class="close">
+                <span class="ss-icon">close</span>
+              </div>
+
+            </div>
 
             <div class="container">
             </div>
+          </div>
+
+          <div id="vis-bar" class="visualization">
+
+
+            <div class="options">
+
+              <h3>Setup</h3>
+              <hr/>
+
+              <div class="custom-select">
+                <select class="button" id="barChartGranularity">
+                  <option value="date">Date</option>
+                  <option value="time">Time</option>
+                </select>
+              </div>
+              <button class="button submit" id="buildBarChart">
+                <span class="ss-icon">flask</span>
+                Generate
+              </button>
+
+              <div class="close">
+                <span class="ss-icon">close</span>
+              </div>
+
+            </div>
+
+            <div class="container">
+            </div>
+          </div>
+
+          <div id="chooseVisualization" class="overlay">
+            <h1 class="ss-icon">talk</h1>
+            <h3>Select a visualization.</h3>
           </div>
 
           <div id="selectKeys" class="overlay">
@@ -221,11 +368,10 @@
     <script src="/js/cubism.v1.js"></script>
     <script src="/js/websocket.min.js"></script>
 
-    <script src="js/jquery.tagsinput.min.js"></script>  
+    <script src="js/jquery.tagsinput.min.js"></script>
+    <script src="js/jquery.datepicker.js"></script>
 
     <script src="/js/index.js"></script>
 
   </body>
 </html>
-
-

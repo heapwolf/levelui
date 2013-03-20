@@ -31,8 +31,12 @@ hr {
   border-bottom: 1px dotted #ddd;
 }
 
+p {
+  line-height: 18px;
+}
+
 /*
- * Basic stuff
+ * Clearfix
  */
 
 .cf:before,
@@ -46,7 +50,7 @@ hr {
 }
 
 /*
- * Header stuff
+ * Headers
  */
 
 header {
@@ -133,9 +137,13 @@ header nav ul li:first-of-type {
 .left {
   width: 400px;
   position: absolute;
-  padding: 10px;
+  padding: 0px;
   bottom: 0px;
   top: 0px;
+}
+
+.left > .input-prepend {
+  margin: 8px 8px 4px 8px;
 }
 
 .right {
@@ -158,7 +166,7 @@ header nav ul li:first-of-type {
  * Visualization stuff.
  */
 
-#visualizations {
+.panel {
   padding: 10px;
   display: none;
   position: absolute;
@@ -170,38 +178,71 @@ header nav ul li:first-of-type {
   z-index: 400;
 }
 
+.options {
+  display: none;
+  position: absolute;
+  margin: 40px;
+  top: 0px;
+  right: 0px;
+  left: 0px;  
+  border: 1px solid #ddd;
+  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.075);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.075);
+  z-index: 5000;
+  background-color: #fff;
+  padding: 0 15px 15px;
+}
+
+.options .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: auto;
+  height: auto;
+  font-size: 15px;
+  color: #666;
+  display: inline;
+  text-align: center;
+  cursor: pointer;
+}
+
+.options .input-prepend input {
+  width: auto;
+}
+
 #visualizations .left {
+  top: 10px;
   width: 200px;
 }
 
 #visualizations .right {
   left: 225px;
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
-#visualizations .right .visualization {
+.visualization {
   display: none;
 }
 
-#visualizations .right .visualization:target {
+.visualization:target {
   display: block;
 }
 
-#visualizations .right .visualization .controls {
-  margin: 10px;
-}
-
-#visualizations .right .visualization .controls input {
-  min-width: 50px;
-  width: auto;
-}
-
-#visualizations .right .visualization .container {
+.visualization .container {
   position: absolute;
-  top: 60px;
+  top: 0px;
   left: 0px;
   right: 0px;
   bottom: 0px;
-  border-top: 1px solid #eee;
+  overflow: auto;
+  border: 1px solid #ddd;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
 #visualizations a {
@@ -209,14 +250,21 @@ header nav ul li:first-of-type {
   color: #666;
 }
 
+#visualizations a.primary span {
+  margin: 4px;
+  font-size: 12px;
+}
+
+#visualizations .links {
+  display: none;
+  margin: 10px 20px;
+  font-size: 12px;
+}
+
+#visualizations a:hover,
 #visualizations a.selected {
   text-decoration: none;
   color: #3c7cd4;
-}
-
-#visualizations a span {
-  margin: 4px;
-  font-size: 12px;
 }
 
 #visualizations p {
@@ -254,15 +302,6 @@ header nav ul li:first-of-type {
   text-anchor: end;
 }
 
-.hexagon {
-  fill: none;
-  stroke: #aaa;
-  stroke-width: .5px;
-}
-
-#visualizations .right .visualization .container {
-  top: 150px;
-}
 
 /*
  * Key Lists 
@@ -349,13 +388,13 @@ label {
  * Various input styling
  */
 
-.regular-checkbox {
+.checkbox {
   -webkit-user-select: none;
   display: none;
 }
 
-.regular-button,
-.regular-checkbox + label {
+.button,
+.checkbox + label {
 
   cursor: pointer;
   position: relative;
@@ -378,16 +417,31 @@ label {
 }
 
 
-.regular-button:active, .regular-checkbox + label:active, .regular-checkbox:checked + label:active {
+.button:active, .checkbox + label:active, .checkbox:checked + label:active {
   box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
 }
 
-.regular-checkbox + label {
+.button.submit {
+  color: #fff;
+  float: right;
+  border: 1px solid #3c7cd4;
+  box-shadow: none;
+  background: rgb(93,144,211); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(93,144,211,1) 0%, rgba(60,124,212,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(93,144,211,1)), color-stop(100%,rgba(60,124,212,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(93,144,211,1) 0%,rgba(60,124,212,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(93,144,211,1) 0%,rgba(60,124,212,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(93,144,211,1) 0%,rgba(60,124,212,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(93,144,211,1) 0%,rgba(60,124,212,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5d90d3', endColorstr='#3c7cd4',GradientType=0 ); /* IE6-9 */
+}
+
+.checkbox + label {
   top: 5px;
   margin-right: 5px;
 }
 
-.regular-checkbox:checked + label {
+.checkbox:checked + label {
   background-color: #e9ecee;
   color: #3c7cd4;
 }
@@ -412,9 +466,9 @@ label {
 
 
 .input-prepend-top {
-  width: 90%;
+  width: 100%;
   display: inline-block;
-  margin: 4px;
+  margin-bottom: 4px;
 }
 
 .input-prepend-top .add-on {
@@ -432,7 +486,7 @@ label {
 
 .input-prepend {
   display: inline-block;
-  margin: 4px;
+  margin-bottom: 4px;
   font-size: 0;
   white-space: nowrap;
   vertical-align: middle;
@@ -523,15 +577,27 @@ svg {
   cursor: default;
 }
 
-select.regular-button {
+select.button {
   -webkit-appearance: none;
   position: relative;
   font-size: 12px;
+  padding-right: 25px;
 }
 
-select.regular-button:after {
-  content: 'X';
-  position: absolute;
-  top: 2px;
-  right: 3px;
+.custom-select {
+  display: inline-block;
+  position: relative;
+  -webkit-appearance:none; /* remove the strong OSX influence from Webkit */
 }
+
+.custom-select:after {
+  content: "▼";
+  position: absolute;
+  top: 0;
+  right: 5px;
+  bottom: 0;
+  font-size: 60%;
+  line-height: 30px;
+  padding: 0 7px;
+  color: #666;
+ }
