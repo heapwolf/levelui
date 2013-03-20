@@ -392,7 +392,6 @@ websocket(function(socket) {
   var $visualizationLinks = $('#visualizations .left a.primary');
 
   $visualizationLinks.on('click', function() {
-    $chooseVisualization.hide();
     $visualizationLinks.each(function() {
       $(this).removeClass('selected');
       $(this).next('.links').slideUp('fast');
@@ -404,7 +403,7 @@ websocket(function(socket) {
   var $configurationLinks = $('#visualizations .left a.secondary');
 
   $configurationLinks.on('click', function(event) {
-
+    $chooseVisualization.hide();
     $(".visualization:visible .options").toggle();
 
     event.preventDefault();
@@ -416,11 +415,13 @@ websocket(function(socket) {
   });
 
   var pickerRangeStart = new Pikaday({
-    field: document.querySelectorAll('#vis-stacked-area .dateStart')[0]
+    field: document.querySelectorAll('#vis-stacked-area .dateStart')[0],
+    format: 'D MMM YYYY'
   });
 
   var pickerRangeEnd = new Pikaday({
-    field: document.querySelectorAll('#vis-stacked-area .dateEnd')[0]
+    field: document.querySelectorAll('#vis-stacked-area .dateEnd')[0],
+    format: 'D MMM YYYY'
   });
 
   //
@@ -428,7 +429,7 @@ websocket(function(socket) {
   //
   $('#pathsToValues').tagsInput({
     width: '',
-    height: '100px',
+    height: '60px',
     defaultText: 'Add an object path'
   });
 
@@ -437,8 +438,19 @@ websocket(function(socket) {
     var value = {
       pathToDate: $('#pathToDate').val(),
       pathsToValues: $('#pathsToValues').val(),
-      granularity: $("#stackedAreaGranularity").val()
+      granularity: $("#stackedAreaGranularity").val(),
     };
+
+    var dateStart = $("#vis-stacked-area .dateStart").val();
+    var dateEnd = $("#vis-stacked-area .dateEnd").val();
+
+    if (dateStart.length > 0) {
+      value.dateStart = dateStart;
+    }
+
+    if (dateEnd.length > 0) {
+      value.dateEnd = dateEnd;
+    }
 
     request({
       request: 'buildStackedAreaChart',
