@@ -161,7 +161,7 @@
 
             <div class="options">
 
-              <h3>Setup</h3>
+              <h3>Tree Map</h3>
               <hr/>
               <p>
                 Build a hierarchical tree of this database by dividing keys based
@@ -228,17 +228,45 @@
             </div>
           </div>
 
-          <div id="vis-historic-density" class="visualization">
+          <div id="vis-bar" class="visualization">
             
             <div class="options">
 
               <h3>Setup</h3>
               <hr/>
+              <p>
+                There needs to be at least one value in the object that 
+                contains a Javascript-parsable date. You can also specify how
+                granular the chart should be by indicating an interval.
+              </p>
+              <div class="input-prepend">
+                <span class="add-on">Date Object</span>
+                <input class="pathToDate" class="control" placeholder="foo.bar.date" type="text">
+              </div>
 
+              <div class="custom-select">
+                <select class="button dateGranularity">
+                  <option value="years">Years</option>
+                  <option value="months">Months</option>
+                  <option value="weeks">Weeks</option>
+                  <option value="days" selected>Days</option>
+                  <option value="time">Hours</option>
+                </select>
+              </div>
+              <p>
+                If specified, data points to be plotted must have dates that 
+                fall between these ranges.
+              </p>
+              <div class="input-prepend">
+                <span class="add-on">Start Date</span>
+                <input type="text" placeholder="Optional" class="dateStart">
+              </div>
+              <div class="input-prepend">
+                <span class="add-on">End Date</span>
+                <input type="text" placeholder="Optional" class="dateEnd">
+              </div>
               <br/>
-              <h3>Adjustments</h3>
-              <hr/>
-
+              <br/>
 
               <div class="close">
                 <span class="ss-icon">close</span>
@@ -263,22 +291,25 @@
               </p>
               <div class="input-prepend-top">
                 <span class="add-on">Objects to Plot</span>
-                <input id="pathsToValues" />
+                <input class="pathsToValues" />
               </div>             
               <p>
-                There needs to be at least one value in the key's value that 
-                contains a Javascript parsable date.
+                There needs to be at least one value in the object that 
+                contains a Javascript-parsable date. You can also specify how
+                granular the chart should be by indicating an interval.
               </p>
               <div class="input-prepend">
                 <span class="add-on">Date Object</span>
-                <input id="pathToDate" class="control" placeholder="foo.bar.date" type="text">
+                <input class="pathToDate" class="control" placeholder="foo.bar.date" type="text">
               </div>
 
-              Granularity
               <div class="custom-select">
-                <select class="button" id="stackedAreaGranularity">
-                  <option value="date">Date</option>
-                  <option value="time">Time</option>
+                <select class="button dateGranularity">
+                  <option value="years">Years</option>
+                  <option value="months">Months</option>
+                  <option value="weeks">Weeks</option>
+                  <option value="days" selected>Days</option>
+                  <option value="time">Hours</option>
                 </select>
               </div>
               <p>

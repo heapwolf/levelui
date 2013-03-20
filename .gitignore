@@ -2,4 +2,3 @@
 !.gitignore
 !.npmignore
 /node_modules
-/lib/cache/*

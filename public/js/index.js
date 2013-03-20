@@ -410,10 +410,16 @@ websocket(function(socket) {
     return false;
   });
 
+  //
+  // close and submit buttons should close the options panel
+  //
   $('.submit, .close').on('click', function() {
     $(".visualization:visible .options").hide();
   });
 
+  //
+  // date picking.
+  //
   var pickerRangeStart = new Pikaday({
     field: document.querySelectorAll('#vis-stacked-area .dateStart')[0],
     format: 'D MMM YYYY'
@@ -427,7 +433,7 @@ websocket(function(socket) {
   //
   // stacked area chart stuff
   //
-  $('#pathsToValues').tagsInput({
+  $('#vis-stacked-area .pathsToValues').tagsInput({
     width: '',
     height: '60px',
     defaultText: 'Add an object path'
@@ -436,13 +442,13 @@ websocket(function(socket) {
   $('#buildStackedAreaChart').on('click', function() {
 
     var value = {
-      pathToDate: $('#pathToDate').val(),
-      pathsToValues: $('#pathsToValues').val(),
-      granularity: $("#stackedAreaGranularity").val(),
+      pathToDate: $('.visualization:visible .pathToDate').val(),
+      pathsToValues: $('.visualization:visible .pathsToValues').val(),
+      granularity: $(".visualization:visible .dateGranularity").val()
     };
 
-    var dateStart = $("#vis-stacked-area .dateStart").val();
-    var dateEnd = $("#vis-stacked-area .dateEnd").val();
+    var dateStart = $(".visualization:visible .dateStart").val();
+    var dateEnd = $(".visualization:visible .dateEnd").val();
 
     if (dateStart.length > 0) {
       value.dateStart = dateStart;
@@ -451,6 +457,8 @@ websocket(function(socket) {
     if (dateEnd.length > 0) {
       value.dateEnd = dateEnd;
     }
+
+    console.log(value)
 
     request({
       request: 'buildStackedAreaChart',
