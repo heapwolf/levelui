@@ -4,6 +4,15 @@ levelweb(3)
 # SYNOPSIS
 A web based interface for leveldb, with some other neat stuff.
 
+# MOTIVATION
+
+ - No need to configure your Data Retention.
+ - Nothing needs to be finite or determined ahead of time.
+ - No storage-schemas configuration.
+ - Node is the only significant dependency.
+ - Single command installation process (`npm install levelweb`).
+ - Attach to an existing data-store or create a new one 
+
 # USAGE
 Point the app at your database and specify what ports you want to run on.
 ```bash

@@ -49,11 +49,26 @@
         </label>
 
         <input type="radio" id="nav-tags" name="radio-nav" class="radio-nav" />
-        <label for="nav-tags">
+        <label for="nav-tags" class="border-right">
           <div class="ss-icon">tag</div>
           Tagged Keys
           </div>
         </label>
+
+        <!-- input type="radio" id="nav-replicate" name="radio-nav" class="radio-nav" />
+        <label for="nav-replicate">
+          <div class="ss-icon">transfer</div>
+            Replicate
+          </div>
+        </label>
+
+        <input type="radio" id="nav-publish" name="radio-nav" class="radio-nav" />
+        <label for="nav-publish">
+          <div class="ss-icon">uploadcloud</div>
+            Publish
+          </div>
+        </label -->
+
       </nav>
 
     </header>
@@ -71,7 +86,7 @@
         </div>
         <div class="input-prepend inline-block">
           <span class="add-on">Limit Results</span>
-          <input id="limit" class="control" placeholder="100" type="text">
+          <input id="limit" class="control" placeholder="1000" type="text">
         </div>
         <div class="input-check inline-block">
           <input type="checkbox" id="reverse" class="control checkbox" /><label for="reverse">Reverse</label>
@@ -171,7 +186,7 @@
 
               <div class="input-prepend" id="startKeyContainer">
                 <span class="add-on">Token</span>
-                <input id="treeMapToken" class="control" value="~" placeholder="The character used to group your keys" type="text">
+                <input id="treeMapToken" class="control" value="~" placeholder="~" type="text">
               </div>
 
               <br/>
@@ -234,6 +249,7 @@
 
               <h3>Setup</h3>
               <hr/>
+              
               <p>
                 There needs to be at least one value in the object that 
                 contains a Javascript-parsable date. You can also specify how
@@ -253,6 +269,15 @@
                   <option value="time">Hours</option>
                 </select>
               </div>
+              
+              <p>
+                A specific value can be plotted or the key will be used.
+              </p>
+              <div class="input-prepend">
+                <span class="add-on">Value Object</span>
+                <input class="pathToValue" class="control" placeholder="foo.bar.val" type="text">
+              </div>
+
               <p>
                 If specified, data points to be plotted must have dates that 
                 fall between these ranges.
@@ -267,6 +292,12 @@
               </div>
               <br/>
               <br/>
+
+              <button class="button submit" id="buildBarChart">
+                <span class="ss-icon">flask</span>
+                Generate
+              </button>
+
 
               <div class="close">
                 <span class="ss-icon">close</span>
@@ -342,7 +373,7 @@
             </div>
           </div>
 
-          <div id="vis-bar" class="visualization">
+<!--           <div id="vis-bar" class="visualization">
 
 
             <div class="options">
@@ -356,6 +387,7 @@
                   <option value="time">Time</option>
                 </select>
               </div>
+
               <button class="button submit" id="buildBarChart">
                 <span class="ss-icon">flask</span>
                 Generate
@@ -369,7 +401,7 @@
 
             <div class="container">
             </div>
-          </div>
+          </div> -->
 
           <div id="chooseVisualization" class="overlay">
             <h1 class="ss-icon">talk</h1>

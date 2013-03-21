@@ -302,6 +302,9 @@ header nav ul li:first-of-type {
   text-anchor: end;
 }
 
+.bar {
+  fill: steelblue;
+}
 
 /*
  * Key Lists 
