@@ -50,8 +50,6 @@ simultaneously.
 
 ### Time Series
 
-### Bar Chart
-
 ![screenshot](/screenshot5.png)
 
 ### Stacked Area

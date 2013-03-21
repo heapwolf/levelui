@@ -674,8 +674,8 @@ websocket(function(socket) {
   $('#buildBarChart').on('click', function() {
 
     var value = {
-      pathToDate: $('.visualization:visible .pathToDate').val(),
-      pathToValue: $('.visualization:visible .pathToValue').val(),
+      pathToX: $('.visualization:visible .pathToX').val(),
+      pathToY: $('.visualization:visible .pathToY').val(),
       granularity: $(".visualization:visible .dateGranularity").val()
     };
 
@@ -717,11 +717,11 @@ websocket(function(socket) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       data.forEach(function(d) {
-        d.value = +d.value;
+        d.Y = +d.Y;
       });
 
-      x.domain(data.map(function(d) { return d.date; }));
-      y.domain([0, d3.max(data, function(d) { return d.value; })]);
+      x.domain(data.map(function(d) { return d.X; }));
+      y.domain([0, d3.max(data, function(d) { return d.Y; })]);
 
       svg.append("g")
           .attr("class", "x axis")
@@ -736,10 +736,10 @@ websocket(function(socket) {
           .data(data)
         .enter().append("rect")
           .attr("class", "bar")
-          .attr("x", function(d) { return x(d.date); })
+          .attr("x", function(d) { return x(d.X); })
           .attr("width", x.rangeBand())
-          .attr("y", function(d) { return y(d.value); })
-          .attr("height", function(d) { return height - y(d.value); })
+          .attr("y", function(d) { return y(d.Y); })
+          .attr("height", function(d) { return height - y(d.Y); })
   
       bar.append("svg:title")
         .text(function(d, i) { return d.key; });

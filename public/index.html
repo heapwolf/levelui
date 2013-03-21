@@ -251,15 +251,23 @@
               <hr/>
               
               <p>
-                There needs to be at least one value in the object that 
-                contains a Javascript-parsable date. You can also specify how
-                granular the chart should be by indicating an interval.
+                Select the values to be used. Where `X` is the horizontal plane
+                and `Y` is the vertical.
               </p>
               <div class="input-prepend">
-                <span class="add-on">Date Object</span>
-                <input class="pathToDate" class="control" placeholder="foo.bar.date" type="text">
+                <span class="add-on">X Object</span>
+                <input class="pathToX" class="control" placeholder="foo.bar.date" type="text">
               </div>
 
+              <div class="input-prepend">
+                <span class="add-on">Y Object</span>
+                <input class="pathToY" class="control" placeholder="foo.bar.val" type="text">
+              </div>
+
+              <p>
+                If a date value is specified, a granularity level may also be
+                helpful.
+              </p>
               <div class="custom-select">
                 <select class="button dateGranularity">
                   <option value="years">Years</option>
@@ -269,18 +277,10 @@
                   <option value="time">Hours</option>
                 </select>
               </div>
-              
-              <p>
-                A specific value can be plotted or the key will be used.
-              </p>
-              <div class="input-prepend">
-                <span class="add-on">Value Object</span>
-                <input class="pathToValue" class="control" placeholder="foo.bar.val" type="text">
-              </div>
 
               <p>
-                If specified, data points to be plotted must have dates that 
-                fall between these ranges.
+                If a date value is specified, data points to be plotted must 
+                have dates that fall between these ranges.
               </p>
               <div class="input-prepend">
                 <span class="add-on">Start Date</span>
@@ -297,7 +297,6 @@
                 <span class="ss-icon">flask</span>
                 Generate
               </button>
-
 
               <div class="close">
                 <span class="ss-icon">close</span>
