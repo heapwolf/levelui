@@ -9,9 +9,12 @@ A web based interface for leveldb, with some other neat stuff.
  - No need to configure your Data Retention.
  - Nothing needs to be finite or determined ahead of time.
  - No storage-schemas configuration.
+ - No database initialization. 
+ - Attach to an existing database or create a new one by providing a path at the commandline.
+ - Accept incoming data streams via tcp.
+
  - Node is the only significant dependency.
  - Single command installation process (`npm install levelweb`).
- - Attach to an existing data-store or create a new one 
 
 # USAGE
 Point the app at your database and specify what ports you want to run on.
@@ -47,10 +50,19 @@ simultaneously.
 
 ### Time Series
 
-### Write History
+### Bar Chart
+
+![screenshot](/screenshot5.png)
 
 ### Stacked Area
-A work in progress, not quite happy with the UI.
+Area charts are used to represent cumulated totals using numbers or percentages 
+(stacked area charts in this case) over time. Use the area chart for showing 
+trends over time among related attributes. The area chart is like the plot chart
+except that the area below the plotted line is filled in with color to indicate 
+volume.
+
+When multiple attributes are included, the first attribute is plotted as a line 
+with color fill followed by the second attribute, and so on.
 
 ![screenshot](/screenshot3.png)
 ![screenshot](/screenshot4.png)
