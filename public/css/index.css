@@ -87,10 +87,11 @@ header nav ul li {
   float: left;
   border-color: red;
   margin-right: 8px;
+  color: #fff;
 }
 
 header nav ul li:first-of-type {
-  color: #fff;
+  color: #999;
 }
 
 .border-right {

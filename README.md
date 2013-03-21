@@ -2,7 +2,7 @@
 levelweb(3)
 
 # SYNOPSIS
-A web based interface for leveldb, with some other neat stuff.
+A GUI for LevelDB management. Includes visualization tools [WIP]
 
 # MOTIVATION
 
@@ -29,7 +29,7 @@ object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
 ## Explore and manage keys and values
 ![screenshot](/screenshot.png)
 
-## Out of the box visualizations
+## Visualizations
 
 ### Treemap
 Provides a zoomable tree-map of the currently tagged keys. Treemaps display 
