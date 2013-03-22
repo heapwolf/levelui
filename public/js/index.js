@@ -207,6 +207,18 @@ websocket(function(socket) {
     }
 
     //
+    // when an input value needs to be validated
+    //
+    else if (response === 'validateKey') {
+
+      if (value.valid) {
+        $('#' + value.id)
+          .closest('.input')
+          .removeClass('invalid');
+      }
+    }
+
+    //
     // tagged keys
     //
     else if (response === 'buildTreeMap') {
@@ -421,8 +433,31 @@ websocket(function(socket) {
     $(".visualization:visible .options").hide();
   });
 
+  var validateBounce;
+  $('.validate').on('keyup', function() {
+
+    var that = this;
+
+    clearTimeout(validateBounce);
+    validateBounce = setTimeout(function() {
+
+      var value = { id: that.id, key: that.value };
+
+      request({
+        request: 'validateKey',
+        value: value
+      });
+
+      $(that)
+        .closest('.input')
+        .addClass('invalid');
+
+    }, 32);
+
+  });
+
   //
-  // date picking.
+  // date picking
   //
   var pickerRangeStart = new Pikaday({
     field: document.querySelectorAll('#vis-stacked-area .dateStart')[0],

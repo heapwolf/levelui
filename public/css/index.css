@@ -143,7 +143,7 @@ header nav ul li:first-of-type {
   top: 0px;
 }
 
-.left > .input-prepend {
+.left > .input {
   margin: 8px 8px 4px 8px;
 }
 
@@ -208,7 +208,7 @@ header nav ul li:first-of-type {
   cursor: pointer;
 }
 
-.options .input-prepend input {
+.options .input input {
   width: auto;
 }
 
@@ -450,32 +450,14 @@ label {
   color: #3c7cd4;
 }
 
-/*#range:checked + label:after {
-  content: '⇆';
-  font-size: 18px;
-  position: absolute;
-  top: 6px;
-  left: 8px;
-  color: #99a1a7;
-}
-
-.regular-checkbox:checked + label:after {
-  content: '✓';
-  font-size: 18px;
-  position: absolute;
-  top: 6px;
-  left: 8px;
-  color: #99a1a7;
-}*/
-
-
-.input-prepend-top {
+.input-top {
   width: 100%;
   display: inline-block;
   margin-bottom: 4px;
+  position: relative;
 }
 
-.input-prepend-top .add-on {
+.input-top .add-on {
   display: block;
   height: 18px;
   padding: 5px 5px;
@@ -488,15 +470,16 @@ label {
   border: 1px solid #ccc;
 }
 
-.input-prepend {
+.input {
   display: inline-block;
   margin-bottom: 4px;
   font-size: 0;
   white-space: nowrap;
   vertical-align: middle;
+  position: relative;
 }
 
-.input-prepend .add-on {
+.input .add-on {
   display: inline-block;
   min-width: 45px;
   width: auto;
@@ -511,9 +494,17 @@ label {
   border: 1px solid #ccc;
   margin-right: -1px;
   border-radius: 1px;
+  -webkit-transition: border linear 0.1s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.1s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.1s, box-shadow linear 0.2s;
+  transition: border linear 0.1s, box-shadow linear 0.2s;
+  -webkit-transition: background linear 0.1s, box-shadow linear 0.2s;
+  -moz-transition: background linear 0.1s, box-shadow linear 0.2s;
+  -o-transition: background linear 0.1s, box-shadow linear 0.2s;
+  transition: background linear 0.1s, box-shadow linear 0.2s;
 }
 
-.input-prepend input {
+.input input {
   display: inline-block;
   width: 345px;
   box-sizing: border-box;
@@ -530,10 +521,10 @@ label {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
-  transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-transition: border linear 0.1s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.1s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.1s, box-shadow linear 0.2s;
+  transition: border linear 0.1s, box-shadow linear 0.2s;
   line-height: 24px;
   color: #555555;
   -webkit-rtl-ordering: logical;
@@ -549,6 +540,17 @@ label {
 
 input {
   font-family: 'Courier New';
+}
+
+.invalid input {
+  border: 1px solid #f56767;
+}
+
+.invalid .add-on {
+  background-color: #f56767;
+  border-color: #f56767;
+  color: #fff;
+  text-shadow: none;
 }
 
 /*

@@ -76,15 +76,15 @@
     <div class="main-container">
       <div class="left">
 
-        <div class="input-prepend" id="startKeyContainer">
+        <div class="input" id="startKeyContainer">
           <span class="add-on">Search</span>
           <input id="startKey" class="control" type="text">
         </div>
-        <div class="input-prepend" id="endKeyContainer">
+        <div class="input" id="endKeyContainer">
           <span class="add-on">End</span>
           <input id="endKey" class="control" type="text">
         </div>
-        <div class="input-prepend inline-block">
+        <div class="input inline-block">
           <span class="add-on">Limit Results</span>
           <input id="limit" class="control" placeholder="1000" type="text">
         </div>
@@ -184,9 +184,9 @@
                 it doesn't affect sorting.
               </p>
 
-              <div class="input-prepend" id="startKeyContainer">
+              <div class="input" id="startKeyContainer">
                 <span class="add-on">Token</span>
-                <input id="treeMapToken" class="control" value="~" placeholder="~" type="text">
+                <input id="treeMapToken" value="~" placeholder="~" type="text">
               </div>
 
               <br/>
@@ -254,14 +254,14 @@
                 Select the values to be used. Where `X` is the horizontal plane
                 and `Y` is the vertical.
               </p>
-              <div class="input-prepend">
+              <div class="input">
                 <span class="add-on">X Object</span>
-                <input class="pathToX" class="control" placeholder="foo.bar.date" type="text">
+                <input class="pathToX validate" id="vis-bar-pathToX" placeholder="foo.bar.date" type="text">
               </div>
 
-              <div class="input-prepend">
+              <div class="input">
                 <span class="add-on">Y Object</span>
-                <input class="pathToY" class="control" placeholder="foo.bar.val" type="text">
+                <input class="pathToY validate" id="vis-bar-pathToY" placeholder="foo.bar.val" type="text">
               </div>
 
               <p>
@@ -282,11 +282,11 @@
                 If a date value is specified, data points to be plotted must 
                 have dates that fall between these ranges.
               </p>
-              <div class="input-prepend">
+              <div class="input">
                 <span class="add-on">Start Date</span>
                 <input type="text" placeholder="Optional" class="dateStart">
               </div>
-              <div class="input-prepend">
+              <div class="input">
                 <span class="add-on">End Date</span>
                 <input type="text" placeholder="Optional" class="dateEnd">
               </div>
@@ -319,18 +319,18 @@
                 more quantities. Using Javascript dot notation, specify a path to
                 one or more values in the JSON that will occur in every key.
               </p>
-              <div class="input-prepend-top">
+              <div class="input-top">
                 <span class="add-on">Objects to Plot</span>
-                <input class="pathsToValues" />
+                <input class="pathsToValues validate" id="vis-stacked-area-pathsToValues"/>
               </div>             
               <p>
                 There needs to be at least one value in the object that 
                 contains a Javascript-parsable date. You can also specify how
                 granular the chart should be by indicating an interval.
               </p>
-              <div class="input-prepend">
+              <div class="input">
                 <span class="add-on">Date Object</span>
-                <input class="pathToDate" class="control" placeholder="foo.bar.date" type="text">
+                <input class="pathToDate validate" id="vis-stacked-area-pathToDate" placeholder="foo.bar.date" type="text">
               </div>
 
               <div class="custom-select">
@@ -346,11 +346,11 @@
                 If specified, data points to be plotted must have dates that 
                 fall between these ranges.
               </p>
-              <div class="input-prepend">
+              <div class="input">
                 <span class="add-on">Start Date</span>
                 <input type="text" placeholder="Optional"  class="dateStart">
               </div>
-              <div class="input-prepend">
+              <div class="input">
                 <span class="add-on">End Date</span>
                 <input type="text" placeholder="Optional" class="dateEnd">
               </div>
