@@ -27,7 +27,7 @@ Level web accepts new line delimited writes over tcp. Each line should be an
 object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
 
 ## Explore and manage keys and values
-![screenshot](/screenshot.png)
+![screenshot](/screenshots/screenshot.png)
 
 ## Visualizations
 
@@ -46,11 +46,11 @@ advantage of treemaps is that, by construction, they make efficient use of
 space. As a result, they can legibly display thousands of items on the screen 
 simultaneously.
 
-![screenshot](/screenshot2.png)
+![screenshot](/screenshots/screenshot2.png)
 
 ### Time Series
 
-![screenshot](/screenshot5.png)
+![screenshot](/screenshots/screenshot5.png)
 
 ### Stacked Area
 Area charts are used to represent cumulated totals using numbers or percentages 
@@ -62,5 +62,5 @@ volume.
 When multiple attributes are included, the first attribute is plotted as a line 
 with color fill followed by the second attribute, and so on.
 
-![screenshot](/screenshot3.png)
-![screenshot](/screenshot4.png)
+![screenshot](/screenshots/screenshot3.png)
+![screenshot](/screenshots/screenshot4.png)
