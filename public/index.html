@@ -148,11 +148,11 @@
             <a href="#" class="secondary">Configure and Generate</a>
           </div>
           <hr/>
-          <a href="#vis-bar" class="primary"><span class="ss-icon">thumbnails</span>Heat Map</a>
+          <!-- a href="#vis-bar" class="primary"><span class="ss-icon">thumbnails</span>Heat Map</a>
           <div class="links">
             <a href="#" class="secondary">Configure and Generate</a>
           </div>
-          <hr/>
+          <hr/ -->
           <a href="#vis-time-series" class="primary"><span class="ss-icon">clock</span>Time Series</a>
           <div class="links">
             <a href="#" class="secondary">Configure and Generate</a>
@@ -255,23 +255,20 @@
                 and `Y` is the vertical.
               </p>
               <div class="input">
-                <span class="add-on">X Object</span>
-                <input class="pathToX validate-key" id="vis-bar-pathToX" placeholder="foo.bar.date" type="text">
-              </div>
-
-              <div class="input">
-                <span class="add-on">Y Object</span>
+                <span class="add-on">Y Axis</span>
                 <input class="pathToY validate-key" id="vis-bar-pathToY" placeholder="foo.bar.val" type="text">
               </div>
-
               <p>
-                If `X` is a date or time value, a format can be specified. The
-                format will then be validated against the data to determine if
-                it can be supported.
+                If `X` is a Javascript-parsable date, you can also specify a
+                date format, hours, days, years, etc.
               </p>
               <div class="input">
+                <span class="add-on">X Axis</span>
+                <input class="pathToX validate-key" id="vis-bar-pathToX" placeholder="foo.bar.date" type="text">
+              </div>
+              <div class="input">
                 <span class="add-on">Date Time Format</span>
-                <input class="dateTimeFormat validate-date-format" id="vis-bar-format" value="DD-MM-YY" placeholder="DD-MM-YY-HH-MM" type="text">
+                <input class="dateTimeFormat validate-date-format" id="vis-bar-format" placeholder="DD-MM-YY-HH-MM" type="text">
               </div>
 
               <p>
@@ -319,23 +316,16 @@
                 <input class="pathsToValues" id="vis-stacked-area-pathsToValues"/>
               </div>             
               <p>
-                There needs to be at least one value in the object that 
-                contains a Javascript-parsable date. You can also specify how
-                granular the chart should be by indicating an interval.
+                If `X` is a Javascript-parsable date, you can also specify a
+                date format, hours, days, years, etc.
               </p>
               <div class="input">
-                <span class="add-on">Date Object</span>
+                <span class="add-on">X Axis</span>
                 <input class="pathToX validate-key" id="vis-stacked-area-pathToX" placeholder="foo.bar.date" type="text">
               </div>
-
-              <p>
-                If `X` is a date or time value, a format can be specified. The
-                format will then be validated against the data to determine if
-                it can be supported.
-              </p>
               <div class="input">
                 <span class="add-on">Date Time Format</span>
-                <input class="dateTimeFormat validate-date-format" id="vis-stacked-area-format" value="DD-MM-YY" placeholder="DD-MM-YY-HH-MM" type="text">
+                <input class="dateTimeFormat validate-date-format" id="vis-stacked-area-format" placeholder="DD-MM-YY-HH-MM" type="text">
               </div>
 
               <p>

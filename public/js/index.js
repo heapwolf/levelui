@@ -460,13 +460,23 @@ websocket(function(socket) {
   //
   // date picking
   //
-  var pickerRangeStart = new Pikaday({
+  new Pikaday({
     field: document.querySelectorAll('#vis-stacked-area .dateStart')[0],
     format: 'D MMM YYYY'
   });
 
-  var pickerRangeEnd = new Pikaday({
+  new Pikaday({
     field: document.querySelectorAll('#vis-stacked-area .dateEnd')[0],
+    format: 'D MMM YYYY'
+  });
+
+  new Pikaday({
+    field: document.querySelectorAll('#vis-bar .dateStart')[0],
+    format: 'D MMM YYYY'
+  });
+
+  new Pikaday({
+    field: document.querySelectorAll('#vis-bar .dateEnd')[0],
     format: 'D MMM YYYY'
   });
 
@@ -722,6 +732,17 @@ websocket(function(socket) {
       pathToY: $('.visualization:visible .pathToY').val(),
       dateTimeFormat: $(".visualization:visible .dateTimeFormat").val()
     };
+
+    var dateStart = $(".visualization:visible .dateStart").val();
+    var dateEnd = $(".visualization:visible .dateEnd").val();
+
+    if (dateStart.length > 0) {
+      value.dateStart = dateStart;
+    }
+
+    if (dateEnd.length > 0) {
+      value.dateEnd = dateEnd;
+    }
 
     request({
       request: 'buildBarChart',
