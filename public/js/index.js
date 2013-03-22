@@ -213,6 +213,7 @@ websocket(function(socket) {
 
       if (value.valid) {
         $('#' + value.id)
+          .removeClass('invalid')
           .closest('.input')
           .removeClass('invalid');
       }
@@ -434,7 +435,7 @@ websocket(function(socket) {
   });
 
   var validateBounce;
-  $('.validate').on('keyup', function() {
+  $('.validate-key').on('keyup', function() {
 
     var that = this;
 
@@ -475,15 +476,30 @@ websocket(function(socket) {
   $('#vis-stacked-area .pathsToValues').tagsInput({
     width: '',
     height: '60px',
-    defaultText: 'Add an object path'
+    defaultText: 'Add an object path',
+    onAddTag: function(key) {
+      
+      var id = 'tag_' + Math.floor(Math.random()*100);
+      $('#vis-stacked-area .tag:last-of-type')
+        .attr('id', id)
+        .addClass('invalid');
+
+      var value = { id: id, key: key };
+
+      request({
+        request: 'validateKey',
+        value: value
+      });
+
+    }
   });
 
   $('#buildStackedAreaChart').on('click', function() {
 
     var value = {
-      pathToDate: $('.visualization:visible .pathToDate').val(),
+      pathToX: $('.visualization:visible .pathToX').val(),
       pathsToValues: $('.visualization:visible .pathsToValues').val(),
-      granularity: $(".visualization:visible .dateGranularity").val()
+      dateTimeFormat: $(".visualization:visible .dateTimeFormat").val()
     };
 
     var dateStart = $(".visualization:visible .dateStart").val();
@@ -505,6 +521,8 @@ websocket(function(socket) {
 
   function buildStackedAreaChart(data) {
 
+    console.log(data)
+
     var $container = $("#vis-stacked-area .container");
 
     $container.empty();
@@ -512,15 +530,6 @@ websocket(function(socket) {
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
         width = $container.width() - margin.left - margin.right,
         height = $container.height() - margin.top - margin.bottom;
-
-    var parseDate;
-
-    if ($("#stackedAreaGranularity").val() === 'date') {
-      parseDate = d3.time.format("%y-%b-%d").parse;
-    } 
-    else {
-      parseDate = d3.time.format("%y-%b-%d-%H-%M").parse;
-    }
 
     //
     // TODO: Catch unparsable dates
@@ -562,14 +571,14 @@ websocket(function(socket) {
       color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 
       data.forEach(function(d) {
-        d.date = parseDate(d.date);
+        d.date = moment(d.date).toDate();
       });
 
       var browsers = stack(color.domain().map(function(name) {
         return {
           name: name,
           values: data.map(function(d) {
-            return {date: d.date, y: d[name] / 100};
+            return { date: d.date, y: d[name] / 100 };
           })
         };
       }));
@@ -583,7 +592,7 @@ websocket(function(socket) {
 
       browser.append("path")
           .attr("class", "area")
-          .attr("d", function(d) { return area(d.values); })
+          .attr("d", function(d) { return area(d.values);  })
           .style("fill", function(d) { return color(d.name); });
 
       browser.append("text")
@@ -711,7 +720,7 @@ websocket(function(socket) {
     var value = {
       pathToX: $('.visualization:visible .pathToX').val(),
       pathToY: $('.visualization:visible .pathToY').val(),
-      granularity: $(".visualization:visible .dateGranularity").val()
+      dateTimeFormat: $(".visualization:visible .dateTimeFormat").val()
     };
 
     request({

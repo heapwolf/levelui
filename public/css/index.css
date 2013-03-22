@@ -546,10 +546,10 @@ input {
   border: 1px solid #f56767;
 }
 
-.invalid .add-on {
-  background-color: #f56767;
-  border-color: #f56767;
-  color: #fff;
+.invalid .add-on, .invalid.tag {
+  background-color: #f56767 !important;
+  border-color: #f56767 !important;
+  color: #fff !important;
   text-shadow: none;
 }
 

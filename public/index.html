@@ -256,31 +256,26 @@
               </p>
               <div class="input">
                 <span class="add-on">X Object</span>
-                <input class="pathToX validate" id="vis-bar-pathToX" placeholder="foo.bar.date" type="text">
+                <input class="pathToX validate-key" id="vis-bar-pathToX" placeholder="foo.bar.date" type="text">
               </div>
 
               <div class="input">
                 <span class="add-on">Y Object</span>
-                <input class="pathToY validate" id="vis-bar-pathToY" placeholder="foo.bar.val" type="text">
+                <input class="pathToY validate-key" id="vis-bar-pathToY" placeholder="foo.bar.val" type="text">
               </div>
 
               <p>
-                If a date value is specified, a granularity level may also be
-                helpful.
+                If `X` is a date or time value, a format can be specified. The
+                format will then be validated against the data to determine if
+                it can be supported.
               </p>
-              <div class="custom-select">
-                <select class="button dateGranularity">
-                  <option value="years">Years</option>
-                  <option value="months">Months</option>
-                  <option value="weeks">Weeks</option>
-                  <option value="days" selected>Days</option>
-                  <option value="time">Hours</option>
-                </select>
+              <div class="input">
+                <span class="add-on">Date Time Format</span>
+                <input class="dateTimeFormat validate-date-format" id="vis-bar-format" value="DD-MM-YY" placeholder="DD-MM-YY-HH-MM" type="text">
               </div>
 
               <p>
-                If a date value is specified, data points to be plotted must 
-                have dates that fall between these ranges.
+                To define a date range, a valid date object must be specified.
               </p>
               <div class="input">
                 <span class="add-on">Start Date</span>
@@ -319,9 +314,9 @@
                 more quantities. Using Javascript dot notation, specify a path to
                 one or more values in the JSON that will occur in every key.
               </p>
-              <div class="input-top">
+              <div class="input-top validate-keys">
                 <span class="add-on">Objects to Plot</span>
-                <input class="pathsToValues validate" id="vis-stacked-area-pathsToValues"/>
+                <input class="pathsToValues" id="vis-stacked-area-pathsToValues"/>
               </div>             
               <p>
                 There needs to be at least one value in the object that 
@@ -330,18 +325,19 @@
               </p>
               <div class="input">
                 <span class="add-on">Date Object</span>
-                <input class="pathToDate validate" id="vis-stacked-area-pathToDate" placeholder="foo.bar.date" type="text">
+                <input class="pathToX validate-key" id="vis-stacked-area-pathToX" placeholder="foo.bar.date" type="text">
               </div>
 
-              <div class="custom-select">
-                <select class="button dateGranularity">
-                  <option value="years">Years</option>
-                  <option value="months">Months</option>
-                  <option value="weeks">Weeks</option>
-                  <option value="days" selected>Days</option>
-                  <option value="time">Hours</option>
-                </select>
+              <p>
+                If `X` is a date or time value, a format can be specified. The
+                format will then be validated against the data to determine if
+                it can be supported.
+              </p>
+              <div class="input">
+                <span class="add-on">Date Time Format</span>
+                <input class="dateTimeFormat validate-date-format" id="vis-stacked-area-format" value="DD-MM-YY" placeholder="DD-MM-YY-HH-MM" type="text">
               </div>
+
               <p>
                 If specified, data points to be plotted must have dates that 
                 fall between these ranges.
@@ -372,36 +368,6 @@
             </div>
           </div>
 
-<!--           <div id="vis-bar" class="visualization">
-
-
-            <div class="options">
-
-              <h3>Setup</h3>
-              <hr/>
-
-              <div class="custom-select">
-                <select class="button" id="barChartGranularity">
-                  <option value="date">Date</option>
-                  <option value="time">Time</option>
-                </select>
-              </div>
-
-              <button class="button submit" id="buildBarChart">
-                <span class="ss-icon">flask</span>
-                Generate
-              </button>
-
-              <div class="close">
-                <span class="ss-icon">close</span>
-              </div>
-
-            </div>
-
-            <div class="container">
-            </div>
-          </div> -->
-
           <div id="chooseVisualization" class="overlay">
             <h1 class="ss-icon">talk</h1>
             <h3>Select a visualization, configure and generate it.</h3>
@@ -416,6 +382,7 @@
 
     </div>
 
+    <script src="/js/moment.js"></script>
     <script src="/js/jquery.js"></script>
 
     <script src="js/codemirror-3.1/lib/codemirror.js"></script>
