@@ -519,6 +519,16 @@ websocket(function(socket) {
     });
   });
   
+  $('.save-visualization').on('click', function() {
+
+    var canvas = document.createElement('canvas');
+    canvg(canvas, $(".visualization:visible .container").html().trim());
+
+    var theImage = canvas.toDataURL('image/png;base64');
+    window.open(theImage);
+
+  })
+
   //
   // build a tree-map
   //

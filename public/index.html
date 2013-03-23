@@ -191,6 +191,10 @@
 
               <br/>
 
+              <button class="button pull-right save-visualization">
+                <span class="ss-icon">file</span>
+                Save
+              </button>
               <button class="button submit" id="buildTreeMap">
                 <span class="ss-icon">flask</span>
                 Generate
@@ -268,7 +272,7 @@
               </div>
               <div class="input">
                 <span class="add-on">Date Time Format</span>
-                <input class="dateTimeFormat validate-date-format" id="vis-bar-format" placeholder="DD-MM-YY-HH-MM" type="text">
+                <input class="dateTimeFormat" id="vis-bar-format" placeholder="DD-MM-YY-HH-MM" type="text">
               </div>
 
               <p>
@@ -285,6 +289,10 @@
               <br/>
               <br/>
 
+              <button class="button pull-right save-visualization">
+                <span class="ss-icon">file</span>
+                Save
+              </button>
               <button class="button submit" id="buildBarChart">
                 <span class="ss-icon">flask</span>
                 Generate
@@ -307,17 +315,17 @@
               <h3>Stacked Area Chart</h3>
               <hr/>
               <p>
-                Displays graphically quantitive data. Generally compares two or 
-                more quantities. Using Javascript dot notation, specify a path to
-                one or more values in the JSON that will occur in every key.
+                Graphically compare two or more quantities. Using Javascript dot
+                notation, specify a path to one or more values in the JSON that 
+                will occur in every key.
               </p>
               <div class="input-top validate-keys">
-                <span class="add-on">Objects to Plot</span>
+                <span class="add-on">Y Axis</span>
                 <input class="pathsToValues" id="vis-stacked-area-pathsToValues"/>
               </div>             
               <p>
                 If `X` is a Javascript-parsable date, you can also specify a
-                date format, hours, days, years, etc.
+                date format, hours, days, years, etc. `X` must be numeric.
               </p>
               <div class="input">
                 <span class="add-on">X Axis</span>
@@ -325,7 +333,7 @@
               </div>
               <div class="input">
                 <span class="add-on">Date Time Format</span>
-                <input class="dateTimeFormat validate-date-format" id="vis-stacked-area-format" placeholder="DD-MM-YY-HH-MM" type="text">
+                <input class="dateTimeFormat" id="vis-stacked-area-format" placeholder="DD-MM-YY-HH-MM" type="text">
               </div>
 
               <p>
@@ -343,6 +351,10 @@
               <br/>
               <br/>
 
+              <button class="button pull-right save-visualization">
+                <span class="ss-icon">file</span>
+                Save
+              </button>
               <button class="button submit" id="buildStackedAreaChart">
                 <span class="ss-icon">flask</span>
                 Generate
@@ -382,12 +394,12 @@
     <script src="js/codemirror-3.1/addon/lint/javascript-lint.js"></script>
     <script src="js/codemirror-3.1/addon/lint/json-lint.js"></script>
 
-
     <script src="/js/d3.v3.js"></script>
-    <script src="/js/d3.hexbin.js"></script>
     <script src="/js/cubism.v1.js"></script>
+
     <script src="/js/websocket.min.js"></script>
 
+    <script src="/js/canvg.min.js"></script>
     <script src="js/jquery.tagsinput.min.js"></script>
     <script src="js/jquery.datepicker.js"></script>
 

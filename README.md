@@ -48,11 +48,11 @@ simultaneously.
 
 ![screenshot](/screenshots/screenshot2.png)
 
-### Time Series
+### Stacked Bar Chart
 
 ![screenshot](/screenshots/screenshot5.png)
 
-### Stacked Area
+### Stacked Area Chart
 Area charts are used to represent cumulated totals using numbers or percentages 
 (stacked area charts in this case) over time. Use the area chart for showing 
 trends over time among related attributes. The area chart is like the plot chart

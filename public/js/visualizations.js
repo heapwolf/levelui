@@ -35,7 +35,7 @@ VIS.buildBarChart = function(data) {
       d.Y = +d.Y;
     });
 
-    x.domain(data.map(function(d) { return d.X; }));
+    x.domain(data.map(function(d) { return moment(d.X).format($("#vis-bar-format").val()).toString(); }));
     y.domain([0, d3.max(data, function(d) { return d.Y; })]);
 
     svg.append("g")
@@ -143,7 +143,7 @@ VIS.buildStackedAreaChart = function(data) {
       .tickFormat(formatPercent);
 
   var area = d3.svg.area()
-      .x(function(d) { return x(d.date); })
+      .x(function(d) { return x(d.X); })
       .y0(function(d) { return y(d.y0); })
       .y1(function(d) { return y(d.y0 + d.y); });
 
@@ -156,22 +156,27 @@ VIS.buildStackedAreaChart = function(data) {
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+    color.domain(d3.keys(data[0]).filter(function(key) { return key !== "X"; }));
 
     data.forEach(function(d) {
-      d.date = moment(d.date).toDate();
+      if ($('#vis-stacked-area-format').val().length > 0) {
+        d.X = moment(d.X).toDate();
+      }
+      else {
+        d.X = +d.X;
+      }
     });
 
     var browsers = stack(color.domain().map(function(name) {
       return {
         name: name,
         values: data.map(function(d) {
-          return { date: d.date, y: d[name] / 100 };
+          return { X: d.X, y: d[name] / 100 };
         })
       };
     }));
 
-    x.domain(d3.extent(data, function(d) { return d.date; }));
+    x.domain(d3.extent(data, function(d) { return d.X; }));
 
     var browser = svg.selectAll(".browser")
         .data(browsers)
@@ -185,7 +190,7 @@ VIS.buildStackedAreaChart = function(data) {
 
     browser.append("text")
         .datum(function(d) { return { name: d.name, value: d.values[d.values.length - 1] }; })
-        .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.y0 + d.value.y / 2) + ")"; })
+        .attr("transform", function(d) { return "translate(" + x(d.value.X) + "," + y(d.value.y0 + d.value.y / 2) + ")"; })
         .attr("x", -6)
         .attr("dy", ".35em")
         .text(function(d) { return d.name; });

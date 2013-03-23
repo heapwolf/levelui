@@ -440,6 +440,10 @@ label {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5d90d3', endColorstr='#3c7cd4',GradientType=0 ); /* IE6-9 */
 }
 
+.button.pull-right {
+  float: right;
+}
+
 .checkbox + label {
   top: 5px;
   margin-right: 5px;
