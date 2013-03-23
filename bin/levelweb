@@ -8,5 +8,6 @@ levelweb({
   http: argv.http,
   tcp: argv.tcp,
   location: argv._[0],
-  encoding: argv.encoding
+  encoding: argv.encoding,
+  keyEncoding:argv.keyEncoding
 });
