@@ -81,10 +81,6 @@ websocket(function(socket) {
   //   .step(1e3)
   //   .size(960);
 
-  function visualizationUpdate() {
-
-  }
-
   function addVisualizationMetric(name) {
 
     cache[name] = [];
@@ -149,10 +145,12 @@ websocket(function(socket) {
     //
     if (response === 'editorUpdate') {
       if (JSON.stringify(value.value).length < 1e4) {
+
         $veryLarge.hide();
         editor_json.doc.setValue(JSON.stringify(value.value, 2, 2));
       }
       else {
+
         $veryLarge.show();
         $veryLarge.unbind('click');
         $veryLarge.on('click', function() {
@@ -183,6 +181,7 @@ websocket(function(socket) {
 
     //
     // count the tagged keys
+    // TODO: 
     //
     else if (response === 'allTaggedKeys') {
       if (message.value.length > 0) {
@@ -217,17 +216,26 @@ websocket(function(socket) {
     }
 
     //
-    // tagged keys
+    // build a tree map
     //
     else if (response === 'buildTreeMap') {
+
       VIS.buildTreeMap(value);
     }
 
+    //
+    // build a stacked area chart
+    //
     else if (response === 'buildStackedAreaChart') {
+
       VIS.buildStackedAreaChart(value);
     }
 
+    //
+    // build a bar chart
+    //
     else if (response === 'buildBarChart') {
+
       VIS.buildBarChart(value);
     }
 
@@ -432,7 +440,7 @@ websocket(function(socket) {
 
   //
   // when a user starts to enter an object that they want to 
-  // plot, verify that it is actually in their data.
+  // plot, verify that it is actually in their data
   //
   var validateBounce;
   $('.validate-key').on('keyup', function() {
@@ -454,7 +462,6 @@ websocket(function(socket) {
         .addClass('invalid');
 
     }, 32);
-
   });
 
   //
@@ -519,6 +526,9 @@ websocket(function(socket) {
     });
   });
   
+  //
+  // save a visualization as an image
+  //
   $('.save-visualization').on('click', function() {
 
     var canvas = document.createElement('canvas');
@@ -526,8 +536,7 @@ websocket(function(socket) {
 
     var theImage = canvas.toDataURL('image/png;base64');
     window.open(theImage);
-
-  })
+  });
 
   //
   // build a tree-map

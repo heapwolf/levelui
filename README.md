@@ -1,30 +1,42 @@
-# NAME
-levelweb(3)
-
 # SYNOPSIS
-A GUI for LevelDB management. Includes visualization tools [WIP]
+LevelDB Management. Includes simple data visualization tools.
 
 # MOTIVATION
 
  - No need to configure your Data Retention.
  - Nothing needs to be finite or determined ahead of time.
- - No storage-schemas configuration.
+ - No storage-schema configuration.
  - No database initialization. 
- - Attach to an existing database or create a new one by providing a path at the commandline.
+ - Attach to an existing database or create a new one by providing a path at the command line.
  - Accept incoming data streams via tcp.
-
- - Node is the only significant dependency.
  - Single command installation process (`npm install levelweb`).
 
 # USAGE
 Point the app at your database and specify what ports you want to run on.
 ```bash
-./bin/levelweb ./test/data --tcp 9997 --http 8080
+./bin/levelweb ./test/data --tcp 9097 --http 8080
 ```
 
-## Streaming data to Levelweb
 Level web accepts new line delimited writes over tcp. Each line should be an 
 object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
+Here's a contrived example using Node.js.
+
+```js
+function write(json) {
+  client.write(JSON.stringify(json) + '\n');
+}
+
+var client = net.connect({ port: 9097 }, function() {
+
+  write({
+    key: 'on-cpu-time',
+    value: {
+      date: process.hrtime(),
+      count: DTrace.last('on-cpu-time')
+    }
+  });
+});
+```
 
 ## Explore and manage keys and values
 ![screenshot](/screenshots/screenshot.png)

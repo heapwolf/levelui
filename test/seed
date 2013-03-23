@@ -35,7 +35,7 @@ var client = net.connect({ port: 9099 }, function() {
     write({
       key: 'http-load-time-' + sessionId,
       value: {
-        date: moment(today).format('DD-MM-YY-HH-MM'),
+        date: moment(today).toString(),
         count: x,
         diff: process.hrtime(time)[0]
       }
@@ -44,7 +44,7 @@ var client = net.connect({ port: 9099 }, function() {
     write({
       key: 'tcp-request-' + sessionId,
       value: {
-        date: moment(today).format('DD-MM-YY-HH-MM'),
+        date: moment(today).toString(),
         count: x,
         diff: process.hrtime(time)[0]
       }
@@ -53,7 +53,7 @@ var client = net.connect({ port: 9099 }, function() {
     write({
       key: 'http-request-' + sessionId,
       value: {
-        date: moment(today).format('DD-MM-YY-HH-MM'),
+        date: moment(today).toString(),
         count: x,
         value: process.hrtime(time)[0]
       }
@@ -62,7 +62,7 @@ var client = net.connect({ port: 9099 }, function() {
     write({
       key: 'tcp-request-count-' + today,
       value: {
-        date: moment(today).format('DD-MM-YY-HH-MM'),
+        date: moment(today).toString(),
         value: getIncremented()
       }
     });

@@ -106,7 +106,6 @@ VIS.buildBarChart = function(data) {
         .attr("width", function(d) { return w; })
         .attr("height", function(d) { return h; })
         .style("fill", function(d) { return colorScale(d.score); });
-
 };
 
 VIS.buildStackedAreaChart = function(data) {
@@ -295,4 +294,19 @@ VIS.buildTreeMap = function(data) {
     node = d;
     d3.event.stopPropagation();
   }
+};
+
+
+
+
+VIS.timeSeries = function() {
+
+
+
+
+
+
+
+
+
 };
