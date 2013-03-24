@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Levelweb</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="/css/index.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <form id="loginPanel" action="/auth" method="post">
+
+      <div id="hello">
+        <div class="ss-icon">database</div>
+        <div class="name">levelweb</div>
+      </div>
+
+      <div class="input">
+        <span class="add-on">Username</span>
+        <input name="username" id="username" type="text">
+      </div>
+      <br/>
+      <div class="input">
+        <span class="add-on">Password</span>
+        <input name="password" id="password" type="password">
+      </div>
+      <p>
+        If there are no users, create a user by running the command <b>levelweb -u 
+        &lt;username&gt; -p &lt;password&gt;</b> from the command line.
+      </p>
+      <button type="submit" class="button pull-right" id="signIn">
+        <span class="ss-icon">key</span>
+        Sign In
+      </button>
+      <br/><br/>
+    </form>
+
+  </body>
+</html>
