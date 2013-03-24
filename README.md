@@ -17,6 +17,8 @@ Point the app at your database and specify what ports you want to run on.
 ./bin/levelweb ./test/data --tcp 9097 --http 8080
 ```
 
+![screenshot](/screenshots/screenshot0.png)
+
 Level web accepts new line delimited writes over tcp. Each line should be an 
 object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
 Here's a contrived example using Node.js.

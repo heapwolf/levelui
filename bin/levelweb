@@ -1,13 +1,57 @@
 #!/usr/bin/env node
 
 var levelweb = require('../lib');
+var levelup = require('levelup');
 var net = require('net');
+var path = require('path');
+var bcrypt = require('bcrypt');
 var argv = require('optimist').argv;
 
-levelweb({
-  http: argv.http,
-  tcp: argv.tcp,
-  location: argv._[0],
-  encoding: argv.encoding,
-  keyEncoding:argv.keyEncoding
-});
+if (argv.u) {
+
+  var location = path.join(__dirname, '..', 'lib', 'cache', 'sysdb');
+
+  var opts = {
+    encoding: 'json'
+  };
+
+  levelup(location, opts, function(err, db) {
+
+    if (argv.p) {
+      bcrypt.hash(argv.p, 5, function(err, bcryptedPassword) {
+         db.put('__user__-' + argv.u, bcryptedPassword, function(err) {
+
+          if (err) {
+            console.log(err);
+            process.exit(1);
+          }
+          else {
+            console.log('Added %s to the database', argv.u);
+          }
+
+         });
+      });
+    }
+    else {
+      db.get('__user__-' + argv.u, function(err, value) {
+        if (err && err.name === 'NotFoundError') {
+          console.log(err.message);
+        }
+        else {
+          console.log('The user %s exists, use `-p` to set password.', argv.u);
+        }
+        
+      });
+    }
+  });
+}
+else {
+
+  levelweb({
+    https: argv.https,
+    tcp: argv.tcp,
+    location: argv._[0],
+    encoding: argv.encoding,
+    keyEncoding:argv.keyEncoding
+  });  
+}

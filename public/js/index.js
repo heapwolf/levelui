@@ -1,4 +1,6 @@
-websocket(function(socket) {
+$(function() {
+
+  var socket = new WebSocket("wss://localhost:8089");
 
   var $startKey = $('#startKey');
   var $endKey = $('#endKey');
@@ -20,10 +22,10 @@ websocket(function(socket) {
   var currentSelection = '';
   var currentDatasource = 'usrdb';
 
-  function request(message) {
+  function send(message) {
     message.dbname = currentDatasource;
     message = JSON.stringify(message);
-    socket.write(message);
+    socket.send(message);
   }
 
   function getOpts() {
@@ -61,7 +63,7 @@ websocket(function(socket) {
     clearTimeout(inputBounce);
     inputBounce = setTimeout(function() {
 
-      request({ 
+      send({ 
         request: 'keyListUpdate', 
         value: getOpts()
       });
@@ -75,12 +77,6 @@ websocket(function(socket) {
   var cache = {};
   var metrics = [];
 
-  // var context = cubism.context()
-  //   .serverDelay(0)
-  //   .clientDelay(0)
-  //   .step(1e3)
-  //   .size(960);
-
   function addVisualizationMetric(name) {
 
     cache[name] = [];
@@ -92,7 +88,7 @@ websocket(function(socket) {
       start = +start, stop = +stop;
       if (isNaN(last)) last = start;
 
-      socket.write(JSON.stringify({ key: name }));
+      socket.send(JSON.stringify({ key: name }));
       
       cache[name] = cache[name].slice((start - stop) / step);
       callback(null, cache[name]);
@@ -133,9 +129,9 @@ websocket(function(socket) {
   //
   // socket stuff
   //
-  socket.on('data', function(message) {
+  socket.onmessage = function(message) {
 
-    try { message = JSON.parse(message); } catch(ex) {}
+    try { message = JSON.parse(message.data); } catch(ex) {}
 
     var response = message.response;
     var value = message.value;
@@ -239,7 +235,7 @@ websocket(function(socket) {
       VIS.buildBarChart(value);
     }
 
-  });
+  };
 
   $('nav.secondary input').on('click', function() {
 
@@ -255,7 +251,7 @@ websocket(function(socket) {
       currentDatasource = 'tagdb';
       $visualizations.show();
 
-      request({
+      send({
         request: 'allTaggedKeys',
         value: getOpts()
       });      
@@ -266,7 +262,7 @@ websocket(function(socket) {
       keyListUpdate();
     }
     else if (this.id == 'nav-fav') {
-      currentDatasource = 'favdb';
+      currentDatasource = 'sysdb';
       $visualizations.hide();
       keyListUpdate();
     }
@@ -298,7 +294,7 @@ websocket(function(socket) {
       $selectOne.hide();
       currentSelection = this.value;
 
-      request({
+      send({
         request: 'editorUpdate', 
         value: this.value 
       });
@@ -318,7 +314,7 @@ websocket(function(socket) {
 
     var value = { operations: operations, opts: getOpts() };
 
-    request({
+    send({
       request: 'deleteValues',
       value: value
     });
@@ -348,7 +344,7 @@ websocket(function(socket) {
   //
   $('#addto-favs').click(function() {
 
-    request({
+    send({
       request: 'favKeys',
       value: getSelectedKeys()
     });
@@ -359,7 +355,7 @@ websocket(function(socket) {
   //
   $('#addto-tags').click(function() {
     
-    request({
+    send({
       request: 'tagKeys',
       value: getSelectedKeys()
     });
@@ -397,7 +393,7 @@ websocket(function(socket) {
           value: JSON.parse(editor_json.doc.getValue())
         };
 
-        request({
+        send({
           request: 'updateValue',
           value: value
         });
@@ -452,7 +448,7 @@ websocket(function(socket) {
 
       var value = { id: that.id, key: that.value };
 
-      request({
+      send({
         request: 'validateKey',
         value: value
       });
@@ -490,7 +486,7 @@ websocket(function(socket) {
 
       var value = { id: id, key: key };
 
-      request({
+      send({
         request: 'validateKey',
         value: value
       });
@@ -520,7 +516,7 @@ websocket(function(socket) {
       value.dateEnd = dateEnd;
     }
 
-    request({
+    send({
       request: 'buildStackedAreaChart',
       value: value
     });
@@ -543,7 +539,7 @@ websocket(function(socket) {
   //
   $('#buildTreeMap').on('click', function() {
 
-    request({
+    send({
       request: 'buildTreeMap',
       value: $('#treeMapToken').val()
     });
@@ -571,7 +567,7 @@ websocket(function(socket) {
       value.dateEnd = dateEnd;
     }
 
-    request({
+    send({
       request: 'buildBarChart',
       value: value
     });

@@ -295,18 +295,3 @@ VIS.buildTreeMap = function(data) {
     d3.event.stopPropagation();
   }
 };
-
-
-
-
-VIS.timeSeries = function() {
-
-
-
-
-
-
-
-
-
-};

@@ -35,6 +35,10 @@ p {
   line-height: 18px;
 }
 
+p b {
+  font-family: 'Courier New';
+}
+
 /*
  * Clearfix
  */
@@ -47,6 +51,43 @@ p {
 
 .cf:after {
     clear: both;
+}
+
+/*
+ * Login
+ */
+
+#loginPanel {
+  width: 300px;
+  margin: 10% auto;
+  border: 1px solid #ddd;
+  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.075);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.075);
+  padding: 40px;
+}
+
+#loginPanel .add-on {
+  min-width: 80px;
+}
+
+#loginPanel input {
+  width: 200px;
+}
+
+#hello div {
+  color: #666;
+  text-align: center;
+}
+
+#hello .name {
+  position: relative;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+#hello .ss-icon {
+  font-size: 60px;
 }
 
 /*
@@ -268,7 +309,7 @@ header nav ul li:first-of-type {
   color: #3c7cd4;
 }
 
-#visualizations p {
+p {
   text-decoration: none;
   font-size: 12px;
   color: #999;
@@ -444,6 +485,11 @@ label {
   float: right;
 }
 
+.button.pull-middle {
+  margin: auto;
+  display: block;
+}
+
 .checkbox + label {
   top: 5px;
   margin-right: 5px;
@@ -557,6 +603,31 @@ input {
   text-shadow: none;
 }
 
+select.button {
+  -webkit-appearance: none;
+  position: relative;
+  font-size: 12px;
+  padding-right: 25px;
+}
+
+.custom-select {
+  display: inline-block;
+  position: relative;
+  -webkit-appearance:none; /* remove the strong OSX influence from Webkit */
+}
+
+.custom-select:after {
+  content: "▼";
+  position: absolute;
+  top: 0;
+  right: 5px;
+  bottom: 0;
+  font-size: 60%;
+  line-height: 30px;
+  padding: 0 7px;
+  color: #666;
+ }
+
 /*
  * Codemirror overrides
  */
@@ -586,28 +657,3 @@ input {
 svg {
   cursor: default;
 }
-
-select.button {
-  -webkit-appearance: none;
-  position: relative;
-  font-size: 12px;
-  padding-right: 25px;
-}
-
-.custom-select {
-  display: inline-block;
-  position: relative;
-  -webkit-appearance:none; /* remove the strong OSX influence from Webkit */
-}
-
-.custom-select:after {
-  content: "▼";
-  position: absolute;
-  top: 0;
-  right: 5px;
-  bottom: 0;
-  font-size: 60%;
-  line-height: 30px;
-  padding: 0 7px;
-  color: #666;
- }
