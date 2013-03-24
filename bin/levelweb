@@ -19,7 +19,7 @@ if (argv.u) {
 
     if (argv.p) {
       bcrypt.hash(argv.p, 5, function(err, bcryptedPassword) {
-         db.put('__user__-' + argv.u, bcryptedPassword, function(err) {
+         db.put('__user__' + argv.u, bcryptedPassword, function(err) {
 
           if (err) {
             console.log(err);
@@ -33,7 +33,7 @@ if (argv.u) {
       });
     }
     else {
-      db.get('__user__-' + argv.u, function(err, value) {
+      db.get('__user__' + argv.u, function(err, value) {
         if (err && err.name === 'NotFoundError') {
           console.log('No user named %s', argv.u);
         }

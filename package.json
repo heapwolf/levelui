@@ -1,7 +1,7 @@
 {
   "name": "levelweb",
-  "version": "0.2.1",
-  "description": "a simple front end for leveldb",
+  "version": "0.2.2",
+  "description": "A front end for leveldb",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,14 +10,15 @@
     "levelweb" : "./bin/levelweb"
   },
   "dependencies": {
-    "ws": "*",
-    "levelup": "*",
-    "event-stream": "*",
+    "ws": "0.4.25",
+    "levelup": "0.6.2",
+    "event-stream": "3.0.12",
     "mime": "~1.2.9",
     "moment": "~2.0.0",
-    "keygrip": "*",
-    "cookies": "*",
-    "node-uuid": "*",
+    "keygrip": "0.2.2",
+    "cookies": "0.3.6",
+    "bcrypt": "0.7.5",
+    "node-uuid": "0.4.x",
     "optimist": "~0.3.5"
   },
   "repository": "",
