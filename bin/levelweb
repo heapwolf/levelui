@@ -35,7 +35,7 @@ if (argv.u) {
     else {
       db.get('__user__-' + argv.u, function(err, value) {
         if (err && err.name === 'NotFoundError') {
-          console.log(err.message);
+          console.log('No user named %s', argv.u);
         }
         else {
           console.log('The user %s exists, use `-p` to set password.', argv.u);
