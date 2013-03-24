@@ -12,9 +12,14 @@ LevelDB Management. Includes simple data visualization tools.
  - Single command installation process (`npm install levelweb`).
 
 # USAGE
+Create an initial user account
+```bash
+levelweb -u admin -p password
+```
+
 Point the app at your database and specify what ports you want to run on.
 ```bash
-./bin/levelweb ./test/data --tcp 9097 --http 8080
+levelweb ./test/data --tcp 9097 --https 8089
 ```
 
 ![screenshot](/screenshots/screenshot0.png)
