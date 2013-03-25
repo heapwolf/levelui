@@ -41,22 +41,29 @@ Level web accepts new line delimited writes over tls. Each line should be an
 object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
 
 ```js
+#!/usr/bin/env node
+
+var fs = require('fs');
+var path = require('path');
+var tls = require('tls');
+
 var options = {
-  pfx: fs.readFileSync('levelweb.pfx'),
-  passphrase: rs.readFileSync('passphrase.txt').toString()
+  pfx: fs.readFileSync(path.join('..', 'auth', 'levelweb.pfx')),
+  passphrase: fs.readFileSync(path.join('..', 'auth', 'passphrase.txt')).toString().trim()
 };
 
 var client;
 
 function write(json) {
   client.write(JSON.stringify(json) + '\n');
+  client.end();
 }
 
-client = net.connect(9097, options, function() {
+client = tls.connect(9099, options, function() {
   write({
     key: "hello",
     value: {
-      date: Date.now()
+      date: Date.now(),
       foo: "bar"
     }
   });
