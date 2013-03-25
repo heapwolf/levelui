@@ -16,7 +16,7 @@ function write(json) {
   client.end();
 }
 
-client = tls.connect(9099, options, function() {
+client = tls.connect(9097, options, function() {
   write({
     key: "hello",
     value: {
