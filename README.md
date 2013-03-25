@@ -3,25 +3,29 @@ LevelDB Management. Includes simple data visualization tools.
 
 # MOTIVATION
 
- - No need to configure your Data Retention.
+ - No need to configure Data Retention or storage-schemas.
  - Nothing needs to be finite or determined ahead of time.
- - No storage-schema configuration.
- - No database initialization. 
- - Attach to an existing database or create a new one by providing a path at the command line.
- - Accept incoming data streams via tls.
- - Single command installation process (`npm install levelweb`).
+ - No database initialization.
+ - Attach to an existing database or create one on the fly.
+ - Accept secure incoming data streams via tls.
 
 # USAGE
 ## Run the server
+Installation
+```bash
+npm install levelweb -g
+```
+
 Create an initial user account
 ```bash
 levelweb -u admin -p password
 ```
 
 Create keys and certs for the https server as well as a pfx file that can be 
-used to establish a secure tls connection from a client to the server.
+used to establish a secure tls connection from a client to the server. In your
+project make the directory `auth` and cd into into it. Remember to add this 
+directory to your `.gitignore` file if you are going to check it in somewhere.
 ```bash
-cd auth
 openssl genrsa -out levelweb-key.pem 1024
 openssl req -new -key levelweb-key.pem -out levelweb-csr.pem
 openssl x509 -req -in levelweb-csr.pem -signkey levelweb-key.pem -out levelweb-cert.pem
@@ -48,8 +52,8 @@ var path = require('path');
 var tls = require('tls');
 
 var options = {
-  pfx: fs.readFileSync(path.join('..', 'auth', 'levelweb.pfx')),
-  passphrase: fs.readFileSync(path.join('..', 'auth', 'passphrase.txt')).toString().trim()
+  pfx: fs.readFileSync(path.join('auth', 'levelweb.pfx')),
+  passphrase: fs.readFileSync(path.join('auth', 'passphrase.txt')).toString().trim()
 };
 
 var client;

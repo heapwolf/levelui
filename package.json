@@ -1,6 +1,6 @@
 {
   "name": "levelweb",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A front end for leveldb",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "keygrip": "0.2.2",
     "cookies": "0.3.6",
     "bcrypt": "0.7.5",
-    "node-uuid": "0.4.x",
+    "node-uuid": "1.4.x",
     "optimist": "~0.3.5"
   },
   "repository": "",
