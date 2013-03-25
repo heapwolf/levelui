@@ -49,7 +49,7 @@ else {
 
   levelweb({
     https: argv.https,
-    tcp: argv.tcp,
+    tls: argv.tls,
     location: argv._[0],
     encoding: argv.encoding,
     keyEncoding:argv.keyEncoding

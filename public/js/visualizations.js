@@ -110,6 +110,8 @@ VIS.buildBarChart = function(data) {
 
 VIS.buildStackedAreaChart = function(data) {
 
+  console.log(data)
+
   var $container = $("#vis-stacked-area .container");
 
   $container.empty();

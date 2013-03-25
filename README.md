@@ -8,38 +8,56 @@ LevelDB Management. Includes simple data visualization tools.
  - No storage-schema configuration.
  - No database initialization. 
  - Attach to an existing database or create a new one by providing a path at the command line.
- - Accept incoming data streams via tcp.
+ - Accept incoming data streams via tls.
  - Single command installation process (`npm install levelweb`).
 
 # USAGE
+## Running the server
 Create an initial user account
 ```bash
 levelweb -u admin -p password
 ```
 
+Create keys and certs for the https server as well as a pfx file that can be 
+used to establish a secure tls connection from a client to the server.
+```bash
+cd auth
+openssl genrsa -out levelweb-key.pem 1024
+openssl req -new -key levelweb-key.pem -out levelweb-csr.pem
+openssl x509 -req -in levelweb-csr.pem -signkey levelweb-key.pem -out levelweb-cert.pem
+openssl pkcs12 -export -in levelweb-cert.pem -inkey levelweb-key.pem -certfile levelweb-cert.pem -out levelweb.pfx
+echo "mypassphrase" > passphrase.txt
+```
+
 Point the app at your database and specify what ports you want to run on.
 ```bash
-levelweb ./test/data --tcp 9097 --https 8089
+levelweb ./test/data --tls 9097 --https 8089
 ```
 
 ![screenshot](/screenshots/screenshot0.png)
 
-Level web accepts new line delimited writes over tcp. Each line should be an 
+## Sending data to the server
+Level web accepts new line delimited writes over tls. Each line should be an 
 object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
-Here's a contrived example using Node.js.
 
 ```js
+var options = {
+  pfx: fs.readFileSync('levelweb.pfx'),
+  passphrase: rs.readFileSync('passphrase.txt').toString()
+};
+
+var client;
+
 function write(json) {
   client.write(JSON.stringify(json) + '\n');
 }
 
-var client = net.connect({ port: 9097 }, function() {
-
+client = net.connect(9097, options, function() {
   write({
-    key: 'on-cpu-time',
+    key: "hello",
     value: {
-      date: process.hrtime(),
-      count: DTrace.last('on-cpu-time')
+      date: Date.now()
+      foo: "bar"
     }
   });
 });
