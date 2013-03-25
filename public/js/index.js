@@ -3,7 +3,7 @@ $(function() {
   var $startKey = $('#startKey');
   var $endKey = $('#endKey');
   var $limit = $('#limit');
-  var $controls = $('.control');
+  var $controls = $('.control, #refresh');
   var $keyList = $('#keyList');
   var $selectedKeyCount = $('.selected-key-count');
   var $veryLarge = $('#veryLarge');

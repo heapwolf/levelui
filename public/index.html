@@ -106,6 +106,10 @@
         </div>
 
         <div id="key-management-controls">
+          <button class="button" id="refresh">
+            <span class="ss-icon">refresh</span>
+            Refresh <span class="selected-key-count"></span>
+          </button>
           <button class="button" id="delete-keys">
             <span class="ss-icon">trash</span>
             Delete <span class="selected-key-count"></span>
@@ -114,7 +118,7 @@
             <span class="ss-icon">tag</span>
             Tag <span class="selected-key-count"></span>
           </button>
-          <button class="button" id="addto-favs">
+          <button class="button">
             <span class="ss-icon">favorite</span>
             Favorite <span class="selected-key-count"></span>
           </button>
@@ -384,7 +388,7 @@
 
     </div>
 
-    <script src="/socket"></script>
+    <script src="/socket.js"></script>
     <script src="/js/moment.js"></script>
     <script src="/js/jquery.js"></script>
 
