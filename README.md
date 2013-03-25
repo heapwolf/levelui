@@ -34,9 +34,10 @@ openssl pkcs12 -export -in levelweb-cert.pem -inkey levelweb-key.pem -certfile l
 echo "mypassphrase" > passphrase.txt
 ```
 
-Point the app at your database and specify what ports you want to run on.
+Point the app at your database and specify what ports you want to run on and a
+host if it should be anything other than `127.0.0.1`.
 ```bash
-levelweb ./test/data --tls 9097 --https 8089
+levelweb ./test/data --tls 9097 --https 8089 -h 165.125.122.142
 ```
 
 ![screenshot](/screenshots/screenshot0.png)
