@@ -1,7 +1,5 @@
 $(function() {
 
-  var socket = new WebSocket("wss://localhost:8089");
-
   var $startKey = $('#startKey');
   var $endKey = $('#endKey');
   var $limit = $('#limit');
