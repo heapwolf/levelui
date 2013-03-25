@@ -50,6 +50,7 @@ else {
   levelweb({
     https: argv.https,
     tls: argv.tls,
+    host: argv.h,
     location: argv._[0],
     encoding: argv.encoding,
     keyEncoding:argv.keyEncoding
