@@ -12,7 +12,7 @@ LevelDB Management. Includes simple data visualization tools.
  - Single command installation process (`npm install levelweb`).
 
 # USAGE
-## Running the server
+## Run the server
 Create an initial user account
 ```bash
 levelweb -u admin -p password
@@ -36,7 +36,7 @@ levelweb ./test/data --tls 9097 --https 8089
 
 ![screenshot](/screenshots/screenshot0.png)
 
-## Sending data to the server
+## Send data to the server
 Level web accepts new line delimited writes over tls. Each line should be an 
 object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
 
