@@ -23,8 +23,9 @@ levelweb -u admin -p password
 
 Create keys and certs for the https server as well as a pfx file that can be 
 used to establish a secure tls connection from a client to the server. In your
-project make the directory `auth` and cd into into it. Remember to add this 
-directory to your `.gitignore` file if you are going to check it in somewhere.
+project make the directory `auth` and cd into into it. Remember to add the 
+`passphrase.txt` file to your `.gitignore` file if you are going to check it in 
+somewhere.
 ```bash
 openssl genrsa -out levelweb-key.pem 1024
 openssl req -new -key levelweb-key.pem -out levelweb-csr.pem
