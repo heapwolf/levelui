@@ -21,17 +21,13 @@ Create an initial user account
 levelweb -u admin -p password
 ```
 
-Create keys and certs for the https server as well as a pfx file that can be 
-used to establish a secure tls connection from a client to the server. In your
-project make the directory `auth` and cd into into it. Remember to add the 
-`passphrase.txt` file to your `.gitignore` file if you are going to check it in 
-somewhere.
+Create keys and certs for the https and tls server. You can distribute the
+certificate to clients that wish to connect to the server.
 ```bash
+# create a certificate and sign it.
 openssl genrsa -out levelweb-key.pem 1024
 openssl req -new -key levelweb-key.pem -out levelweb-csr.pem
 openssl x509 -req -in levelweb-csr.pem -signkey levelweb-key.pem -out levelweb-cert.pem
-openssl pkcs12 -export -in levelweb-cert.pem -inkey levelweb-key.pem -certfile levelweb-cert.pem -out levelweb.pfx
-echo "mypassphrase" > passphrase.txt
 ```
 
 Point the app at your database and specify what ports you want to run on and a
@@ -47,33 +43,41 @@ Level web accepts new line delimited writes over tls. Each line should be an
 object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
 
 ```js
-#!/usr/bin/env node
-
-var fs = require('fs');
-var path = require('path');
 var tls = require('tls');
+var path = require('path');
+var fs = require('fs');
 
-var options = {
-  pfx: fs.readFileSync(path.join('auth', 'levelweb.pfx')),
-  passphrase: fs.readFileSync(path.join('auth', 'passphrase.txt')).toString().trim()
-};
+module.exports = function(server) {
 
-var client;
+  var origin;
 
-function write(json) {
-  client.write(JSON.stringify(json) + '\n');
-  client.end();
-}
-
-client = tls.connect(9099, options, function() {
-  write({
-    key: "hello",
-    value: {
-      date: Date.now(),
-      foo: "bar"
-    }
+  server.on('connection', function(data) {
+    origin = data;
   });
-});
+
+  var authpath = path.join(process.cwd(), 'auth');
+
+  var opts = {
+    host: 'localhost',
+    port: argv.port,
+
+    key: fs.readFileSync(path.join(authpath, 'my-client-key.pem')),
+    cert: fs.readFileSync(path.join(authpath, 'my-client-cert.pem')),
+    ca: [fs.readFileSync(path.join(authpath, 'levelweb-cert.pem'))]
+  };
+
+  console.log('connecting to port %d', opts.port);
+
+  var client = tls.connect(opts, function() {
+
+    server.on('log', function(key, value) {
+
+      var json = { key: key, value: value };
+
+      client.write(JSON.stringify(json) + '\n');
+    });
+  });
+};
 ```
 
 ## Explore and manage keys and values
