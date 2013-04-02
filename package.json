@@ -6,22 +6,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin" : { 
-    "levelweb" : "./bin/levelweb"
+  "bin": {
+    "levelweb": "./bin/levelweb"
   },
   "dependencies": {
-    "ws": "0.4.25",
-    "levelup": "0.6.2",
-    "event-stream": "3.0.12",
+    "ws": "~0.4.25",
+    "levelup": "~0.6.2",
+    "event-stream": "~3.0.12",
     "mime": "~1.2.9",
     "moment": "~2.0.0",
-    "keygrip": "0.2.2",
-    "cookies": "0.3.6",
-    "bcrypt": "0.7.5",
-    "node-uuid": "1.4.x",
+    "keygrip": "~0.2.2",
+    "cookies": "~0.3.6",
+    "bcrypt": "~0.7.5",
+    "node-uuid": "~1.4.0",
     "optimist": "~0.3.5"
   },
-  "repository": "",
-  "author": "",
+  "repository": "git@github.com:hij1nx/levelweb.git",
+  "author": "hij1nx",
   "license": "MIT"
 }
