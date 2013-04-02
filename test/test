@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var path = require('path');
+var async = require('async');
+var tap = require('tap').test;
+
+var pathname = path.join(__dirname, 'tests');
+
+var filter = process.argv[2] || null
+var caseFilter = process.argv[3] || null
+
+async.forEach(
+  fs.readdirSync(pathname), 
+  function (name, nextfile) {
+
+    if (filter && name.indexOf(filter) < 0) { return; }
+
+    if (path.extname(name) === '.js') {
+
+      var basename = path.basename(name, '.js');
+      var rawfile = path.join(pathname, basename);
+
+      var tests = require(rawfile);
+
+      async.forEach(
+        Object.keys(tests),
+        function(testname, nexttest) {
+          if (!caseFilter || test.indexOf(caseFilter) > -1) {
+            tap(testname, function(test) {
+              tests[testname].call(null, test, nexttest);
+            });
+          }
+        },
+        function(err) {
+          if (!err) {
+            console.log(err);
+          }
+          nextfile();
+        }
+      );
+    }
+  },
+  function(err) {
+    console.log(err);
+  }
+);

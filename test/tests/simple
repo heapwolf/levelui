@@ -1,0 +1,35 @@
+var fs = require('fs');
+var path = require('path');
+var tls = require('tls');
+var levelup = require('levelup');
+
+var levelOptions = { 
+  createIfMissing: true 
+};
+
+var tlsOptions = {
+  pfx: fs.readFileSync(path.join('..', 'auth', 'levelweb.pfx')),
+  passphrase: fs.readFileSync(path.join('..', 'auth', 'passphrase.txt')).toString().trim()
+};
+
+var sampledb = levelup('../fixtures/testdb', levelOptions);
+
+module.exports = {
+
+  "send data to the server via a tls connection": function(test, next) {
+
+    test.plan(2);
+
+    var client = tls.connect(9097, tlsOptions, function() {
+      var value = JSON.stringify({
+        key: "hello",
+        value: { foo: "bar" }
+      });
+      client.write(value, function() {
+
+        
+        
+      });
+    });
+  }
+};
