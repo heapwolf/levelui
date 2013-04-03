@@ -160,6 +160,7 @@ $(function() {
     else if (response === 'keyListUpdate') {
 
       $keyList.empty();
+      $selectedKeyCount.text('');
 
       if (message.value.length > 0) {
         $noKeys.hide();

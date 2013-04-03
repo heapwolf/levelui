@@ -2,8 +2,6 @@ VIS = {};
 
 VIS.buildBarChart = function(data) {
 
-  console.log(data)
-
   var $visbar = $("#vis-bar .container");
   $visbar.empty();
 
@@ -156,7 +154,7 @@ VIS.buildStackedAreaChart = function(data) {
   var yAxis = d3.svg.axis()
       .scale(y)
       .orient("left")
-      .tickFormat(formatPercent);
+      //.tickFormat(formatPercent);
 
   var area = d3.svg.area()
       .x(function(d) { return x(d.X); })
@@ -187,12 +185,28 @@ VIS.buildStackedAreaChart = function(data) {
       return {
         name: name,
         values: data.map(function(d) {
-          return { X: d.X, y: d[name] / 100 };
+          return { X: d.X, y: d[name] };
         })
       };
     }));
 
     x.domain(d3.extent(data, function(d) { return d.X; }));
+
+    y.domain(
+      [0, d3.max(data, function(d) { 
+
+        var tmp = [];
+
+        Object.keys(d).map(function(name) {
+          if (name !== 'X') {
+            tmp.push(d[name]);
+          }
+        });
+
+        return d3.max(tmp);
+
+      })]
+    );
 
     var browser = svg.selectAll(".browser")
         .data(browsers)
