@@ -439,6 +439,15 @@ $(function() {
   var validateBounce;
   $('.validate-key').on('keyup', function() {
 
+    if ($(this).val().length === 0) {
+
+      $(this)
+        .closest('.input')
+        .removeClass('invalid');
+
+      return;
+    }
+
     var that = this;
 
     clearTimeout(validateBounce);
@@ -551,6 +560,7 @@ $(function() {
     var value = {
       pathToX: $('.visualization:visible .pathToX').val(),
       pathToY: $('.visualization:visible .pathToY').val(),
+      pathToXMask: $('.visualization:visible .pathToXMask').val(),
       dateTimeFormat: $(".visualization:visible .dateTimeFormat").val()
     };
 

@@ -2,6 +2,8 @@ VIS = {};
 
 VIS.buildBarChart = function(data) {
 
+  console.log(data)
+
   var $visbar = $("#vis-bar .container");
   $visbar.empty();
 
@@ -35,7 +37,20 @@ VIS.buildBarChart = function(data) {
       d.Y = +d.Y;
     });
 
-    x.domain(data.map(function(d) { return moment(d.X).format($("#vis-bar-format").val()).toString(); }));
+    x.domain(data.map(function(d) { 
+
+      if (d.XMask) {
+        return d.XMask;
+      }
+      else {
+        return moment(d.X).isValid()
+          ? moment(d.X).format($("#vis-bar-format").val()).toString()
+          : d.X
+        ;
+      }
+
+    }));
+
     y.domain([0, d3.max(data, function(d) { return d.Y; })]);
 
     svg.append("g")
