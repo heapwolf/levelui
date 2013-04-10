@@ -507,14 +507,16 @@ $(function() {
   //
   $('#buildStackedAreaChart').on('click', function() {
 
+    var $visibleVisualization = $('.visualization:visible');
+
     var value = {
-      pathToX: $('.visualization:visible .pathToX').val(),
-      pathsToValues: $('.visualization:visible .pathsToValues').val(),
-      dateTimeFormat: $(".visualization:visible .dateTimeFormat").val()
+      pathToX: $visibleVisualization.find('.pathToX').val(),
+      pathsToValues: $visibleVisualization.find('.pathsToValues').val(),
+      dateTimeFormat: $visibleVisualization.find('.dateTimeFormat').val()
     };
 
-    var dateStart = $(".visualization:visible .dateStart").val();
-    var dateEnd = $(".visualization:visible .dateEnd").val();
+    var dateStart = $visibleVisualization.find('.dateStart').val();
+    var dateEnd = $visibleVisualization.find('.dateEnd').val();
 
     if (dateStart.length > 0) {
       value.dateStart = dateStart;
@@ -558,15 +560,17 @@ $(function() {
   //
   $('#buildBarChart').on('click', function() {
 
+    var $visibleVisualization = $('.visualization:visible');
+
     var value = {
-      pathToX: $('.visualization:visible .pathToX').val(),
-      pathToY: $('.visualization:visible .pathToY').val(),
-      pathToXMask: $('.visualization:visible .pathToXMask').val(),
-      dateTimeFormat: $(".visualization:visible .dateTimeFormat").val()
+      pathToX: $visibleVisualization.find('.pathToX').val(),
+      pathToY: $visibleVisualization.find('.pathToY').val(),
+      pathToXMask: $visibleVisualization.find('.pathToXMask').val(),
+      dateTimeFormat: $visibleVisualization.find('.dateTimeFormat').val()
     };
 
-    var dateStart = $(".visualization:visible .dateStart").val();
-    var dateEnd = $(".visualization:visible .dateEnd").val();
+    var dateStart = $visibleVisualization.find('.dateStart').val();
+    var dateEnd = $visibleVisualization.find('.dateEnd').val();
 
     if (dateStart.length > 0) {
       value.dateStart = dateStart;
