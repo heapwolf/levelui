@@ -34,35 +34,28 @@
           </div>
         </label>
 
-        <input type="radio" id="nav-fav" name="radio-nav" class="radio-nav" />
-        <label for="nav-fav" class="border-right">
-          <div class="ss-icon">favorite</div>
-            Favorite Keys
-          </div>
-        </label>
-
         <input type="radio" id="nav-vis" name="radio-nav" class="radio-nav" />
-        <label for="nav-vis">
+        <label for="nav-vis" class="border-right">
           <div class="ss-icon">piechart</div>
             Visualize
           </div>
         </label>
 
-        <input type="radio" id="nav-tags" name="radio-nav" class="radio-nav" />
-        <label for="nav-tags" class="border-right">
-          <div class="ss-icon">box</div>
-          Sandbox
+        <input type="radio" id="nav-tag" name="radio-nav" class="radio-nav" />
+        <label for="nav-tag">
+          <div class="ss-icon">tag</div>
+            Tagged Keys
           </div>
         </label>
 
-        <input type="radio" id="nav-events" name="radio-nav" class="radio-nav" />
+        <!-- input type="radio" id="nav-events" name="radio-nav" class="radio-nav" />
         <label for="nav-events">
           <div class="ss-icon">stopwatch</div>
             Events
           </div>
         </label>
 
-        <!-- input type="radio" id="nav-replicate" name="radio-nav" class="radio-nav" />
+        <input type="radio" id="nav-replicate" name="radio-nav" class="radio-nav" />
         <label for="nav-replicate">
           <div class="ss-icon">transfer</div>
             Replicate
@@ -77,10 +70,10 @@
         </label -->
 
       </nav>
-
     </header>
 
     <div class="main-container">
+
       <div class="left">
 
         <div class="input" id="startKeyContainer">
@@ -96,10 +89,12 @@
           <input id="limit" class="control" placeholder="1000" type="text">
         </div>
         <div class="input-check inline-block">
-          <input type="checkbox" id="reverse" class="control checkbox" /><label for="reverse">Reverse</label>
+          <input type="checkbox" id="reverse" class="control checkbox" />
+          <label for="reverse">Reverse</label>
         </div>
         <div class="input-check inline-block">
-          <input type="checkbox" id="range" class="control checkbox" /><label for="range">Define Range</label>
+          <input type="checkbox" id="range" class="control checkbox" />
+          <label for="range">Define Range</label>
         </div>
         <br/>
 
@@ -121,19 +116,12 @@
             <span class="selected-key-count"></span>
           </button>
           <button class="button" id="addto-tags">
-            <span class="ss-icon">box</span>
-            <span class="selected-key-count"></span>
-          </button>
-          <button class="button">
-            <span class="ss-icon">favorite</span>
+            <span class="ss-icon">tag</span>
             <span class="selected-key-count"></span>
           </button>
         </div>
-
       </div>
 
-
-      
       <div class="right">
         <textarea id="code-json">
         </textarea>
@@ -148,34 +136,40 @@
         </div>
       </div>
 
-
-
       <div id="visualizations" class="panel">
         <div class="left">
 
-          <a href="#vis-tree-map" class="primary"><span class="ss-icon">grid</span>Tree Map</a>
-          <div class="links">
-            <a href="#" class="secondary">Configure and Generate</a>
+          <!-- 
+
+            TODO:
+
+            - Heat Map
+            - Time Series
+
+          -->
+
+
+          <div class="links-container" data-target="#vis-tree-map">
+            <button class="add-query ss-icon">cog</button>
+            <h2 class="primary"><span class="ss-icon">grid</span>Tree Map</h2>
+            <div class="links">
+            </div>
           </div>
           <hr/>
-          <!-- a href="#vis-bar" class="primary"><span class="ss-icon">thumbnails</span>Heat Map</a>
-          <div class="links">
-            <a href="#" class="secondary">Configure and Generate</a>
+
+          <div class="links-container" data-target="#vis-bar">
+            <button class="add-query ss-icon">cog</button>
+            <h2 class="primary"><span class="ss-icon">barchart</span>Bar Chart</h2>
+            <div class="links">
+            </div>
           </div>
           <hr/>
-          <a href="#vis-time-series" class="primary"><span class="ss-icon">clock</span>Time Series</a>
-          <div class="links">
-            <a href="#" class="secondary">Configure and Generate</a>
-          </div>
-          <hr/ -->
-          <a href="#vis-bar" class="primary"><span class="ss-icon">barchart</span>Bar Chart</a>
-          <div class="links">
-            <a href="#" class="secondary">Configure and Generate</a>
-          </div>
-          <hr/>
-          <a href="#vis-stacked-area" class="primary"><span class="ss-icon">rows</span>Stacked Area Chart</a>
-          <div class="links">
-            <a href="#" class="secondary">Configure and Generate</a>
+
+          <div class="links-container" data-target="#vis-stacked-area">
+            <button class="add-query ss-icon">cog</button>
+            <h2 class="primary"><span class="ss-icon">rows</span>Stacked Area Chart</h2>
+            <div class="links">
+            </div>
           </div>
           <hr/>
 
@@ -184,33 +178,47 @@
 
           <div id="vis-tree-map" class="visualization">
 
-            <div class="options">
+            <form class="options">
 
               <h3>Tree Map</h3>
               <hr/>
               <p>
                 Build a hierarchical tree of this database by dividing keys based
-                on a token. This should be done using the `tilde` character since
-                it doesn't affect sorting.
+                on a token.
               </p>
 
-              <div class="input" id="startKeyContainer">
+              <div class="input">
                 <span class="add-on">Token</span>
-                <input id="treeMapToken" value="~" placeholder="~" type="text">
+                <input data-id="token" value="~" placeholder="~" type="text">
               </div>
 
               <br/>
 
-              <button class="button pull-right save-visualization">
+              <p>
+                Provide a name for this query so that it can be viewed later.
+              </p>
+
+              <div class="input">
+                <span class="add-on">Name</span>
+                <input data-id="queryName" placeholder="Unamed" type="text">
+              </div>
+
+              <hr/>
+
+              <button class="button pull-right snapshot">
+                <span class="ss-icon">camera</span>
+                Snapshot
+              </button>
+              <button class="button pull-right save">
                 <span class="ss-icon">file</span>
                 Save
               </button>
-              <button class="button submit" id="buildTreeMap">
-                <span class="ss-icon">flask</span>
-                Generate
+              <button class="button submit" data-id="vis-treemap">
+                <span class="ss-icon">sync</span>
+                Run
               </button>
 
-              <br/>
+              <!-- br/>
               <h3>Adjustments</h3>
               <hr/>
               <p>
@@ -223,21 +231,21 @@
                   <option value="size">Size</option>
                   <option value="count">Count</option>
                 </select>
-              </div>
+              </div -->
 
               <div class="close">
                 <span class="ss-icon">close</span>
               </div>
-
-            </div>
+            </form>
 
             <div class="container">
             </div>
+
           </div>
 
           <div id="vis-time-series" class="visualization">
 
-            <div class="options">
+            <form class="options">
 
               <h3>Setup</h3>
               <hr/>
@@ -250,18 +258,18 @@
               <div class="close">
                 <span class="ss-icon">close</span>
               </div>
-
-            </div>
+            </form>
 
             <div class="container">
             </div>
+
           </div>
 
           <div id="vis-bar" class="visualization">
-            
-            <div class="options">
 
-              <h3>Setup</h3>
+            <form class="options">
+
+              <h3>Bar Chart</h3>
               <hr/>
               
               <p>
@@ -270,7 +278,7 @@
               </p>
               <div class="input">
                 <span class="add-on">Y Axis</span>
-                <input class="pathToY validate-key" id="vis-bar-pathToY" placeholder="foo.bar.val" type="text">
+                <input class="validate-key" data-id="pathToY" placeholder="foo.bar.val" type="text">
               </div>
               <p>
                 If `X` is a Javascript-parsable date, you can also specify a
@@ -278,17 +286,17 @@
               </p>
               <div class="input">
                 <span class="add-on">X Axis</span>
-                <input class="pathToX validate-key" id="vis-bar-pathToX" placeholder="foo.bar.date" type="text">
+                <input class="validate-key" data-id="pathToX" placeholder="foo.bar.date" type="text">
               </div>
 
               <div class="input">
                 <span class="add-on">X Axis Mask</span>
-                <input class="pathToXMask validate-key" id="vis-bar-pathToXMask" placeholder="foo.bar.fancy" type="text">
+                <input class="validate-key" data-id="pathToXMask" placeholder="foo.bar.fancy" type="text">
               </div>
 
               <div class="input">
                 <span class="add-on">Date Time Format</span>
-                <input class="dateTimeFormat" id="vis-bar-format" placeholder="DD-MM-YY-HH-MM" type="text">
+                <input data-id="dateTimeFormat" placeholder="DD-MM-YY-HH-MM" type="text">
               </div>
 
               <p>
@@ -296,37 +304,52 @@
               </p>
               <div class="input">
                 <span class="add-on">Start Date</span>
-                <input type="text" placeholder="Optional" class="datepicker dateStart">
+                <input type="text" placeholder="Optional" data-id="dateStart" class="datepicker">
               </div>
               <div class="input">
                 <span class="add-on">End Date</span>
-                <input type="text" placeholder="Optional" class="datepicker dateEnd">
+                <input type="text" placeholder="Optional" data-id="dateEnd" class="datepicker">
               </div>
               <br/>
+
+              <p>
+                Provide a name for this query so that it can be viewed later.
+              </p>
+
+              <div class="input">
+                <span class="add-on">Name</span>
+                <input data-id="queryName" placeholder="Unamed" type="text">
+              </div>
+
               <br/>
 
-              <button class="button pull-right save-visualization">
+              <hr/>
+              <button class="button pull-right snapshot">
+                <span class="ss-icon">camera</span>
+                Snapshot
+              </button>
+              <button class="button pull-right save">
                 <span class="ss-icon">file</span>
                 Save
               </button>
-              <button class="button submit" id="buildBarChart">
-                <span class="ss-icon">flask</span>
-                Generate
+              <button class="button submit" data-id="vis-barchart">
+                <span class="ss-icon">sync</span>
+                Run
               </button>
 
               <div class="close">
                 <span class="ss-icon">close</span>
               </div>
-
-            </div>
+            </form>
 
             <div class="container">
             </div>
+
           </div>
 
           <div id="vis-stacked-area" class="visualization">
 
-            <div class="options">
+            <form class="options">
 
               <h3>Stacked Area Chart</h3>
               <hr/>
@@ -337,7 +360,7 @@
               </p>
               <div class="input-top validate-keys">
                 <span class="add-on">Y Axis</span>
-                <input class="pathsToValues" id="vis-stacked-area-pathsToValues"/>
+                <input data-id="pathsToValues"/>
               </div>             
               <p>
                 If `X` is a Javascript-parsable date, you can also specify a
@@ -345,11 +368,11 @@
               </p>
               <div class="input">
                 <span class="add-on">X Axis</span>
-                <input class="pathToX validate-key" id="vis-stacked-area-pathToX" placeholder="foo.bar.date" type="text">
+                <input class="validate-key" data-id="pathToX" placeholder="foo.bar.date" type="text">
               </div>
               <div class="input">
                 <span class="add-on">Date Time Format</span>
-                <input class="dateTimeFormat" id="vis-stacked-area-format" placeholder="DD-MM-YY-HH-MM" type="text">
+                <input data-id="dateTimeFormat" placeholder="DD-MM-YY-HH-MM" type="text">
               </div>
 
               <p>
@@ -358,43 +381,60 @@
               </p>
               <div class="input">
                 <span class="add-on">Start Date</span>
-                <input type="text" placeholder="Optional"  class="datepicker dateStart">
+                <input type="text" placeholder="Optional" data-id="dateStart" class="datepicker">
               </div>
               <div class="input">
                 <span class="add-on">End Date</span>
-                <input type="text" placeholder="Optional" class="datepicker dateEnd">
+                <input type="text" placeholder="Optional" data-id="dateEnd" class="datepicker">
               </div>
               <br/>
+
+              <p>
+                Provide a name for this query so that it can be viewed later.
+              </p>
+
+              <div class="input">
+                <span class="add-on">Name</span>
+                <input data-id="queryName" placeholder="Unamed" type="text">
+              </div>
+
               <br/>
 
-              <button class="button pull-right save-visualization">
+              <hr/>
+
+              <button class="button pull-right snapshot">
+                <span class="ss-icon">camera</span>
+                Snapshot
+              </button>
+              <button class="button pull-right save">
                 <span class="ss-icon">file</span>
                 Save
               </button>
-              <button class="button submit" id="buildStackedAreaChart">
-                <span class="ss-icon">flask</span>
-                Generate
+              <button class="button submit" data-id="vis-stackedchart">
+                <span class="ss-icon">sync</span>
+                Run
               </button>
 
               <div class="close">
                 <span class="ss-icon">close</span>
               </div>
-
-            </div>
+            </form>
 
             <div class="container">
             </div>
+
           </div>
 
           <div id="chooseVisualization" class="overlay">
             <h1 class="ss-icon">talk</h1>
-            <h3>Select a visualization, configure and generate it.</h3>
+            <h3>Select a visualization, configure and run it.</h3>
           </div>
 
           <div id="selectKeys" class="overlay">
             <h1 class="ss-icon">talk</h1>
-            <h3>Sandbox the keys and values that you want to visualize.</h3>
+            <h3>Query or tag keys to visualize their values.</h3>
           </div>
+
         </div>
       </div>
 

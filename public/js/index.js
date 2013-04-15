@@ -26,11 +26,13 @@ $(function() {
     socket.send(message);
   }
 
-  function getOpts() {
+  function getQuery() {
+
+    var reverse = !!$('#reverse:checked').length;
 
     var opts = {
       limit: parseInt($limit.val()) || 1000,
-      reverse: !!$('#reverse:checked').length
+      reverse: reverse
     };
 
     if ($startKey.val().length > 0) {
@@ -41,7 +43,29 @@ $(function() {
       opts.end = $endKey.val();
     }
 
+    //
+    // TODO: this will probably change in > levelup 0.7.0
+    //
+    if (reverse) {
+      var end = opts.end;
+      opts.end = opts.start;
+      opts.start = end;
+      opts.limit = opts.limit;
+    }
+
     return opts;
+  }
+
+  function serializeVisibleForm() {
+
+    var $inputs = $visualizations.find('.visualization:visible form input');
+    var form = {};
+
+    $inputs.each(function() {
+      form[$(this).attr('data-id')] = $(this).val();
+    });
+
+    return form;
   }
 
   function getSelectedKeys() {
@@ -61,9 +85,9 @@ $(function() {
     clearTimeout(inputBounce);
     inputBounce = setTimeout(function() {
 
-      send({ 
+      send({
         request: 'keyListUpdate', 
-        value: getOpts()
+        value: getQuery()
       });
 
     }, 16);
@@ -159,6 +183,8 @@ $(function() {
     //
     else if (response === 'keyListUpdate') {
 
+      var currentSelections = $keyList.val();
+
       $keyList.empty();
       $selectedKeyCount.text('');
 
@@ -170,21 +196,12 @@ $(function() {
       }
 
       message.value.forEach(function(key) {
+        if (key)
         $keyList.append(keyTemplate.replace(/{{key}}/g, key));
       });
-    }
 
-    //
-    // count the tagged keys
-    // TODO: 
-    //
-    else if (response === 'allTaggedKeys') {
-      if (message.value.length > 0) {
-        $selectKeys.hide();
-      }
-      else {
-        $selectKeys.show();
-      }
+      $keyList.val(currentSelections);
+      $keyList.trigger('change');
     }
 
     //
@@ -200,38 +217,23 @@ $(function() {
     //
     // when an input value needs to be validated
     //
-    else if (response === 'validateKey') {
+    else if (response === 'vis-validateKey') {
 
       if (value.valid) {
-        $('#' + value.id)
+        $('[data-id="' + value.id + '"]')
           .removeClass('invalid')
           .closest('.input')
           .removeClass('invalid');
       }
     }
-
-    //
-    // build a tree map
-    //
-    else if (response === 'buildTreeMap') {
-
-      VIS.buildTreeMap(value);
+    else if (response === 'vis-treemap') {
+      VIS.treemap(value);
     }
-
-    //
-    // build a stacked area chart
-    //
-    else if (response === 'buildStackedAreaChart') {
-
-      VIS.buildStackedAreaChart(value);
+    else if (response === 'vis-stackedchart') {
+      VIS.stackedchart(value);
     }
-
-    //
-    // build a bar chart
-    //
-    else if (response === 'buildBarChart') {
-
-      VIS.buildBarChart(value);
+    else if (response === 'vis-barchart') {
+      VIS.barchart(value);
     }
 
   };
@@ -247,20 +249,10 @@ $(function() {
       keyListUpdate();
     }
     else if (this.id == 'nav-vis') {
-      currentDatasource = 'tagdb';
+      currentDatasource = 'usrdb';
       $visualizations.show();
-
-      send({
-        request: 'allTaggedKeys',
-        value: getOpts()
-      });      
     }
-    else if (this.id === 'nav-tags') {
-      currentDatasource = 'tagdb';
-      $visualizations.hide();
-      keyListUpdate();
-    }
-    else if (this.id == 'nav-fav') {
+    else if (this.id == 'nav-tag') {
       currentDatasource = 'sysdb';
       $visualizations.hide();
       keyListUpdate();
@@ -269,6 +261,15 @@ $(function() {
     $selectOne.show();
 
   });
+
+
+  setInterval(function () {
+
+    if ($keyList.scrollTop() === 0) {
+      keyListUpdate();
+    }
+
+  }, 5e3);
 
   //
   // when a user selects a single item from the key list
@@ -311,7 +312,7 @@ $(function() {
       operations.push({ type: 'del', key: this.value });
     });
 
-    var value = { operations: operations, opts: getOpts() };
+    var value = { operations: operations, opts: getQuery() };
 
     send({
       request: 'deleteValues',
@@ -339,21 +340,10 @@ $(function() {
   });
 
   //
-  // when the user wants to favorite the currently selected keys
-  //
-  $('#addto-favs').click(function() {
-
-    send({
-      request: 'favKeys',
-      value: getSelectedKeys()
-    });
-  });
-
-  //
   // when the user wants to tag the currently selected keys
   //
   $('#addto-tags').click(function() {
-    
+
     send({
       request: 'tagKeys',
       value: getSelectedKeys()
@@ -405,22 +395,31 @@ $(function() {
   //
   //  visualization sidebar navigation
   //
-  var $visualizationLinks = $('#visualizations .left a.primary');
+  var $visualizationLinks = $('#visualizations .left .links-container');
 
   $visualizationLinks.on('click', function() {
-    $visualizationLinks.each(function() {
+
+    $selectKeys.hide();
+
+    $visualizationLinks.each(function(el) {
       $(this).removeClass('selected');
-      $(this).next('.links').slideUp('fast');
+      $(this).find('.links').slideUp('fast');
     });
+
     $(this).addClass('selected');
-    $(this).next('.links').slideDown('fast');
+    $(this).find('.links').slideDown('fast');
+    location.hash = $(this).attr('data-target');
   });
 
-  var $configurationLinks = $('#visualizations .left a.secondary');
+  var $queryCreationLinks = $('#visualizations .add-query');
 
-  $configurationLinks.on('click', function(event) {
+  $queryCreationLinks.on('click', function(event) {
+
+    $(this).closest('.links-container').trigger('click');
+
     $chooseVisualization.hide();
-    $(".visualization:visible .options").toggle();
+    $('.visualization .options').hide();
+    $('.visualization:visible .options').show();
 
     event.preventDefault();
     return false;
@@ -454,10 +453,13 @@ $(function() {
     clearTimeout(validateBounce);
     validateBounce = setTimeout(function() {
 
-      var value = { id: that.id, key: that.value };
+      var value = getQuery();
+
+      value.id = $(that).attr('data-id');
+      value.path = that.value;
 
       send({
-        request: 'validateKey',
+        request: 'vis-validateKey',
         value: value
       });
 
@@ -481,7 +483,7 @@ $(function() {
   //
   // add plot-table objects to the stacked area chart
   //
-  $('#vis-stacked-area .pathsToValues').tagsInput({
+  $('[data-id="pathsToValues"]').tagsInput({
     width: '',
     height: '60px',
     defaultText: 'Add an object path',
@@ -495,47 +497,17 @@ $(function() {
       var value = { id: id, key: key };
 
       send({
-        request: 'validateKey',
+        request: 'vis-validateKey',
         value: value
       });
 
     }
   });
-
-  //
-  // build a stacked area chart
-  //
-  $('#buildStackedAreaChart').on('click', function() {
-
-    var $visibleVisualization = $('.visualization:visible');
-
-    var value = {
-      pathToX: $visibleVisualization.find('.pathToX').val(),
-      pathsToValues: $visibleVisualization.find('.pathsToValues').val(),
-      dateTimeFormat: $visibleVisualization.find('.dateTimeFormat').val()
-    };
-
-    var dateStart = $visibleVisualization.find('.dateStart').val();
-    var dateEnd = $visibleVisualization.find('.dateEnd').val();
-
-    if (dateStart.length > 0) {
-      value.dateStart = dateStart;
-    }
-
-    if (dateEnd.length > 0) {
-      value.dateEnd = dateEnd;
-    }
-
-    send({
-      request: 'buildStackedAreaChart',
-      value: value
-    });
-  });
   
   //
   // save a visualization as an image
   //
-  $('.save-visualization').on('click', function() {
+  $('.snapshot').on('click', function() {
 
     var canvas = document.createElement('canvas');
     canvg(canvas, $(".visualization:visible .container").html().trim());
@@ -545,46 +517,35 @@ $(function() {
   });
 
   //
-  // build a tree-map
+  // submit a visualization form
   //
-  $('#buildTreeMap').on('click', function() {
+  $('.submit').on('click', function() {
+
+    var value = {
+      query: getQuery(),
+      options: serializeVisibleForm()
+    };
 
     send({
-      request: 'buildTreeMap',
-      value: $('#treeMapToken').val()
+      request: $(this).attr('data-id'),
+      value: value
     });
   });
 
   //
-  // build a bar chart
+  // save a visualization
   //
-  $('#buildBarChart').on('click', function() {
-
-    var $visibleVisualization = $('.visualization:visible');
+  $('.save').on('click', function() {
 
     var value = {
-      pathToX: $visibleVisualization.find('.pathToX').val(),
-      pathToY: $visibleVisualization.find('.pathToY').val(),
-      pathToXMask: $visibleVisualization.find('.pathToXMask').val(),
-      dateTimeFormat: $visibleVisualization.find('.dateTimeFormat').val()
+      query: getQuery(),
+      options: serializeVisibleForm()
     };
 
-    var dateStart = $visibleVisualization.find('.dateStart').val();
-    var dateEnd = $visibleVisualization.find('.dateEnd').val();
-
-    if (dateStart.length > 0) {
-      value.dateStart = dateStart;
-    }
-
-    if (dateEnd.length > 0) {
-      value.dateEnd = dateEnd;
-    }
-
     send({
-      request: 'buildBarChart',
+      request: 'vis-save',
       value: value
     });
   });
 
 });
-

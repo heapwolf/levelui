@@ -1,6 +1,6 @@
 VIS = {};
 
-VIS.buildBarChart = function(data) {
+VIS.barchart = function(data) {
 
   var $visbar = $("#vis-bar .container");
   $visbar.empty();
@@ -121,7 +121,7 @@ VIS.buildBarChart = function(data) {
         .style("fill", function(d) { return colorScale(d.score); });
 };
 
-VIS.buildStackedAreaChart = function(data) {
+VIS.stackedchart = function(data) {
 
   console.log(data)
 
@@ -235,7 +235,7 @@ VIS.buildStackedAreaChart = function(data) {
         .call(yAxis);
 };
 
-VIS.buildTreeMap = function(data) {
+VIS.treemap = function(data) {
 
   $("#vis-tree-map .container").empty();
 
