@@ -2,7 +2,7 @@ VIS = {};
 
 VIS.barchart = function(data) {
 
-  var $visbar = $("#vis-bar .container");
+  var $visbar = $("#barchart .container");
   $visbar.empty();
 
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -25,7 +25,7 @@ VIS.barchart = function(data) {
       .scale(y)
       .orient("left");
 
-  var svg = d3.select("#vis-bar .container").append("svg")
+  var svg = d3.select("#barchart .container").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -125,7 +125,7 @@ VIS.stackedchart = function(data) {
 
   console.log(data)
 
-  var $container = $("#vis-stacked-area .container");
+  var $container = $("#stackedchart .container");
 
   $container.empty();
 
@@ -164,7 +164,7 @@ VIS.stackedchart = function(data) {
   var stack = d3.layout.stack()
       .values(function(d) { return d.values; });
 
-  var svg = d3.select("#vis-stacked-area .container").append("svg")
+  var svg = d3.select("#stackedchart .container").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -237,10 +237,10 @@ VIS.stackedchart = function(data) {
 
 VIS.treemap = function(data) {
 
-  $("#vis-tree-map .container").empty();
+  $("#treemap .container").empty();
 
-  var w = $("#vis-tree-map .container").width(),
-      h = $("#vis-tree-map .container").height(),
+  var w = $("#treemap .container").width(),
+      h = $("#treemap .container").height(),
       x = d3.scale.linear().range([0, w]),
       y = d3.scale.linear().range([0, h]),
       color = d3.scale.category20c(),
@@ -253,7 +253,7 @@ VIS.treemap = function(data) {
       .sticky(true)
       .value(function(d) { return d.size; });
 
-  var svg = d3.select("#vis-tree-map .container").append('div')
+  var svg = d3.select("#treemap .container").append('div')
       .attr("class", "chart")
     .append("svg:svg")
       .attr("width", w)
@@ -291,7 +291,7 @@ VIS.treemap = function(data) {
 
     d3.select(window).on("click", function() { zoom(root); });
 
-    d3.select("#vis-tree-map select").on("change", function() {
+    d3.select("#treemap select").on("change", function() {
       treemap.value(this.value == "size" ? size : count).nodes(root);
       zoom(node);
     });
@@ -324,5 +324,59 @@ VIS.treemap = function(data) {
 
     node = d;
     d3.event.stopPropagation();
+  }
+};
+
+VIS.timeseries = function() {
+
+  var metrics = [];
+
+  function addVisualizationMetric(name) {
+
+    cache[name] = [];
+
+    var last;
+
+    var m = context.metric(function(start, stop, step, callback) {
+
+      start = +start, stop = +stop;
+      if (isNaN(last)) last = start;
+
+      socket.send(JSON.stringify({ key: name }));
+      
+      cache[name] = cache[name].slice((start - stop) / step);
+      callback(null, cache[name]);
+    }, name);
+
+    m.name = name;
+    return m;
+  }
+
+  function renderVisualization() {
+    d3.select("#main").call(function(div) {
+
+      div
+        .append("div")
+        .attr("class", "axis")
+        .call(context.axis().orient("top"));
+
+      div
+        .selectAll(".horizon")
+          .data(metrics)
+        .enter().append("div")
+          .attr("class", "horizon")
+          .call(context.horizon().extent([-20, 20]).height(125));
+
+      div.append("div")
+        .attr("class", "rule")
+         .call(context.rule());
+
+    });
+
+    // On mousemove, reposition the chart values to match the rule.
+    context.on("focus", function(i) {
+      var px = i == null ? null : context.size() - i + "px";
+      d3.selectAll(".value").style("right", px);
+    });
   }
 };

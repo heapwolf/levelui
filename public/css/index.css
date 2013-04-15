@@ -306,11 +306,40 @@ header nav ul li:first-of-type {
   overflow: visible;
 }
 
-.links-container:hover .add-query {
+.links-container:hover .configure {
   display: block;
 }
 
-.add-query {
+.links-container a.secondary {
+  display: block;
+  position: relative;
+  margin-top: 8px;
+  color: #666;
+  padding: 2px;
+  padding-right: 8px;
+}
+
+.links-container a.secondary:hover .delete,
+.links-container a.secondary:hover {
+  color: #3c7cd4;
+  display: block;
+}
+
+.links-container a.secondary.selected {
+  color: #3c7cd4;
+}
+
+.links-container a.secondary .delete {
+  display: none;
+  color: #666;
+  position: absolute;
+  right: 0px;
+  top: 2px;
+  padding-left: 4px;
+  background-color: #fff;
+}
+
+.configure {
   display: none;
   position: absolute;
   top: -2px;
@@ -323,7 +352,7 @@ header nav ul li:first-of-type {
 
 #visualizations .links {
   display: none;
-  margin: 10px 20px;
+  margin: 10px 6px 0px 20px;
   font-size: 12px;
 }
 

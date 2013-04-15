@@ -16,9 +16,11 @@ $(function() {
   var $visualizations = $('#visualizations');
 
   var keyTemplate = '<option value="{{key}}" title="{{key}}">{{key}}</option>';
+  var queryTemplate = '<a class="secondary" data-key="{{key}}">{{name}}<div class="delete ss-icon">delete</div></a>';
 
   var currentSelection = '';
   var currentDatasource = 'usrdb';
+  var editing = false;
 
   function send(message) {
     message.dbname = currentDatasource;
@@ -97,56 +99,8 @@ $(function() {
   // visualization stuff
   //
   var cache = {};
-  var metrics = [];
-
-  function addVisualizationMetric(name) {
-
-    cache[name] = [];
-
-    var last;
-
-    var m = context.metric(function(start, stop, step, callback) {
-
-      start = +start, stop = +stop;
-      if (isNaN(last)) last = start;
-
-      socket.send(JSON.stringify({ key: name }));
-      
-      cache[name] = cache[name].slice((start - stop) / step);
-      callback(null, cache[name]);
-    }, name);
-
-    m.name = name;
-    return m;
-  }
-
-  function renderVisualization() {
-    d3.select("#main").call(function(div) {
-
-      div
-        .append("div")
-        .attr("class", "axis")
-        .call(context.axis().orient("top"));
-
-      div
-        .selectAll(".horizon")
-          .data(metrics)
-        .enter().append("div")
-          .attr("class", "horizon")
-          .call(context.horizon().extent([-20, 20]).height(125));
-
-      div.append("div")
-        .attr("class", "rule")
-         .call(context.rule());
-
-    });
-
-    // On mousemove, reposition the chart values to match the rule.
-    context.on("focus", function(i) {
-      var px = i == null ? null : context.size() - i + "px";
-      d3.selectAll(".value").style("right", px);
-    });
-  }
+  var queries = {};
+  var poll;
 
   //
   // socket stuff
@@ -188,14 +142,14 @@ $(function() {
       $keyList.empty();
       $selectedKeyCount.text('');
 
-      if (message.value.length > 0) {
+      if (value.length > 0) {
         $noKeys.hide();
       }
       else {
         $noKeys.show();
       }
 
-      message.value.forEach(function(key) {
+      value.forEach(function(key) {
         if (key)
         $keyList.append(keyTemplate.replace(/{{key}}/g, key));
       });
@@ -215,12 +169,12 @@ $(function() {
     }
 
     //
-    // when an input value needs to be validated
+    // visualization events
     //
-    else if (response === 'vis-validateKey') {
+    else if (response === 'vis-validatekey') {
 
       if (value.valid) {
-        $('[data-id="' + value.id + '"]')
+        $('.visualization:visible form [data-id="' + value.id + '"]')
           .removeClass('invalid')
           .closest('.input')
           .removeClass('invalid');
@@ -234,6 +188,24 @@ $(function() {
     }
     else if (response === 'vis-barchart') {
       VIS.barchart(value);
+    }
+    else if (response === 'vis-fetch') {
+
+      var $group = $('[data-group="' + value.group + '"]');
+      var query;
+
+      queries[value.group] = value.queries;
+
+      $group.empty();
+
+      Object.keys(value.queries).forEach(function(key) {
+        query = queryTemplate.replace(/{{key}}/g, value.queries[key].key);
+
+        var queryName = value.queries[key].value.options.queryName
+
+        query = query.replace(/{{name}}/g, queryName);
+        $group.append(query);
+      });
     }
 
   };
@@ -265,7 +237,7 @@ $(function() {
 
   setInterval(function () {
 
-    if ($keyList.scrollTop() === 0) {
+    if ($keyList.scrollTop() === 0 && editing === false) {
       keyListUpdate();
     }
 
@@ -369,6 +341,15 @@ $(function() {
   //
   // if the data in the editor changes and it's valid, save it
   //
+
+  editor_json.on('blur', function() {
+    editing = false;
+  });
+
+  editor_json.on('focus', function() {
+    editing = true;
+  });
+
   var saveBounce;
   editor_json.on('change', function(cm, change) {
 
@@ -399,6 +380,17 @@ $(function() {
 
   $visualizationLinks.on('click', function() {
 
+    if ($(this).hasClass('selected')) {
+      return;
+    }
+
+    send({
+      request: 'vis-fetch',
+      value: {
+        group: $(this).find('.links').attr('data-group')
+      }
+    });
+
     $selectKeys.hide();
 
     $visualizationLinks.each(function(el) {
@@ -411,9 +403,12 @@ $(function() {
     location.hash = $(this).attr('data-target');
   });
 
-  var $queryCreationLinks = $('#visualizations .add-query');
+  //
+  // configure query
+  //
+  var $addQueryLinks = $('#visualizations .configure');
 
-  $queryCreationLinks.on('click', function(event) {
+  $addQueryLinks.on('click', function(event) {
 
     $(this).closest('.links-container').trigger('click');
 
@@ -423,6 +418,65 @@ $(function() {
 
     event.preventDefault();
     return false;
+  });
+
+  //
+  // restore a query that has been saved
+  //
+  var $savedQueries = $visualizationLinks.find('.links');
+
+  $savedQueries.on('click', 'a', function() {
+
+    var key = $(this).attr('data-key');
+    var group = $(this).parent().attr('data-group');
+    var options = queries[group][key].value.options;
+    var $form = $('.visualization:visible form');
+
+    $chooseVisualization.hide();
+    $('.visualization .options').hide();
+
+    $savedQueries.find('a').each(function(el) {
+      $(this).removeClass('selected');
+    });
+
+    $(this).addClass('selected');
+
+    Object.keys(options).forEach(function(key) {
+
+      $form
+        .find('[data-id="' + key + '"]')
+        .val(options[key]);
+    })
+
+    function submit() {
+
+      console.log(editing)
+      if ($('.visualization:visible').length > 0 && editing === false) {
+        send({
+          request: 'vis-' + group,
+          value: queries[group][key].value
+        });
+      }
+    }
+
+    submit();
+    clearInterval(poll);
+    poll = setInterval(submit, 5e3);
+
+    $form.find('.submit .label').text('Pause');
+    $form.find('.submit .ss-icon').text('pause');
+
+  });
+
+  $savedQueries.on('click', '.delete', function() {
+
+    send({
+      request: 'vis-delete',
+      value: {
+        key: $(this).parent().attr('data-key'),
+        group: $(this).parent().parent().attr('data-group')
+      }
+    });
   });
 
   //
@@ -459,7 +513,7 @@ $(function() {
       value.path = that.value;
 
       send({
-        request: 'vis-validateKey',
+        request: 'vis-validatekey',
         value: value
       });
 
@@ -497,7 +551,7 @@ $(function() {
       var value = { id: id, key: key };
 
       send({
-        request: 'vis-validateKey',
+        request: 'vis-validatekey',
         value: value
       });
 
@@ -521,15 +575,35 @@ $(function() {
   //
   $('.submit').on('click', function() {
 
-    var value = {
-      query: getQuery(),
-      options: serializeVisibleForm()
-    };
+    var that = this;
 
-    send({
-      request: $(this).attr('data-id'),
-      value: value
-    });
+    function submit() {
+
+      if ($('.visualization:visible').length > 0 && editing === false) {
+
+        send({
+          request: $(that).attr('data-id'),
+          value: {
+            query: getQuery(),
+            options: serializeVisibleForm()
+          }
+        });
+      }
+    }
+
+    if (poll) {
+      clearInterval(poll);
+      $(this).find('.label').text('Run');
+      $(this).find('.ss-icon').text('sync');
+      poll = null;
+    }
+    else {
+      submit();
+      $(this).find('.label').text('Pause');
+      $(this).find('.ss-icon').text('pause');
+      poll = setInterval(submit, 5e3);
+    }
+
   });
 
   //
