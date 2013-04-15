@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+var fs = require("fs");
+
+if (!fs.watch) {
+    console.log("Your system does not support fs.watch");
+    console.log("buster-autotest will unfortunately not work.");
+    console.log("Please consult the Node documentation for more information.");
+    process.exit(1);
+}
+
+var autotest = require("buster-autotest");
+var argv = process.argv.slice(2);
+var cwd = process.cwd();
+autotest.watch(cwd, { argv: argv });
+console.log("Watching", cwd);
+console.log("Test command:");
+console.log("    buster-test", argv.join(" "), "\n");
+console.log("Have fun!");

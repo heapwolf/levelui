@@ -1,0 +1,18 @@
+{
+    "paths": [
+        "lib/*.js",
+        "test/*.js"
+    ],
+    "linterOptions": {
+        "node": true,
+        "onevar": false,
+        "plusplus": false,
+        "nomen": false,
+        "forin": true,
+        "predef": [
+            "assert",
+            "refute",
+            "buster"
+        ]
+    }
+}

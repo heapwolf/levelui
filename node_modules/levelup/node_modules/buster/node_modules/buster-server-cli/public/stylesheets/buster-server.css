@@ -1,0 +1,95 @@
+h2 {
+    margin-top: 0;
+}
+
+.browsers {
+    margin: 0 0 1em;
+}
+
+.browsers li {
+    background: 6px 50% no-repeat #f8f8f8;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    list-style: none;
+    padding: 18px 6px 12px 82px;
+    width: 710px;
+}
+
+.browsers li > div {
+    padding-left: 85px;
+    margin-left: 10px;
+    display: table;
+    height: 70px;
+    #position: relative;
+    overflow: hidden;
+}
+
+.browsers li > div > div {
+    display: table-cell;
+    vertical-align: middle;
+    #position: absolute;
+    #top: 50%;
+}
+
+.browsers li > div > div > div {
+    #position: relative;
+    #top: -50%;
+}
+
+.browsers h3 {
+    border: none;
+    line-height: 1;
+    margin: 0 0 .25em;
+}
+
+.browsers p {
+    border: none;
+    color: #666;
+    font-size: .9em;
+    margin: 0 0 .25em;
+}
+
+.browsers .firefox {
+    background-image: url(../images/firefox-64.png);
+}
+
+.browsers .chrome {
+    background-image: url(../images/chrome-64.png);
+}
+
+.browsers .opera {
+    background-image: url(../images/opera-64.png);
+}
+
+.browsers .safari {
+    background-image: url(../images/safari-64.png);
+}
+
+.browsers .android {
+    background-image: url(../images/android-64.png);
+}
+
+.browsers .ie {
+    background-image: url(../images/ie-64.png);
+}
+
+.browsers .safari-mobile {
+    background-image: url(../images/safari-mobile-64.png);
+}
+
+.browsers li > div {
+    padding-left: 85px;
+    margin-left: 0;
+    min-height: 64px;
+    background: url(../images/linux-64.png) no-repeat;
+}
+
+.browsers .windows > div {
+    background: url(../images/windows-64.png) no-repeat;
+}
+
+.browsers .os_x > div {
+    background: url(../images/osx-colored-64.png) no-repeat;
+}

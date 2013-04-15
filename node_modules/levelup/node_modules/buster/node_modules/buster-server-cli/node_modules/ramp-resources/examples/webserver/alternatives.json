@@ -1,0 +1,12 @@
+["fixtures/**/*", {
+    "path": "/",
+    "content": "<h1>Welcome, stranger!</h1><ul><li><a href='some.coffee'>A 'coffeescript' file</a></li><li><a href='./some.coffee?rampMimeType=application/javascript'>Compiled resource</a></li></ul>"
+}, {
+    "path": "/some.coffee",
+    "content": "a = 1",
+    "mimeType": "application/x-coffeescript",
+    "alternatives": [{
+        "mimeType": "application/javascript",
+        "content": "(function () { var a = 1; }());"
+    }]
+}]

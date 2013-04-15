@@ -1,0 +1,7 @@
+["fixtures/**/*", {
+    "path": "/",
+    "content": "<h1>Welcome, stranger!</h1><ul><li><a href='fixtures/1.png'>A png</a></li><li><a href='./fixtures/2.html'>A web page</a></li><li><a href='fixtures/3.txt'>A text file</a></li><li><a href='fixtures/4.tgz'>A tgz file</a></li><li><a href='twitter/'>A proxy</a></ul>"
+}, {
+    "path": "/twitter",
+    "backend": "http://twitter.com"
+}]

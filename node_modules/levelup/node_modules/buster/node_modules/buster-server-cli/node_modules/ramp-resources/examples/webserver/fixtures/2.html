@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Sinon.JS - Versatile standalone test spies, stubs and mocks for JavaScript</title>
+    <link rel="stylesheet" type="text/css" href="/design/css/sinon.min.css?7">
+  </head>
+  <body class="front">
+    <div class="payoff">
+      <h1>Sinon.JS</h1>
+      <p>
+        Standalone test spies, stubs and mocks for JavaScript. No dependencies,
+        works with any unit testing framework.
+      </p>
+      <div class="download">
+        <div class="button"><a href="releases/sinon-1.3.1.js">Download Sinon.JS 1.3.1</a></div>
+        <p>
+          2012-01-04 -
+          <a href="Changelog.txt">Changelog</a> -
+          <a href="https://github.com/cjohansen/Sinon.JS">Source code</a> -
+          <a href="docs/">Documentation</a>
+        </p>
+      </div>
+    </div>
+    <div class="examples" id="examples">
+      <h2>What does Sinon.JS look like?</h2>
+      <ul class="nav">
+        <li class="active"><a href="#spy_example">Test spies</a></li>
+        <li><a href="#stub_example">Test stubs</a></li>
+        <li><a href="#mock_example">Mocks</a></li>
+        <li><a href="#timers_example">Fake timers</a></li>
+        <li><a href="#xhr_example">Fake XHR</a></li>
+        <li><a href="#server_example">Fake server</a></li>
+        <li><a href="#sandbox_example">Sandboxing</a></li>
+        <li><a href="#assertion_example">Assertions</a></li>
+      </ul>
+      <div id="spy_example">
+        <pre class="sh_javascript"><code>"test should call subscriber": function () {
+    var spy = sinon.spy();
+
+    PubSub.subscribe("message", spy);
+    PubSub.publishSync("message", undefined);
+
+    assertTrue(spy.called);
+}</code></pre>
+        <p>
+          <a href="docs/#spies">Spy documentation</a>.
+          Example is a modified test from Morgan Roderick's
+          <a href="https://github.com/mroderick/PubSubJS/">PubSubJS</a>.
+        </p>
+      </div>
+      <div id="stub_example">
+        <pre class="sh_javascript"><code>"test should call all subscribers when exceptions": function () {
+    var spy = sinon.spy();
+    var stub = sinon.stub().throws("Error");
+
+    PubSub.subscribe("message", stub);
+    PubSub.subscribe("message", spy);
+
+    PubSub.publishSync("message", undefined);
+
+    assertTrue(stub.called);
+    assertTrue(spy.called);
+}</code></pre>
+        <p>
+          <a href="docs/#stubs">Stub documentation</a>.
+          Example is a modified test from Morgan Roderick's
+          <a href="https://github.com/mroderick/PubSubJS/">PubSubJS</a>.
+        </p>
+      </div>
+      <div id="mock_example">
+        <pre class="sh_javascript"><code>"test should call subscriber": function () {
+    var myAPI = { method: function () {} };
+
+    var mock = sinon.mock(myAPI);
+    mock.expects("method").once();
+
+    PubSub.subscribe("message", myAPI.method);
+    PubSub.publishSync("message", undefined);
+
+    mock.verify();
+}</code></pre>
+        <p>
+          <a href="docs/#mocks">Mock documentation</a>.
+          Example is a modified test from Morgan Roderick's
+          <a href="https://github.com/mroderick/PubSubJS/">PubSubJS</a>.
+        </p>
+      </div>
+      <div id="timers_example">
+        <pre class="sh_javascript"><code>{
+    setUp: function () {
+        this.clock = sinon.useFakeTimers();
+    },
+
+    tearDown: function () {
+        this.clock.restore();
+    },
+
+    "test should animate element over 500ms" : function(){
+        var el = jQuery("&lt;div>&lt;/div>");
+        el.appendTo(document.body);
+
+        el.animate({ height: "200px", width: "200px" });
+        this.clock.tick(510);
+
+        assertEquals("200px", el.css("height"));
+        assertEquals("200px", el.css("width"));
+    }
+}</code></pre>
+        <p><a href="docs/#clock">Timers documentation</a></p>
+      </div>
+      <div id="xhr_example">
+        <pre class="sh_javascript"><code>{
+    setUp: function () {
+        this.xhr = sinon.useFakeXMLHttpRequest();
+        var requests = this.requests = [];
+
+        this.xhr.onCreate = function (xhr) {
+            requests.push(xhr);
+        };
+    },
+
+    tearDown: function () {
+        this.xhr.restore();
+    },
+
+    "test should fetch comments from server" : function () {
+        var callback = sinon.spy();
+        myLib.getCommentsFor("/some/article", callback);
+        assertEquals(1, this.requests.length);
+
+        this.requests[0].respond(200, { "Content-Type": "application/json" },
+                                 '[{ "id": 12, "comment": "Hey there" }]');
+        assert(callback.calledWith([{ id: 12, comment: "Hey there" }]));
+    }
+}</code></pre>
+        <p><a href="docs/#server">Fake XHR/server documentation</a></p>
+      </div>
+      <div id="server_example">
+        <pre class="sh_javascript"><code>{
+    setUp: function () {
+        this.server = sinon.fakeServer.create();
+    },
+
+    tearDown: function () {
+        this.server.restore();
+    },
+
+    "test should fetch comments from server" : function () {
+        this.server.respondWith("GET", "/some/article/comments.json",
+                                [200, { "Content-Type": "application/json" },
+                                 '[{ "id": 12, "comment": "Hey there" }]']);
+
+        var callback = sinon.spy();
+        myLib.getCommentsFor("/some/article", callback);
+        this.server.respond();
+
+        assert(callback.calledWith([{ id: 12, comment: "Hey there" }]));
+    }
+}</code></pre>
+        <p><a href="docs/#server">Fake XHR/server documentation</a></p>
+      </div>
+      <div id="sandbox_example">
+        <p>
+          Example is a modified test from Morgan Roderick's
+          <a href="https://github.com/mroderick/PubSubJS/">PubSubJS</a>.
+        </p>
+        <pre class="sh_javascript"><code>"test using sinon.test sandbox": sinon.test(function () {
+    var myAPI = { method: function () {} };
+    sinon.mock(myAPI).expects("method").once();
+
+    PubSub.subscribe("message", myAPI.method);
+    PubSub.publishSync("message", undefined);
+})</code></pre>
+        <p><a href="docs/#sandbox">Sandbox documentation</a></p>
+      </div>
+      <div id="assertion_example">
+        <p>
+          Example is a modified test from Morgan Roderick's
+          <a href="https://github.com/mroderick/PubSubJS/">PubSubJS</a>.
+        </p>
+        <pre class="sh_javascript"><code>"test should call subscribers with message as first argument" : function () {
+    var message = getUniqueString();
+    var spy = sinon.spy();
+
+    PubSub.subscribe(message, spy);
+    PubSub.publishSync(message, "some payload");
+
+    sinon.assert.calledOnce(spy);
+    sinon.assert.calledWith(spy, message);
+}</code></pre>
+        <p><a href="docs/#assertions">Assertions documentation</a></p>
+      </div>
+    </div>
+    <div class="docs-intro">
+      <h2>Documentation</h2>
+      <ul>
+        <li><a href="docs/">Sinon.JS documentation</a></li>
+        <li><a href="http://cjohansen.no/talks/2011/xp-meetup/">105 slides on Sinon.JS</a></li>
+      </ul>
+      <p><a href="http://cjohansen.no/en/sinon_js/sinon_js_1_3_0_out_now">What's new in 1.3.0?</a></p>
+      <p><a href="http://cjohansen.no/en/sinon_js/sinon_js_1_1_0_out_now">What's new in 1.1.0?</a></p>
+      <h3>Test framework adapters</h3>
+      <ul>
+        <li><a href="http://demo.qooxdoo.org/current/apiviewer/#qx.dev.unit.MMock">qooxdoo (<code>qx.dev.unit.MMock</code>)</a></li>
+        <li><a href="https://github.com/froots/jasmine-sinon">Jasmine matchers</a></li>
+        <li><a href="qunit/">Sinon.JS and QUnit</a></li>
+        <li><a href="nodeunit/">Sinon.JS and nodeunit</a></li>
+      </ul>
+      <h3>Get help</h3>
+      <ul>
+        <li>
+          <a href="http://groups.google.com/group/sinonjs">Sinon.JS mailing list</a>
+        </li>
+        <li>IRC: #sinon.js on freenode</li>
+      </ul>
+      <h3>Sinon.JS elsewhere</h3>
+      <ul>
+        <li><a href="http://tinnedfruit.com/2011/03/03/testing-backbone-apps-with-jasmine-sinon.html">Testing Backbone applications with Jasmine and Sinon</a></li>
+        <li><a href="http://cjohansen.no/en/javascript/using_sinon_js_with_qunit">Using Sinon.JS with QUnit</a></li>
+        <li><a href="http://cjohansen.no/en/javascript/sinon_js_0_6_0_fake_xmlhttprequest_and_improved_test_framework_integration">Faking XMLHttpRequests with Sinon.JS 0.6.0</a></li>
+        <li><a href="http://cjohansen.no/en/javascript/sinon_js_0_5_0_released">Sinon.JS 0.5.0 announcement</a></li>
+        <li><a href="http://cjohansen.no/en/javascript/faking_timers_and_dates_with_sinon">Faking timers and dates with Sinon.JS</a></li>
+        <li><a href="http://cjohansen.no/en/javascript/higer_level_stubbing_and_mocking_tools_in_sinon">Sinon.JS test framework integration tools</a></li>
+        <li><a href="http://cjohansen.no/en/javascript/test_spies_stubs_and_mocks_part_1_5">More
+        spies, stubs and mocks with Sinon.JS</a></li>
+        <li><a href="http://cjohansen.no/en/javascript/javascript_test_spies_stubs_and_mocks">Original Sinon.JS announcement</a></li>
+      </ul>
+      <p>
+        My book, <a href="http://tddjs.com">Test-Driven JavaScript Development</a>
+        covers some of the design philosophy and initial sketches for Sinon.JS.
+      </p>
+    </div>
+    <div class="sidebar">
+      <div class="browsers">
+        <h2>Environments</h2>
+        <ul>
+          <li class="ie"><span>Internet Explorer</span> 6.0+</li>
+          <li class="ff"><span>Firefox</span> 2.0+</li>
+          <li class="chrome"><span>Chrome</span> 7.0+</li>
+          <li class="opera"><span>Opera</span> 10.10+</</li>
+                                                        <li class="safari"><span>Safari</span> 3.2+</li>
+          <li class="mobile-safari"><span>Mobile Safari</span> 3.2+</li>
+          <li class="android-browser"><span>Android browser</span> 2.1+</li>
+          <li class="node-js"><span>Node.js</span> 0.2.x+</li>
+        </ul>
+        <p>
+          These environments have run the full Sinon.JS test suite and are known
+          to work well. If you have data on other browsers, please
+          <a href="mailto:christian@cjohansen.no">send me an email</a>.
+        </p>
+      </div>
+    </div>
+    <div class="aside">
+      <p>Sinon uses <a href="http://semver.org/">Semantic versioning</a>.</p>
+      <p>
+        Copyright 2010 - 2012,
+        <a href="http://cjohansen.no/">Christian Johansen</a>. Released under the
+        <a href="http://www.opensource.org/licenses/bsd-license.php">BSD license</a>.
+      </p>
+      <p class="tweet"><a href="http://twitter.com/share" data-lang="en" data-via="cjno" class="twitter-share-button">Tweet this</a></p>
+    </div>
+    <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/design/js/sinon-web.min.js?4"></script>
+  </body>
+</html>

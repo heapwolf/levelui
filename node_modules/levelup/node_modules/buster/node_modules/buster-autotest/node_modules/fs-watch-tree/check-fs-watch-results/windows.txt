@@ -1,0 +1,65 @@
+WINDOWS
+======================================
+
+Changing file
+--------------------------------------
+  event on dir1: change file.txt
+  event on file.txt: change file.txt
+  event on dir1: change file.txt
+  event on file.txt: change file.txt
+
+Creating file
+--------------------------------------
+  event on root: change dir1
+  event on dir1: rename file2.txt
+  event on root: change dir1
+  event on dir1: change file2.txt
+
+Deleting file
+--------------------------------------
+  event on dir1: rename null
+  event on file.txt: rename file.txt
+
+Renaming file
+--------------------------------------
+  event on dir1: rename null
+  event on dir1: rename new.txt
+  event on file.txt: rename file.txt
+  event on root: change dir1
+  event on dir1: change new.txt
+
+Moving file
+--------------------------------------
+  event on dir1: rename null
+  event on file.txt: rename file.txt
+  event on dir2: rename file.txt
+  event on root: change dir2
+  event on dir2: change file.txt
+
+Creating dir
+--------------------------------------
+  event on dir1: rename dir11
+  event on root: change dir1
+
+Renaming dir
+--------------------------------------
+  event on root: rename null
+  event on root: rename awesomedir
+  event on root: change awesomedir
+
+Moving dir
+--------------------------------------
+  event on root: rename null
+  event on dir2: rename dir1
+  event on root: change dir2
+  event on dir2: change dir1
+
+Deleting dir
+--------------------------------------
+
+events.js:48
+        throw arguments[1]; // Unhandled 'error' event
+                       ^
+Error: watch EPERM
+    at errnoException (fs.js:644:11)
+    at FSEvent.onchange (fs.js:658:26)

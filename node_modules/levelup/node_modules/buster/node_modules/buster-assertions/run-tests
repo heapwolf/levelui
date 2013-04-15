@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+require("./test/buster-assertions-test.js");
+require("./test/buster-assertions/expect-test.js");

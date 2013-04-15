@@ -1,0 +1,1 @@
+buster.testCase("The thing", {});

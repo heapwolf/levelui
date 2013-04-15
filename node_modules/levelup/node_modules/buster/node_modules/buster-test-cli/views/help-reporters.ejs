@@ -1,0 +1,39 @@
+Buster.JS ships with a set of built-in reporters. These can be used by
+providing the name to the -r/--reporter option:
+
+buster-test -r dots
+
+The dots reporter is the default reporter. Built-in reporters
+include: <%= reporters.join("\n") %>
+
+Custom reporters
+
+Buster.JS can use custom reporters that are reachable through the node
+module system. Assume you have a reporter that looks like:
+
+module.exports = {
+    create: function (options) {
+        // ...
+    },
+
+    listen: function (runner) {
+        // ...
+    },
+
+    // ...
+};
+
+When this reporter is available on the node load path, say in the
+`my-reporter` module, you can use it the following way:
+
+`buster-test -r my-reporter`
+
+The BUSTER_REPORTER environment variable
+
+If you want a different reporter, but don't want to specify it for each
+run, you can specify the BUSTER_REPORTER environment variable in e.g.,
+.bashrc and Buster will use this reporter as long as another one is not
+specified with the -r option.
+
+For information on implementing custom reporters, refer to the online docs
+at http://busterjs.org/docs/test/reporters

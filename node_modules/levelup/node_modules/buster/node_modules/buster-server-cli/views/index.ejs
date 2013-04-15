@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Capture test slave</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/buster.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/buster-server.css">
+  </head>
+  <body>
+    <div id="masthead">
+      <p><a href="/"><%- name %></a> Test automator</p>
+    </div>
+    <div class="content">
+      <h1>Capture browser as test slave</h1>
+      <p>
+        Hit the button below, then leave the browser running. <%- name %> can
+        then use it to automate test runs for you.
+      </p>
+      <p class="button"><a href="/capture">Capture browser</a></p>
+      <% if (slaves.length > 0) { %>
+        <h2>Captured slaves (<%= slaves.length %>)</h2>
+        <ol class="browsers">
+          <% for (var i = 0, l = slaves.length; i < l; ++i) { %>
+            <%
+              var agent = slaves[i], classes = [];
+
+              classes.push(agent.name.toLowerCase());
+              if (/windows/i.test(agent.os.family)) {
+                  classes.push("windows");
+              } else if (/os x/i.test(agent.os.family)) {
+                  classes.push("os_x");
+              } else {
+                  classes.push(agent.os.family.toLowerCase().replace(/ /g, "_"));
+              }
+            %>
+
+            <li class="<%= classes.join(' ') %>">
+              <div>
+                <h3><%= agent.description %></h3>
+                <p><%= agent.ua %></p>
+              </div>
+            </li>
+          <% } %>
+        </ol>
+      <% } else { %>
+        <h2>No captured slaves</h2>
+      <% } %>
+    </div>
+  </body>
+</html>

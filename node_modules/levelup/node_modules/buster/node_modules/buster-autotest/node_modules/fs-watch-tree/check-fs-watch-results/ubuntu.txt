@@ -1,0 +1,52 @@
+UBUNTU
+======================================
+
+Changing file
+--------------------------------------
+  event on file.txt: change file.txt
+  event on file.txt: change file.txt
+  event on dir1: change file.txt
+  event on dir1: change file.txt
+
+Creating file
+--------------------------------------
+  event on dir1: rename file2.txt
+  event on dir1: change file2.txt
+
+Deleting file
+--------------------------------------
+  event on dir1: rename file.txt
+  event on file.txt: change file.txt
+  event on file.txt: rename file.txt
+  event on file.txt: rename file.txt
+
+Renaming file
+--------------------------------------
+  event on dir1: rename file.txt
+  event on dir1: rename new.txt
+
+Moving file
+--------------------------------------
+  event on dir2: rename file.txt
+  event on dir1: rename file.txt
+
+Creating dir
+--------------------------------------
+  event on dir1: rename dir11
+
+Deleting dir
+--------------------------------------
+  event on dir2: rename dir2
+  event on dir2: rename dir2
+  event on root: rename dir2
+
+Renaming dir
+--------------------------------------
+  event on root: rename dir1
+  event on root: rename awesomedir
+
+Moving dir
+--------------------------------------
+  event on dir2: rename dir1
+  event on root: rename dir1
+--------------------------------------

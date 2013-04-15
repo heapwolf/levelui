@@ -1,0 +1,92 @@
+#!/usr/bin/env node
+
+var path = require("path");
+var util = require("util");
+var exec = require("child_process").exec;
+var fs = require("fs");
+var jsp = require("uglify-js").parser;
+var pro = require("uglify-js").uglify;
+
+var files = [];
+var read = 0;
+
+function minify(script) {
+    var ast = jsp.parse(script);
+    ast = pro.ast_mangle(ast);
+    ast = pro.ast_squeeze(ast);
+    return pro.gen_code(ast);
+}
+
+function wrap(script) {
+    return "(function () { var when; function define(cb) { when = cb(); } " +
+        script + ";return buster; }());";
+}
+
+function finish() {
+    if (read == fileNames.length) {
+        var fileName = path.resolve(process.cwd(), "resources/buster-test.js");
+
+        var contents = wrap(files.join("\n"));
+        if (process.argv[2] == "--minify" || process.argv[2] == "-m") {
+            contents = minify(contents);
+        }
+        fs.writeFile(fileName, contents, function (err) {
+            if (err) {
+                console.log("Failed building resources/buster-test.js: " + err.message);
+            } else {
+                var kb = Math.floor(contents.length / 10.24) / 100;
+                console.log("Built resources/buster-test.js (" + kb + "kB)");
+            }
+        });
+    }
+}
+
+var fileNames = [
+    "when/when",
+    "buster-core/lib/buster-core",
+    "buster-core/lib/buster-event-emitter",
+    "buster-evented-logger/lib/buster-evented-logger",
+    "buster-assertions/lib/buster-assertions",
+    "buster-assertions/lib/buster-assertions/expect",
+    "buster-format/lib/buster-format",
+    "sinon/lib/sinon.js",
+    "sinon/lib/sinon/spy.js",
+    "sinon/lib/sinon/stub.js",
+    "sinon/lib/sinon/mock.js",
+    "sinon/lib/sinon/collection.js",
+    "sinon/lib/sinon/sandbox.js",
+    "sinon/lib/sinon/test.js",
+    "sinon/lib/sinon/test_case.js",
+    "sinon/lib/sinon/assert.js",
+    "sinon/lib/sinon/util/event.js",
+    "sinon/lib/sinon/util/fake_xml_http_request.js",
+    "sinon/lib/sinon/util/fake_timers.js",
+    "sinon/lib/sinon/util/fake_server.js",
+    "sinon/lib/sinon/util/fake_server_with_clock.js",
+    "buster-test/lib/buster-test/stack-filter",
+    "buster-test/lib/buster-test/test-context",
+    "buster-test/lib/buster-test/spec",
+    "buster-test/lib/buster-test/test-case",
+    "buster-test/lib/buster-test/test-runner",
+    "buster-test/lib/buster-test/reporters",
+    "buster-test/lib/buster-test/reporters/html",
+    "buster-test/lib/buster-test/auto-run",
+    "buster-test/lib/buster-test",
+    "buster-sinon/lib/buster-sinon",
+    "lib/buster/buster-wiring.js",
+    "lib/buster.js"];
+
+fileNames.forEach(function (fileName, i) {
+    try {
+        fileName = require.resolve(fileName);
+    } catch (e) {
+        fileName = path.resolve(process.cwd(), fileName);
+    }
+
+    fs.readFile(fileName, "utf-8", function (err, data) {
+        if (err) throw err;
+        files[i] = data;
+        read += 1;
+        finish();
+    });
+});

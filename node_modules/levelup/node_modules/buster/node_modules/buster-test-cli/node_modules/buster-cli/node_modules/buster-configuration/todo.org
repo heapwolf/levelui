@@ -1,0 +1,6 @@
+* Thoughts [5/5]
+** DONE Extract addResources and add them to resourceSet?
+** DONE Extract resource set stuff to factory API
+** DONE absoluteLoadEntries is gone
+** DONE load:dependencies -> load:libs
+** DONE Load groups in parallel

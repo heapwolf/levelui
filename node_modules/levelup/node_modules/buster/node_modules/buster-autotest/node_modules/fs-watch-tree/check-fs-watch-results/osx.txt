@@ -1,0 +1,46 @@
+OSX
+======================================
+
+Changing file
+--------------------------------------
+  event on file.txt: change null
+
+Creating file
+--------------------------------------
+  event on dir1: rename null
+
+Deleting file
+--------------------------------------
+  event on dir1: rename null
+  event on file.txt: rename null
+
+Renaming file
+--------------------------------------
+  event on file.txt: rename null
+  event on dir1: rename null
+
+Moving file
+--------------------------------------
+  event on file.txt: rename null
+  event on dir2: rename null
+  event on dir1: rename null
+
+Creating dir
+--------------------------------------
+  event on dir1: rename null
+
+Renaming dir
+--------------------------------------
+  event on dir1: rename null
+  event on root: rename null
+
+Moving dir
+--------------------------------------
+  event on dir1: rename null
+  event on dir2: rename null
+  event on root: rename null
+
+Deleting dir
+--------------------------------------
+  event on root: rename null
+--------------------------------------

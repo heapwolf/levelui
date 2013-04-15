@@ -1,0 +1,6 @@
+[submodule "deps/nodeunit"]
+	path = deps/nodeunit
+	url = git://github.com/caolan/nodeunit.git
+[submodule "deps/htmlparser"]
+	path = deps/htmlparser
+	url = http://github.com/tautologistics/node-htmlparser.git

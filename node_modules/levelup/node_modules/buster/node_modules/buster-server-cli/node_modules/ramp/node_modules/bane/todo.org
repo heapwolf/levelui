@@ -1,0 +1,14 @@
+./buster-test-cli/lib/runners/browser/progress-reporter.js:20:        runner.bind(this, {
+./buster-test/lib/buster-test/auto-run.js:69:            buster.console.bind(reporter, ["log"]);
+./buster-test/lib/buster-test/reporters/html.js:59:            runner.bind(this, {
+./buster-test/lib/buster-test/reporters/html.js:67:                runner.console.bind(this, "log");
+./buster-test/lib/buster-test/reporters/json-proxy.js:42:            runner.bind(this, {
+./buster-test/lib/buster-test/reporters/tap.js:15:        runner.bind(this, {
+./buster-test/lib/buster-test/reporters/specification.js:19:        runner.bind(this, {
+./buster-test/lib/buster-test/reporters/specification.js:29:            runner.console.bind(this, ["log"]);
+./buster-test/lib/buster-test/reporters/teamcity.js:43:        runner.bind(this, {
+./buster-test/lib/buster-test/reporters/quiet.js:17:        runner.bind(this, {
+./buster-test/lib/buster-test/reporters/dots.js:33:        runner.bind(this, {
+./buster-test/lib/buster-test/reporters/dots.js:45:            runner.console.bind(this, "log");
+./buster-test/lib/buster-test/reporters/xml.js:44:            runner.bind(this, {
+./buster/lib/buster/buster-wiring.js:60:            buster.assertions.bind(runner, { "failure": "assertionFailure" });

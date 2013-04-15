@@ -1,0 +1,23 @@
+{
+    "paths": [
+        "lib/*.js",
+        "lib/buster-test/*.js",
+        "lib/buster-test/reporters/*.js",
+        "test/unit/buster-test/*.js",
+        "test/unit/buster-test/reporters/*.js",
+        "test/integration/*.js"
+    ],
+    "linterOptions": {
+        "node": true,
+        "onevar": false,
+        "plusplus": false,
+        "nomen": false,
+        "forin": true,
+        "browser": true,
+        "predef": [
+            "assert",
+            "refute",
+            "buster"
+        ]
+    }
+}

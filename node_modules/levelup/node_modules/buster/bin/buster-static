@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+var path = require("path");
+var root = path.join(__dirname, "..", "lib", "buster");
+
+require("buster-static").create(process.stdout, process.stderr, {
+    extensions: [require(path.join(root, "framework-extension"))]
+}).run(process.argv.slice(2));

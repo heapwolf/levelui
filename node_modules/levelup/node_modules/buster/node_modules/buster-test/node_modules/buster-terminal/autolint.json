@@ -1,0 +1,22 @@
+{
+    "paths": [
+        "lib/*.js",
+        "lib/buster-terminal/*.js",
+        "test/*.js",
+        "test/buster-terminal/*.js"
+    ],
+    "linterOptions": {
+        "node": true,
+        "onevar": false,
+        "plusplus": false,
+        "nomen": false,
+        "forin": true,
+        "regexp": false,
+        "es5": true,
+        "predef": [
+            "assert",
+            "refute",
+            "buster"
+        ]
+    }
+}

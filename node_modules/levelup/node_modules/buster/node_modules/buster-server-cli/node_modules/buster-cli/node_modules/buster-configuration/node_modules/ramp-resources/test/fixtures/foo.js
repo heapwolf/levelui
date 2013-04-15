@@ -1,0 +1,1 @@
+var thisIsTheFoo = 5;

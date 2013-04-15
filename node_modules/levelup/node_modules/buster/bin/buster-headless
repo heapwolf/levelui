@@ -1,0 +1,5 @@
+#!/bin/sh
+
+dir=`dirname $0`
+dir=`dirname $dir`
+phantomjs $dir/script/phantom.js

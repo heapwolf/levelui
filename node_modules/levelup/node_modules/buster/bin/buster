@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+
+var fs = require("fs");
+var childProcess = require("child_process");
+
+var argv = Array.prototype.slice.call(process.argv).slice(2);
+
+if (argv.length == 0 || argv[0] == "--help" || argv[0] == "-h") {
+    printHelp();
+} else if (argv[0] == "--version" || argv[0] == "-v") {
+    printVersions();
+} else {
+    var cmd = argv.shift();
+    if (/^\-/.test(cmd)) {
+        console.log("Unknown option " + cmd + ", try buster --help.");
+    } else {
+        runBusterCmd(cmd);
+    }
+}
+
+function printHelp() {
+    console.log("Usage: buster [--version,-v] <command> [<args>]");
+    console.log();
+    console.log("The most commonly used Buster.JS commands are:");
+    console.log("     test   Run tests with Buster.JS");
+    console.log("   server   Manually start the server for browser capturing");
+    console.log(" autotest   Like 'test', but automatically re-run tests when files change");
+    console.log("   static   An alternative static HTML page based runner");
+    console.log("\nYou can also invoke these directly as buster-<cmd>");
+}
+
+function printVersions() {
+    var version = JSON.parse(fs.readFileSync(__dirname + "/../package.json")).version;
+    console.log("Buster.JS version " + version + " Beta 4");
+}
+
+function runBusterCmd(cmd) {
+    childProcess.exec(
+        "command -v buster-" + cmd,
+        {env: process.env},
+        function (error, stdout, stderr) {
+            if (error) {
+                if (error.code == 1) {
+                    console.log("Buster command '" + cmd + "' does not exist.");
+                } else {
+                    console.log("Unknown error occurred when running wrapper script.");
+                    console.log("Try using buster-server, buster-test etc directly.");
+                }
+            } else {
+                var mod = stdout.split("\n")[0];
+
+                var run = childProcess.spawn(mod, argv, { env: process.env, setsid: true });
+                run.stdout.on('data', function (data) {
+                    process.stdout.write(data);
+                });
+
+                run.stderr.on('data', function (data) {
+                    process.stderr.write(data);
+                });
+
+                run.on('exit', function (code) {
+                    process.exit(code);
+                });
+            }
+        }
+    );
+}
