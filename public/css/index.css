@@ -289,11 +289,9 @@ header nav ul li:first-of-type {
 
 #visualizations h2 {
   font-size: 14px;
-}
-
-#visualizations h2 {
   text-decoration: none;
   color: #666;
+  cursor: pointer;
 }
 
 #visualizations h2.primary span {
@@ -315,6 +313,7 @@ header nav ul li:first-of-type {
   position: relative;
   margin-top: 8px;
   color: #666;
+  cursor: pointer;
   padding: 2px;
   padding-right: 8px;
 }
@@ -482,6 +481,10 @@ label {
   margin-top: 100px;
 }
 
+#veryLarge {
+  display: none;
+}
+
 /*
  * Various input styling
  */
@@ -514,8 +517,7 @@ label {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f9f9f9',GradientType=0 ); /* IE6-9 */
 }
 
-
-.button:active, .checkbox + label:active, .checkbox:checked + label:active {
+.checkbox:checked + label {
   box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
 }
 

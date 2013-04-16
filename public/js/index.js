@@ -64,7 +64,7 @@ $(function() {
     var form = {};
 
     $inputs.each(function() {
-      form[$(this).attr('data-id')] = $(this).val();
+      form[$(this).attr('data-id')] = $(this).val() || '';
     });
 
     return form;
@@ -156,6 +156,7 @@ $(function() {
 
       $keyList.val(currentSelections);
       $keyList.trigger('change');
+
     }
 
     //
@@ -248,9 +249,9 @@ $(function() {
   //
   $keyList.on('change', function() {
 
-    var count = 0;;
+    var count = 0;
 
-    $keyList.find('option:selected').each(function(key){
+    $keyList.find('option:selected').each(function(key) {
       count ++;
     });
 
@@ -259,7 +260,7 @@ $(function() {
       $selectedKeyCount.text(count);
       $selectOne.show();
     }
-    else {
+    else if (count === 1) {
 
       $selectedKeyCount.text('');
 
@@ -270,6 +271,10 @@ $(function() {
         request: 'editorUpdate', 
         value: this.value 
       });
+    }
+    else {
+      $selectedKeyCount.text('');
+      $selectOne.show();
     }
   });
 
@@ -507,14 +512,12 @@ $(function() {
     clearTimeout(validateBounce);
     validateBounce = setTimeout(function() {
 
-      var value = getQuery();
-
-      value.id = $(that).attr('data-id');
-      value.path = that.value;
-
       send({
         request: 'vis-validatekey',
-        value: value
+        value: {
+          query: getQuery(),
+          options: { id: $(that).attr('data-id'), path: that.value }
+        }
       });
 
       $(that)
@@ -541,18 +544,19 @@ $(function() {
     width: '',
     height: '60px',
     defaultText: 'Add an object path',
-    onAddTag: function(key) {
+    onAddTag: function(path) {
       
       var id = 'tag_' + Math.floor(Math.random()*100);
-      $('#vis-stacked-area .tag:last-of-type')
-        .attr('id', id)
+      $('#stackedchart .tag:last-of-type')
+        .attr('data-id', id)
         .addClass('invalid');
-
-      var value = { id: id, key: key };
 
       send({
         request: 'vis-validatekey',
-        value: value
+        value: {
+          query: getQuery(),
+          options: { id: id, path: path }
+        }
       });
 
     }
