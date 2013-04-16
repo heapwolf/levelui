@@ -9,10 +9,12 @@ var argv = require('optimist').argv;
 
 if (argv.u) {
 
-  var location = path.join(__dirname, '..', 'lib', 'cache', 'sysdb');
+  var location = path.join(__dirname, '..', 'lib', 'sysdb');
 
   var opts = {
-    encoding: 'json'
+    encoding: 'json',
+    keyEncoding: 'json',
+    valueEncoding: 'json'
   };
 
   levelup(location, opts, function(err, db) {
