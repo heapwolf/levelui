@@ -86,8 +86,8 @@ $(function() {
 
   function keyListUpdate() {
 
-    // clearTimeout(inputBounce);
-    // inputBounce = setTimeout(function() {
+    clearTimeout(inputBounce);
+    inputBounce = setTimeout(function() {
 
       send({
         request: 'manage/keyListUpdate', 
@@ -96,7 +96,7 @@ $(function() {
         }
       });
 
-    // }, 16);
+    }, 16);
   }
 
   //
