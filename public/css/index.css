@@ -453,8 +453,12 @@ p {
 }
 
 .input-check {
-  top: -3px;
+  top: -5px;
   position: relative;
+}
+
+#query {
+  padding: 10px;
 }
 
 #limit {
@@ -547,7 +551,6 @@ label {
 
 .checkbox + label {
   top: 5px;
-  margin-right: 5px;
 }
 
 .checkbox:checked + label {

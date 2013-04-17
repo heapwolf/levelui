@@ -76,27 +76,30 @@
 
       <div class="left">
 
-        <div class="input" id="startKeyContainer">
-          <span class="add-on">Search</span>
-          <input id="startKey" class="control" type="text">
-        </div>
-        <div class="input" id="endKeyContainer">
-          <span class="add-on">End</span>
-          <input id="endKey" class="control" type="text">
-        </div>
-        <div class="input inline-block">
-          <span class="add-on">Limit Results</span>
-          <input id="limit" class="control" placeholder="1000" type="text">
-        </div>
-        <div class="input-check inline-block">
-          <input type="checkbox" id="reverse" class="control checkbox" />
-          <label for="reverse">Reverse</label>
-        </div>
-        <div class="input-check inline-block">
-          <input type="checkbox" id="range" class="control checkbox" />
-          <label for="range">Range</label>
-        </div>
-        <br/>
+        <form id="query">
+
+          <div class="input" id="startKeyContainer">
+            <span class="add-on">Search</span>
+            <input data-id="start" class="control" type="text">
+          </div>
+          <div class="input" id="endKeyContainer">
+            <span class="add-on">End</span>
+            <input data-id="end" class="control" type="text">
+          </div>
+          <div class="input inline-block">
+            <span class="add-on">Limit Results</span>
+            <input data-id="limit" id="limit" class="control" placeholder="1000" type="text">
+          </div>
+          <div class="input-check inline-block">
+            <input type="checkbox" id="reverse" class="control checkbox" />
+            <label for="reverse">Reverse</label>
+          </div>
+          <div class="input-check inline-block">
+            <input type="checkbox" id="range" class="control checkbox" />
+            <label for="range">Range</label>
+          </div>
+
+        </form>
 
         <div id="keyListContainer">
           <select id="keyList" multiple="">

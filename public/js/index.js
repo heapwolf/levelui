@@ -1,8 +1,8 @@
 $(function() {
 
-  var $startKey = $('#startKey');
-  var $endKey = $('#endKey');
-  var $limit = $('#limit');
+  var $start = $('[data-id="start"]');
+  var $end = $('[data-id="end"]');
+  var $limit = $('[data-id="limit"]');
   var $controls = $('.control, #refresh');
   var $keyList = $('#keyList');
   var $selectedKeyCount = $('.selected-key-count');
@@ -37,16 +37,16 @@ $(function() {
       reverse: reverse
     };
 
-    if ($startKey.val().length > 0) {
-      opts.start = $startKey.val();
+    if ($start.val().length > 0) {
+      opts.start = $start.val();
     }
 
-    if ($endKey.val().length > 0 && $('#range:checked').length) {
-      opts.end = $endKey.val();
+    if ($end.val().length > 0 && $('#range:checked').length) {
+      opts.end = $end.val();
     }
 
     //
-    // TODO: this will probably change in > levelup 0.7.0
+    // TODO: this will probably change in levelup > 0.7.0
     //
     if (reverse) {
       var end = opts.end;
@@ -58,7 +58,10 @@ $(function() {
     return opts;
   }
 
-  function serializeForm($inputs) {
+  function serializeForm() {
+
+    var $form = $('.visualization:visible form');
+    var $inputs = $form.find('input:not([data-defualt])');
 
     var form = {};
 
@@ -207,7 +210,6 @@ $(function() {
         $group.append(query);
       });
     }
-
   };
 
   $('nav.secondary input').on('click', function() {
@@ -374,7 +376,6 @@ $(function() {
       }
 
     }, 800);
-
   });
 
   //
@@ -433,8 +434,12 @@ $(function() {
 
     var key = $(this).attr('data-key');
     var group = $(this).parent().attr('data-group');
+
     var options = queries[group][key].value.options;
-    var $form = $('.visualization:visible form');
+    var query = queries[group][key].value.query;
+
+    var $optionsForm = $('.visualization:visible form');
+    var $queryForm = $('#query');
 
     $chooseVisualization.hide();
     $('.visualization .options').hide();
@@ -445,19 +450,45 @@ $(function() {
 
     $(this).addClass('selected');
 
+    //
+    // put all the saved values into the correct forms
+    //
     Object.keys(options).forEach(function(key) {
 
-      $form
+      $optionsForm
         .find('[data-id="' + key + '"]')
         .val(options[key]);
-    })
+    });
 
+    Object.keys(query).forEach(function(key) {
+
+      if (key === 'reverse' && !!$('#reverse:checked').length === false) {
+        $('#reverse').trigger('click');
+      }
+      else {
+
+        if (key === 'end' && query[key].length > 0 && !!$('#range:checked').length === false) {
+          $('#range').trigger('click');
+        }
+
+        $queryForm
+          .find('[data-id="' + key + '"]')
+          .val(query[key]);
+      }
+    });
+
+    //
+    // polling function for sending the query at an interval
+    //
     function submit() {
 
       if ($('.visualization:visible').length > 0 && editing === false) {
         send({
           request: 'vis-' + group,
-          value: queries[group][key].value
+          value: {
+            query: getQuery(),
+            options: serializeForm()
+          }
         });
       }
     }
@@ -466,8 +497,8 @@ $(function() {
     clearInterval(poll);
     poll = setInterval(submit, 6e2);
 
-    $form.find('.submit .label').text('Pause');
-    $form.find('.submit .ss-icon').text('pause');
+    $optionsForm.find('.submit .label').text('Pause');
+    $optionsForm.find('.submit .ss-icon').text('pause');
 
   });
 
@@ -583,13 +614,11 @@ $(function() {
 
       if (editing === false) {
 
-        var $inputs = $(that).closest('form').find('input:not([data-defualt])');
-
         send({
           request: $(that).attr('data-id'),
           value: {
             query: getQuery(),
-            options: serializeForm($inputs)
+            options: serializeForm()
           }
         });
       }
@@ -615,11 +644,9 @@ $(function() {
   //
   $('.save').on('click', function() {
 
-    var $inputs = $(this).closest('form').find('input:not([data-defualt])');
-
     var value = {
       query: getQuery(),
-      options: serializeForm($inputs)
+      options: serializeForm()
     };
 
     send({
