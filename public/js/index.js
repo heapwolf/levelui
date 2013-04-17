@@ -58,9 +58,8 @@ $(function() {
     return opts;
   }
 
-  function serializeVisibleForm() {
+  function serializeForm($inputs) {
 
-    var $inputs = $visualizations.find('.visualization:visible form input');
     var form = {};
 
     $inputs.each(function() {
@@ -242,7 +241,7 @@ $(function() {
       keyListUpdate();
     }
 
-  }, 5e3);
+  }, 6e2);
 
   //
   // when a user selects a single item from the key list
@@ -455,7 +454,6 @@ $(function() {
 
     function submit() {
 
-      console.log(editing)
       if ($('.visualization:visible').length > 0 && editing === false) {
         send({
           request: 'vis-' + group,
@@ -466,7 +464,7 @@ $(function() {
 
     submit();
     clearInterval(poll);
-    poll = setInterval(submit, 5e3);
+    poll = setInterval(submit, 6e2);
 
     $form.find('.submit .label').text('Pause');
     $form.find('.submit .ss-icon').text('pause');
@@ -583,13 +581,15 @@ $(function() {
 
     function submit() {
 
-      if ($('.visualization:visible').length > 0 && editing === false) {
+      if (editing === false) {
+
+        var $inputs = $(that).closest('form').find('input:not([data-defualt])');
 
         send({
           request: $(that).attr('data-id'),
           value: {
             query: getQuery(),
-            options: serializeVisibleForm()
+            options: serializeForm($inputs)
           }
         });
       }
@@ -615,9 +615,11 @@ $(function() {
   //
   $('.save').on('click', function() {
 
+    var $inputs = $(this).closest('form').find('input:not([data-defualt])');
+
     var value = {
       query: getQuery(),
-      options: serializeVisibleForm()
+      options: serializeForm($inputs)
     };
 
     send({

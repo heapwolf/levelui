@@ -32,7 +32,7 @@ VIS.barchart = function(data) {
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     data.forEach(function(d) {
-      d.Y = +d.Y;
+      d.Y = +d.Y || 0;
     });
 
     x.domain(data.map(function(d) { 
@@ -41,8 +41,9 @@ VIS.barchart = function(data) {
         return d.XMask;
       }
       else {
+        var format = $('#barchart [data-id="dateTimeFormat"]').val();
         return moment(d.X).isValid()
-          ? moment(d.X).format($("#vis-bar-format").val()).toString()
+          ? moment(d.X).format(format).toString()
           : d.X
         ;
       }
@@ -123,8 +124,6 @@ VIS.barchart = function(data) {
 
 VIS.stackedchart = function(data) {
 
-  console.log(data)
-
   var $container = $("#stackedchart .container");
 
   $container.empty();
@@ -173,7 +172,7 @@ VIS.stackedchart = function(data) {
     color.domain(d3.keys(data[0]).filter(function(key) { return key !== "X"; }));
 
     data.forEach(function(d) {
-      if ($('#vis-stacked-area-format').val().length > 0) {
+      if ($('#stackedchart [data-id="dateTimeFormat"]').val().length > 0) {
         d.X = moment(d.X).toDate();
       }
       else {
