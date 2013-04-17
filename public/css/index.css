@@ -549,6 +549,10 @@ label {
   display: block;
 }
 
+.button .ss-icon {
+  margin-top: 2px;
+}
+
 .checkbox + label {
   top: 5px;
 }

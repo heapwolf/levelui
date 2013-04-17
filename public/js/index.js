@@ -86,15 +86,17 @@ $(function() {
 
   function keyListUpdate() {
 
-    clearTimeout(inputBounce);
-    inputBounce = setTimeout(function() {
+    // clearTimeout(inputBounce);
+    // inputBounce = setTimeout(function() {
 
       send({
-        request: 'keyListUpdate', 
-        value: getQuery()
+        request: 'manage/keyListUpdate', 
+        value: {
+          query: getQuery()
+        }
       });
 
-    }, 16);
+    // }, 16);
   }
 
   //
@@ -117,7 +119,7 @@ $(function() {
     //
     // when a value gets an update
     //
-    if (response === 'editorUpdate') {
+    if (response === 'manage/editorUpdate') {
       if (JSON.stringify(value.value).length < 1e4) {
 
         $veryLarge.hide();
@@ -137,7 +139,7 @@ $(function() {
     //
     // when there is an update for the list of keys
     //
-    else if (response === 'keyListUpdate') {
+    else if (response === 'manage/keyListUpdate') {
 
       var currentSelections = $keyList.val();
 
@@ -174,7 +176,7 @@ $(function() {
     //
     // visualization events
     //
-    else if (response === 'vis-validatekey') {
+    else if (response === 'visualize/validatekey') {
 
       if (value.valid) {
         $('.visualization:visible form [data-id="' + value.id + '"]')
@@ -183,16 +185,19 @@ $(function() {
           .removeClass('invalid');
       }
     }
-    else if (response === 'vis-treemap') {
+    else if (response === 'visualize/treemap') {
+      
       VIS.treemap(value);
     }
-    else if (response === 'vis-stackedchart') {
+    else if (response === 'visualize/stackedchart') {
+      
       VIS.stackedchart(value);
     }
-    else if (response === 'vis-barchart') {
+    else if (response === 'visualize/barchart') {
+      
       VIS.barchart(value);
     }
-    else if (response === 'vis-fetch') {
+    else if (response === 'visualize/fetch') {
 
       var $group = $('[data-group="' + value.group + '"]');
       var query;
@@ -236,15 +241,6 @@ $(function() {
 
   });
 
-
-  setInterval(function () {
-
-    if ($keyList.scrollTop() === 0 && editing === false) {
-      keyListUpdate();
-    }
-
-  }, 6e2);
-
   //
   // when a user selects a single item from the key list
   //
@@ -269,8 +265,8 @@ $(function() {
       currentSelection = this.value;
 
       send({
-        request: 'editorUpdate', 
-        value: this.value 
+        request: 'manage/editorUpdate', 
+        value: { key: this.value }
       });
     }
     else {
@@ -290,11 +286,12 @@ $(function() {
       operations.push({ type: 'del', key: this.value });
     });
 
-    var value = { operations: operations, opts: getQuery() };
-
     send({
-      request: 'deleteValues',
-      value: value
+      request: 'manage/deleteValues',
+      value: { 
+        operations: operations, 
+        query: getQuery() 
+      }
     });
 
     $selectOne.show();
@@ -323,8 +320,10 @@ $(function() {
   $('#addto-tags').click(function() {
 
     send({
-      request: 'tagKeys',
-      value: getSelectedKeys()
+      request: 'manage/tag',
+      value: {
+        keys: getSelectedKeys()
+      }
     });
   });
 
@@ -370,7 +369,7 @@ $(function() {
         };
 
         send({
-          request: 'updateValue',
+          request: 'manage/updateValue',
           value: value
         });
       }
@@ -390,7 +389,7 @@ $(function() {
     }
 
     send({
-      request: 'vis-fetch',
+      request: 'visualize/fetch',
       value: {
         group: $(this).find('.links').attr('data-group')
       }
@@ -432,8 +431,11 @@ $(function() {
 
   $savedQueries.on('click', 'a', function() {
 
-    var key = $(this).attr('data-key');
-    var group = $(this).parent().attr('data-group');
+    var $link = $(this);
+    var $linkContainer = $link.closest('.links-container');
+
+    var key = $link.attr('data-key');
+    var group = $link.parent().attr('data-group');
 
     var options = queries[group][key].value.options;
     var query = queries[group][key].value.query;
@@ -448,7 +450,7 @@ $(function() {
       $(this).removeClass('selected');
     });
 
-    $(this).addClass('selected');
+    $link.addClass('selected');
 
     //
     // put all the saved values into the correct forms
@@ -482,9 +484,12 @@ $(function() {
     //
     function submit() {
 
-      if ($('.visualization:visible').length > 0 && editing === false) {
+      if ($('.visualization:visible').length > 0 &&
+        $linkContainer.hasClass('selected') &&
+        editing === false) {
+
         send({
-          request: 'vis-' + group,
+          request: 'visualize/' + group,
           value: {
             query: getQuery(),
             options: serializeForm()
@@ -505,7 +510,7 @@ $(function() {
   $savedQueries.on('click', '.delete', function() {
 
     send({
-      request: 'vis-delete',
+      request: 'visualize/del',
       value: {
         key: $(this).parent().attr('data-key'),
         group: $(this).parent().parent().attr('data-group')
@@ -542,7 +547,7 @@ $(function() {
     validateBounce = setTimeout(function() {
 
       send({
-        request: 'vis-validatekey',
+        request: 'visualize/validatekey',
         value: {
           query: getQuery(),
           options: { id: $(that).attr('data-id'), path: that.value }
@@ -581,7 +586,7 @@ $(function() {
         .addClass('invalid');
 
       send({
-        request: 'vis-validatekey',
+        request: 'visualize/validatekey',
         value: {
           query: getQuery(),
           options: { id: id, path: path }
@@ -650,7 +655,7 @@ $(function() {
     };
 
     send({
-      request: 'vis-save',
+      request: 'visualize/save',
       value: value
     });
   });
