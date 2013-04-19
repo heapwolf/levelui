@@ -160,7 +160,6 @@ $(function() {
 
       $keyList.val(currentSelections);
       $keyList.trigger('change');
-
     }
 
     //
@@ -224,17 +223,22 @@ $(function() {
     //
     if(this.id === 'nav-all') {
       currentDatasource = 'usrdb';
+      $settings.hide();
       $visualizations.hide();
-      keyListUpdate();
     }
     else if (this.id == 'nav-vis') {
       currentDatasource = 'usrdb';
+      $settings.hide();
       $visualizations.show();
+    }
+    else if (this.id == 'nav-settings') {
+      currentDatasource = 'sysdb';
+      $settings.show();
     }
     else if (this.id == 'nav-tag') {
       currentDatasource = 'sysdb';
       $visualizations.hide();
-      keyListUpdate();
+      $settings.hide();
     }
 
     $selectOne.show();
