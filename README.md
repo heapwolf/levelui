@@ -21,15 +21,6 @@ Create an initial user account
 levelweb -u admin -p password
 ```
 
-Create keys and certs for the https and tls server. You can distribute the
-certificate to clients that wish to connect to the server.
-```bash
-# create a certificate and sign it.
-openssl genrsa -out levelweb-key.pem 1024
-openssl req -new -key levelweb-key.pem -out levelweb-csr.pem
-openssl x509 -req -in levelweb-csr.pem -signkey levelweb-key.pem -out levelweb-cert.pem
-```
-
 Point the app at your database and specify what ports you want to run on and a
 host if it should be anything other than `127.0.0.1`.
 ```bash
@@ -41,6 +32,7 @@ levelweb ./test/data --tls 9097 --https 8089 --host 165.125.122.142
 ## Send data to the server
 Level web accepts new line delimited writes over tls. Each line should be an 
 object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
+You can copy the certificate that you need from the settings tab in the UI.
 
 ```js
 var tls = require('tls');
