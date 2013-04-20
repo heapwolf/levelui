@@ -9,10 +9,10 @@ prompt                 = no
 C                      = US
 ST                     = CA
 L                      = SF
-O                      = Joyent
+O                      = Levelweb
 OU                     = Node.js
 CN                     = ca1
-emailAddress           = ry@tinyclouds.org
+emailAddress           = paolo@async.ly
 
 [ req_attributes ]
 challengePassword              = A challenge password

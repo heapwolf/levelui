@@ -30,8 +30,8 @@ levelweb ./test/data --tls 9097 --https 8089 --host 165.125.122.142
 ![screenshot](/screenshots/screenshot0.png)
 
 ## Send data to the server
-Level web accepts new line delimited writes over tls. Each line should be an 
-object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
+Level web accepts new-line-delimited data via tls. Each line should be an 
+object that contains a key and value, like `{ key: 'foo', value: 'bar' }`.
 ```js
 var tls = require('tls');
 var path = require('path');
@@ -51,8 +51,8 @@ module.exports = function(server) {
     host: 'localhost',
     port: argv.port,
 
-    key: fs.readFileSync(path.join(authpath, 'my-client-key.pem')),
-    cert: fs.readFileSync(path.join(authpath, 'my-client-cert.pem')),
+    key: fs.readFileSync(path.join(authpath, 'client-key.pem')),
+    cert: fs.readFileSync(path.join(authpath, 'client-cert.pem')),
     ca: [fs.readFileSync(path.join(authpath, 'levelweb-cert.pem'))]
   };
 
@@ -70,7 +70,15 @@ module.exports = function(server) {
 };
 ```
 
-You can copy the certificate that you need from the settings tab in the UI.
+To connect to a server, supply a valid certificate. The CA can be copied from 
+the `./auth` directory where you run levelweb or from the settings section in 
+the UI.
+
+```bash
+openssl genrsa -out client-key.pem 1024
+openssl req -new -key client-key.pem -out client-csr.pem
+openssl x509 -req -in client-csr.pem -signkey client-key.pem -out client-cert.pem
+```
 
 ![screenshot](/screenshots/screenshot6.png)
 
