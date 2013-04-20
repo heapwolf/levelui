@@ -70,15 +70,16 @@ module.exports = function(server) {
 };
 ```
 
-To connect to a server, supply a valid certificate. The CA can be copied from 
-the `./auth` directory where you run levelweb or from the settings section in 
-the UI.
-
+To generate a client key and a self signed certificate, you can try the following.
 ```bash
 openssl genrsa -out client-key.pem 1024
 openssl req -new -key client-key.pem -out client-csr.pem
 openssl x509 -req -in client-csr.pem -signkey client-key.pem -out client-cert.pem
 ```
+
+To connect to a server, supply a valid certificate. The CA can be copied from 
+the `./auth` directory where you run levelweb or from the settings section in 
+the UI.
 
 ![screenshot](/screenshots/screenshot6.png)
 
