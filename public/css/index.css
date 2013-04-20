@@ -204,6 +204,37 @@ header nav ul li:first-of-type {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
+
+/*
+ * Settings stuff.
+ */
+
+.input-top .input-container {
+  border: 1px solid #ddd;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  padding: 10px;
+  -webkit-user-select: text !important;
+}
+
+.input-top textarea {
+  height: 200px;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+}
+
+#copy-cert {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+
 /*
  * Visualization stuff.
  */
@@ -567,9 +598,11 @@ label {
   display: inline-block;
   margin-bottom: 4px;
   position: relative;
+  overflow: visible;
 }
 
 .input-top .add-on {
+  color: #666;
   display: block;
   height: 18px;
   padding: 5px 5px;
@@ -650,7 +683,7 @@ label {
   outline: none;
 }
 
-input {
+input, textarea {
   font-family: 'Courier New';
 }
 

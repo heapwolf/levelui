@@ -14,6 +14,7 @@ $(function() {
   var $noKeys = $('#noKeys');
 
   var $visualizations = $('#visualizations');
+  var $settings = $('#settings');
 
   var keyTemplate = '<option value="{{key}}" title="{{key}}">{{key}}</option>';
   var queryTemplate = '<a class="secondary" data-key="{{key}}">{{name}}<div class="delete ss-icon">delete</div></a>';
@@ -169,6 +170,10 @@ $(function() {
 
       if (value.path) {
         $('#pathtodb').text(value.path);
+      }
+
+      if (value.cert) {
+        $('#cert').text(value.cert);
       }
     }
 

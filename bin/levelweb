@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var levelweb = require('../lib');
+var certs = require('../lib/certs');
 var levelup = require('levelup');
 var net = require('net');
 var path = require('path');
@@ -45,6 +46,11 @@ if (argv.u) {
         
       });
     }
+  });
+}
+else if (argv.cert) {
+  certs.selfsign(function(err, pems) {
+    console.log(err || 'Successfully created certificates');
   });
 }
 else {
