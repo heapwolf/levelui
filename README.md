@@ -32,10 +32,6 @@ levelweb ./test/data --tls 9097 --https 8089 --host 165.125.122.142
 ## Send data to the server
 Level web accepts new line delimited writes over tls. Each line should be an 
 object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
-You can copy the certificate that you need from the settings tab in the UI.
-
-![screenshot](/screenshots/screenshot6.png)
-
 ```js
 var tls = require('tls');
 var path = require('path');
@@ -73,6 +69,10 @@ module.exports = function(server) {
   });
 };
 ```
+
+You can copy the certificate that you need from the settings tab in the UI.
+
+![screenshot](/screenshots/screenshot6.png)
 
 ## Explore and manage keys and values
 ![screenshot](/screenshots/screenshot.png)
