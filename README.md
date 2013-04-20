@@ -34,6 +34,8 @@ Level web accepts new line delimited writes over tls. Each line should be an
 object that contains a key and value, like so `{ key: 'foo', value: 'bar' }`.
 You can copy the certificate that you need from the settings tab in the UI.
 
+![screenshot](/screenshots/screenshot6.png)
+
 ```js
 var tls = require('tls');
 var path = require('path');
