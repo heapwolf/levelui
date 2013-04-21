@@ -11,7 +11,7 @@ ST                     = CA
 L                      = SF
 O                      = Levelweb
 OU                     = Node.js
-CN                     = ca1
+CN                     = localhost
 emailAddress           = paolo@async.ly
 
 [ req_attributes ]

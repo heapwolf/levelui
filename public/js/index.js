@@ -15,6 +15,7 @@ $(function() {
 
   var $visualizations = $('#visualizations');
   var $settings = $('#settings');
+  var $panels = $('.panel');
 
   var keyTemplate = '<option value="{{key}}" title="{{key}}">{{key}}</option>';
   var queryTemplate = '<a class="secondary" data-key="{{key}}">{{name}}<div class="delete ss-icon">delete</div></a>';
@@ -228,24 +229,24 @@ $(function() {
     //
     if(this.id === 'nav-all') {
       currentDatasource = 'usrdb';
-      $settings.hide();
-      $visualizations.hide();
+      $panels.hide();
     }
     else if (this.id == 'nav-vis') {
       currentDatasource = 'usrdb';
-      $settings.hide();
+      $panels.hide();
       $visualizations.show();
     }
     else if (this.id == 'nav-settings') {
       currentDatasource = 'sysdb';
+      $panels.hide();
       $settings.show();
     }
     else if (this.id == 'nav-tag') {
       currentDatasource = 'sysdb';
-      $visualizations.hide();
-      $settings.hide();
+      $panels.hide();
     }
 
+    keyListUpdate();
     $selectOne.show();
 
   });
