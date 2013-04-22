@@ -20,7 +20,8 @@
     "bcrypt": "~0.7.5",
     "node-uuid": "~1.4.0",
     "optimist": "~0.3.5",
-    "uglify-js": "~2.2.5"
+    "uglify-js": "~2.2.5",
+    "clean-css": "~1.0.1"
   },
   "repository": "git@github.com:hij1nx/levelweb.git",
   "author": "hij1nx",
