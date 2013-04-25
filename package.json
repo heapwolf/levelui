@@ -21,7 +21,8 @@
     "node-uuid": "~1.4.0",
     "optimist": "~0.3.5",
     "uglify-js": "~2.2.5",
-    "multilevel": "~3.0.0"
+    "multilevel": "~3.0.0",
+    "clean-css": "~1.0.1"
   },
   "repository": "git@github.com:hij1nx/levelweb.git",
   "author": "hij1nx",
