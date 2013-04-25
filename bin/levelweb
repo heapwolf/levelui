@@ -1,16 +1,48 @@
 #!/usr/bin/env node
-
-var levelweb = require('../lib');
-var certs = require('../lib/certs');
-var levelup = require('levelup');
-var net = require('net');
-var path = require('path');
-var bcrypt = require('bcrypt');
 var argv = require('optimist').argv;
 
-if (argv.u) {
+function underline(s) {
+  return '\x1B[4m' + s + '\x1B[24m';
+} 
 
-  var location = path.join(__dirname, '..', 'lib', 'sysdb');
+if (argv.h || argv.help) {
+
+  console.log([
+
+    '',
+
+    underline('DATA'),
+
+    '--protocol <p>  specify the protocol where `p` is `tls` or `tcp`',
+    '--in <n>        specify a port for inbound data where `n` is a number',
+    '--out <n>       specify a port for outbound data where `n` is a number',
+    '--newline       alternatively receive newline delimited streams.',
+    '',
+
+    underline('USER INTERFACE'),
+
+    '--https <n>     a port for the web-server/user-interface to run on',
+    '--host <h>      ip or hostname for the web server if not localhost',
+    '',
+
+    underline('USER MANAGEMENT'),
+
+    '-u <username>   specify a username to create or check for',
+    '-p <password>   specify a password for the given username',
+    '',
+
+    underline('MISC'),
+
+    '-c              regenerate private key and certificate for server',
+    ''
+
+  ].join('\n'));
+
+  process.exit(0);
+}
+else if (argv.u) {
+
+  var location = require('path').join(__dirname, '..', 'lib', 'sysdb');
 
   var opts = {
     encoding: 'json',
@@ -18,10 +50,10 @@ if (argv.u) {
     valueEncoding: 'json'
   };
 
-  levelup(location, opts, function(err, db) {
+  require('levelup')(location, opts, function(err, db) {
 
     if (argv.p) {
-      bcrypt.hash(argv.p, 5, function(err, bcryptedPassword) {
+      require('bcrypt').hash(argv.p, 5, function(err, bcryptedPassword) {
          db.put('__user__' + argv.u, bcryptedPassword, function(err) {
 
           if (err) {
@@ -48,17 +80,19 @@ if (argv.u) {
     }
   });
 }
-else if (argv.cert) {
+else if (argv.c) {
 
-  certs.selfsign(function(err) {
-    console.log(err || 'Successfully created certificates');
+  require('../lib/certs').selfSign(function(err) {
+    console.log(err || 'OK');
   });
 }
 else {
 
-  levelweb({
+  require('../lib')({
     https: argv.https,
-    tls: argv.tls,
+    protocol: argv.protocol,
+    'in': argv['in'],
+    'out': argv['out'],
     host: argv.host,
     location: argv._[0],
     encoding: argv.encoding,

@@ -1,13 +1,5 @@
 # SYNOPSIS
-LevelDB Management. Includes simple data visualization tools.
-
-# MOTIVATION
-
- - No need to configure Data Retention or storage-schemas.
- - Nothing needs to be finite or determined ahead of time.
- - No database initialization.
- - Attach to an existing database or create one on the fly.
- - Accept secure incoming data streams via tls.
+A LevelDB GUI. Includes simple data visualization tools.
 
 # USAGE
 ## Run the server
@@ -21,67 +13,55 @@ Create an initial user account
 levelweb -u admin -p password
 ```
 
-Point the app at your database. Optionally specify ports for `--tls` and
-`--https` and the hostname or IP with `--host`.
+Point the app at your database. Specify `tls` or `tcp` as an input stream, for 
+example `--protocol tls`. You can also specify a port for the web interface to
+run on, for example `--https 8089`. If you are running in production, you will
+also want to specify the hostname or IP with `--host data.foobar.org`.
+
 ```bash
-levelweb ./test/data
+levelweb ./test/data --protocol tcp
 ```
 
 ![screenshot](/screenshots/screenshot0.png)
 
 ## Send data to the server
-Level web accepts new-line-delimited data via tls. Each line should be an 
-object that contains a key and value, like `{ key: 'foo', value: 'bar' }`.
+You can connect to levelweb using the [multilevel][0] API. This is the exact
+same API as [levelup][1] but it magically works over the network.
+
+### Using Node.js tcp or tls.
 ```js
-var tls = require('tls');
-var path = require('path');
-var fs = require('fs');
+var client = require('multilevel').client();
+var net = require('net');
 
-module.exports = function(server) {
+var myPort = 8089; // the port on which your database is running.
 
-  var origin;
+//
+// connect the client 
+//
+client.pipe(net.connect(myPort)).pipe(client)
 
-  server.on('connection', function(data) {
-    origin = data;
-  });
+// asynchronous methods
+client.get('foo', function () { /* */ });
 
-  var authpath = path.join(process.cwd(), 'auth');
-
-  var opts = {
-    host: 'localhost',
-    port: argv.port,
-
-    key: fs.readFileSync(path.join(authpath, 'client-key.pem')),
-    cert: fs.readFileSync(path.join(authpath, 'client-cert.pem')),
-    ca: [fs.readFileSync(path.join(authpath, 'levelweb-cert.pem'))]
-  };
-
-  console.log('connecting to port %d', opts.port);
-
-  var client = tls.connect(opts, function() {
-
-    server.on('log', function(key, value) {
-
-      var json = { key: key, value: value };
-
-      client.write(JSON.stringify(json) + '\n');
-    });
-  });
-};
+// streams
+client.createReadStream().on('data', function () { /* */ });
 ```
 
-To generate a client key and a self signed certificate, you can try the following.
+### Using anything else
+Level web accepts new-line-delimited data via tls. Each line should be an 
+object that contains a key and value, like `{ key: 'foo', value: 'bar' }`.
+To send data in this way, you need to specify the `--newline` option on the
+command line.
+
+If you use `tls` as your protocol, you'll need to supply the server's 
+certificate (you can copy this from the UI's settings tab) and generate a 
+private key with a self signed certificate.
+
 ```bash
 openssl genrsa -out client-key.pem 1024
 openssl req -new -key client-key.pem -out client-csr.pem
 openssl x509 -req -in client-csr.pem -signkey client-key.pem -out client-cert.pem
 ```
-
-To connect to a server, supply a valid certificate. The CA can be copied from 
-the `./auth` directory where you run levelweb or from the settings section in 
-the UI.
-
-![screenshot](/screenshots/screenshot6.png)
 
 ## Explore and manage keys and values
 ![screenshot](/screenshots/screenshot.png)
@@ -121,3 +101,6 @@ with color fill followed by the second attribute, and so on.
 
 ![screenshot](/screenshots/screenshot3.png)
 ![screenshot](/screenshots/screenshot4.png)
+
+[0]:https://github.com/juliangruber/multilevel
+[1]:https://github.com/rvagg/node-levelup

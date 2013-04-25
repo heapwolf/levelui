@@ -27,9 +27,27 @@ module.exports = {
       });
       client.write(value, function() {
 
-        
+        test.done();
         
       });
+    });
+  },
+
+  "test that a multilevel client can connect to the server and receive data": function() {
+
+    test.plan(1);
+
+    var multilevel = require('multilevel');
+    var net = require('net');
+
+    var db = multilevel.client();
+    db.pipe(net.connect(9099)).pipe(db);
+
+    // asynchronous methods
+    db.put('foos', 'test', function (err) { 
+      if(!err) {
+        test.done();      
+      }
     });
   }
 };
