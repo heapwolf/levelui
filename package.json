@@ -1,6 +1,6 @@
 {
   "name": "levelweb",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "A front end for leveldb",
   "main": "index.js",
   "scripts": {
