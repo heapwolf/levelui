@@ -5,6 +5,13 @@ var db = multilevel.client();
 db.pipe(net.connect(9099)).pipe(db);
 
 // asynchronous methods
-db.put('blaz-bar', { time: 270, value: 100 }, function (err) { 
- console.log(err);
-});
+
+var count = 0;
+
+setInterval(function() {
+
+  db.put('foo' + Date.now(), { time: count++, value: count++ }, function (err) { 
+   console.log(err);
+  });
+
+}, 500);
