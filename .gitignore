@@ -3,3 +3,5 @@
 !.npmignore
 /node_modules
 !/node_modules/levelup/
+lib/sysdb/
+sampledb/
