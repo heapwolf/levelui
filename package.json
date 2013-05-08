@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "ws": "~0.4.25",
-    "levelup": "~0.7.0",
+    "levelup": "0.8.0",
     "event-stream": "~3.0.12",
     "mime": "~1.2.9",
     "moment": "~2.0.0",

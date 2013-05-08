@@ -20,16 +20,6 @@ exports.val = function() {
     opts.end = $end.val()
   }
 
-  //
-  // TODO: this will probably change in levelup > 0.7.0
-  //
-  if (reverse) {
-    var end = opts.end
-    opts.end = opts.start
-    opts.start = end
-    opts.limit = opts.limit
-  }
-
   return opts
 }
 
