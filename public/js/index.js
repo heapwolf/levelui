@@ -143,6 +143,10 @@ $(function() {
     //
     else if (response === 'manage/keyListUpdate') {
 
+      if (editing) {
+        return;
+      }
+
       var currentSelections = $keyList.val();
 
       $keyList.empty();

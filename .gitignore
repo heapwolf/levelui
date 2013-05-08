@@ -5,3 +5,6 @@
 !/node_modules/levelup/
 lib/sysdb/
 sampledb/
+auth/levelweb-cert.pem
+auth/levelweb-csr.pem
+auth/levelweb-key.pem

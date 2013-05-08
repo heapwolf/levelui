@@ -10,8 +10,13 @@ var count = 0;
 
 setInterval(function() {
 
-  db.put('foo' + Date.now(), { time: count++, value: count++ }, function (err) { 
-   console.log(err);
-  });
+  db.put(
+    'foo' + Date.now(), // A key
+    { time: count++, value: count++ }, // A value
+    function (err) { 
+      if (err) 
+        console.log(err); 
+    }
+  );
 
 }, 500);
