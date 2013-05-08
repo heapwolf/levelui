@@ -1,5 +1,5 @@
 
-var send = require('../socket').send
+var messages = require('../messages')
 var keyList = require('./keylist')
 
 var cm = exports
@@ -65,7 +65,7 @@ editor.on('change', function(cm, change) {
         value: JSON.parse(editor.doc.getValue())
       }
 
-      send({
+      messages.send({
         request: 'manage/updateValue',
         value: value
       })

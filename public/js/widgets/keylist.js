@@ -1,5 +1,5 @@
 
-var send = require('../socket').send
+var messages = require('../messages')
 var query = require('./query')
 
 var $keyList = $('#keyList')
@@ -15,6 +15,16 @@ var keyList = exports
 var keyTemplate = '<option value="{{key}}" title="{{key}}">{{key}}</option>'
 
 currentSelection = ''
+
+function getSelectedKeys() {
+  var keys = []
+
+  $keyList.find('option:selected').each(function(key){
+    keys.push(this.value)
+  })
+
+  return keys
+}
 
 keyList.val = function() {
   return currentSelection
@@ -46,12 +56,12 @@ keyList.receive = function(value) {
   }
 }
 
-keyList.request = function(value) {
+keyList.request = function() {
 
   clearTimeout(inputBounce)
   inputBounce = setTimeout(function() {
 
-    send({
+    messages.send({
       request: 'manage/keyListUpdate', 
       value: {
         query: query.val()
@@ -61,15 +71,10 @@ keyList.request = function(value) {
   }, 16)
 }
 
-function getSelectedKeys() {
-  var keys = []
-
-  $keyList.find('option:selected').each(function(key){
-    keys.push(this.value)
-  })
-
-  return keys
-}
+//
+// when a user is trying to enter query criteria
+//
+$controls.on('keyup mouseup click', keyList.request)
 
 //
 // when a user selects a single item from the key list
@@ -94,7 +99,7 @@ $keyList.on('change', function() {
     $selectOne.hide()
     currentSelection = this.value
 
-    send({
+    messages.send({
       request: 'manage/editorUpdate', 
       value: { key: this.value }
     })
@@ -105,10 +110,6 @@ $keyList.on('change', function() {
   }
 })
 
-//
-// when a user is trying to enter query criteria
-//
-$controls.on('keyup mouseup click', keyList.request)
 
 //
 // when a user wants to delete one or more keys from the key list
@@ -121,7 +122,7 @@ $('#delete-keys').on('click', function() {
     operations.push({ type: 'del', key: this.value })
   })
 
-  send({
+  messages.send({
     request: 'manage/deleteValues',
     value: { 
       operations: operations, 
@@ -138,7 +139,7 @@ $('#delete-keys').on('click', function() {
 //
 $('#addto-tags').click(function() {
 
-  send({
+  messages.send({
     request: 'manage/tag',
     value: {
       keys: getSelectedKeys()

@@ -1,5 +1,6 @@
 
 var keyList = require('./keylist')
+var messages = require('../messages')
 
 var $panels = $('.panel')
 var $settings = $('#settings')
@@ -8,22 +9,24 @@ var $visualizations = $('#visualizations')
 
 $('nav.secondary input').on('click', function() {
 
+  // some tabs want to use a different dataset
+
   if(this.id === 'nav-all') {
-    currentDatasource = 'usrdb'
+    messages.meta('dbname', 'usrdb')
     $panels.hide()
   }
   else if (this.id == 'nav-vis') {
-    currentDatasource = 'usrdb'
+    messages.meta('dbname', 'usrdb')
     $panels.hide()
     $visualizations.show()
   }
   else if (this.id == 'nav-settings') {
-    currentDatasource = 'sysdb'
+    messages.meta('dbname', 'sysdb')
     $panels.hide()
     $settings.show()
   }
   else if (this.id == 'nav-tag') {
-    currentDatasource = 'sysdb'
+    messages.meta('dbname', 'sysdb')
     $panels.hide()
   }
 

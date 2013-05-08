@@ -3,7 +3,7 @@
 // TODO: this file should get an API so that
 // it's easy to add and invoke visualizations
 //
-var send = require('../socket').send
+var messages = require('../messages')
 var cm = require('../widgets/cm')
 var query = require('../widgets/query')
 
@@ -67,7 +67,7 @@ $visualizationLinks.on('click', function() {
     return
   }
 
-  send({
+  messages.send({
     request: 'visualize/fetch',
     value: {
       group: $(this).find('.links').attr('data-group')
@@ -167,7 +167,7 @@ $savedQueries.on('click', 'a', function() {
       $linkContainer.hasClass('selected') &&
       cm.editing() === false) {
 
-      send({
+      messages.send({
         request: 'visualize/' + group,
         value: {
           query: query.val(),
@@ -188,7 +188,7 @@ $savedQueries.on('click', 'a', function() {
 
 $savedQueries.on('click', '.delete', function() {
 
-  send({
+  messages.send({
     request: 'visualize/del',
     value: {
       key: $(this).parent().attr('data-key'),
@@ -225,7 +225,7 @@ $('.validate-key').on('keyup', function() {
   clearTimeout(validateBounce)
   validateBounce = setTimeout(function() {
 
-    send({
+    messages.send({
       request: 'visualize/validatekey',
       value: {
         query: query.val(),
@@ -264,7 +264,7 @@ $('[data-id="pathsToValues"]').tagsInput({
       .attr('data-id', id)
       .addClass('invalid')
 
-    send({
+    messages.send({
       request: 'visualize/validatekey',
       value: {
         query: query.val(),
@@ -298,7 +298,7 @@ $('.submit').on('click', function() {
 
     if (cm.editing() === false) {
 
-      send({
+      messages.send({
         request: $(that).attr('data-id'),
         value: {
           query: query.val(),
@@ -333,7 +333,7 @@ $('.save').on('click', function() {
     options: serializeForm()
   }
 
-  send({
+  messages.send({
     request: 'visualize/save',
     value: value
   })
