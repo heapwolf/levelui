@@ -8,8 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="stylesheet" href="js/codemirror-3.1/lib/codemirror.css">
-    <link rel="stylesheet" href="js/codemirror-3.1/addon/lint/lint.css">
+    <link rel="stylesheet" href="js/lib/codemirror-3.1/lib/codemirror.css">
+    <link rel="stylesheet" href="js/lib/codemirror-3.1/addon/lint/lint.css">
     <link rel="stylesheet" href="css/jquery.tagsinput.css" />
     <link rel="stylesheet" href="css/jquery.datepicker.css" />
     <link href="/css/index.css" rel="stylesheet">
@@ -466,11 +466,27 @@
 
     </div>
 
-    <script src="/socket.js"></script>
-    <script src="/assets.js"></script>
+    <!-- all of these can be compressed and bundled -->
 
-    <script src="/js/visualize.js"></script>
-    <script src="/js/index.js"></script>
+    <script src="js/lib/codemirror-3.1/lib/codemirror.js"></script>
+    <script src="js/lib/codemirror-3.1/mode/javascript/javascript.js"></script>
+    <script src="js/lib/jsonlint.js"></script>
+    <script src="js/lib/codemirror-3.1/addon/lint/lint.js"></script>
+    <script src="js/lib/codemirror-3.1/addon/lint/json-lint.js"></script>
+
+    <script src="js/lib/d3/d3.v3.min.js"></script>
+    <script src="js/lib/d3/cubism.v1.js"></script>
+
+    <script src="js/lib/canvg.min.js"></script>
+    <script src="js/lib/moment.js"></script>
+    <script src="js/lib/jquery/jquery.js"></script>
+    <script src="js/lib/jquery/jquery.tagsinput.min.js"></script>
+    <script src="js/lib/jquery/jquery.datepicker.js"></script>
+
+    <!-- managed by browserify -->
+
+    <script src="/socket.js"></script>
+    <script src="/scripts.js"></script>
 
   </body>
 </html>
