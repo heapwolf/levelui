@@ -42,6 +42,16 @@ visualize.fetch = function(value) {
   });
 }
 
+visualize.updateField = function(value) {
+
+  if (value.valid) {
+    $('.visualization:visible form [data-id="' + value.id + '"]')
+      .removeClass('invalid')
+      .closest('.input')
+      .removeClass('invalid')
+  }
+}
+
 function serializeForm() {
 
   var $form = $('.visualization:visible form')

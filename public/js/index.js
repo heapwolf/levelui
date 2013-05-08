@@ -23,54 +23,49 @@ $(function() {
   var cm = require('./widgets/cm')
   var visualize = require('./visualize')
 
+  function applyMetaData(value) {
+
+    if (value.path) {
+      $('#pathtodb').text(value.path)
+    }
+
+    if (value.cert) {
+      $('#cert').text(value.cert)
+    }
+  }
+
   socket.onmessage = function(message) {
 
     try { message = JSON.parse(message.data) } catch(ex) {}
 
     var response = message.response
-    var value = message.value
 
     if (response === 'manage/editorUpdate') {
-      cm.update(value)
+      cm.update(message.value)
     }
     else if (response === 'manage/keyListUpdate') {
-
       if (cm.editing()) {
         return
       }
-
-      keyList.receive(value)
+      keyList.receive(message.value)
     }
     else if (response === 'metaUpdate') {
-
-      if (value.path) {
-        $('#pathtodb').text(value.path)
-      }
-
-      if (value.cert) {
-        $('#cert').text(value.cert)
-      }
+      applyMetaData(message.value)
     }
     else if (response === 'visualize/validatekey') {
-
-      if (value.valid) {
-        $('.visualization:visible form [data-id="' + value.id + '"]')
-          .removeClass('invalid')
-          .closest('.input')
-          .removeClass('invalid')
-      }
+      visualize.updateField(message.value)
     }
     else if (response === 'visualize/treemap') {
-      visualize.treemap(value)
+      visualize.treemap(message.value)
     }
     else if (response === 'visualize/stackedchart') {
-      visualize.stackedchart(value)
+      visualize.stackedchart(message.value)
     }
     else if (response === 'visualize/barchart') {
-      visualize.barchart(value)
+      visualize.barchart(message.value)
     }
     else if (response === 'visualize/fetch') {
-      visualize.fetch(value)
+      visualize.fetch(message.value)
     }
   }
 })
