@@ -18,7 +18,5 @@ $(function() {
 
   require('./visualize')
   require('./main')
-  
-  require('./nav/index')
 
 })
