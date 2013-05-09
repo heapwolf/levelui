@@ -53,7 +53,7 @@ else if (argv.u) {
   require('levelup')(location, opts, function(err, db) {
 
     if (argv.p) {
-      require('bcrypt').hash(argv.p, 5, function(err, bcryptedPassword) {
+      require('bcrypt').hash(String(argv.p), 5, function(err, bcryptedPassword) {
          db.put('__user__' + argv.u, bcryptedPassword, function(err) {
 
           if (err) {
