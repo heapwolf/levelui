@@ -1,4 +1,3 @@
-
 var $start = $('[data-id="start"]')
 var $end = $('[data-id="end"]')
 var $limit = $('[data-id="limit"]')

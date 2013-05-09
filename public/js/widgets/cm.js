@@ -1,4 +1,3 @@
-
 var messages = require('../messages')
 var keyList = require('./keylist')
 
@@ -65,7 +64,7 @@ editor.on('change', function(cm, change) {
         value: JSON.parse(editor.doc.getValue())
       }
 
-      messages.send({
+      messages.emit('data', {
         request: 'manage/updateValue',
         value: value
       })

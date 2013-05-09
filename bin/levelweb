@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 var argv = require('optimist').argv
+var path = require('path')
 var browserify = require('browserify')
 
 function underline(s) {
@@ -35,6 +36,7 @@ if (argv.h || argv.help) {
     underline('MISC'),
 
     '-c              regenerate private key and certificate for server',
+    '-b              compile all of the addon css and html',
     ''
 
   ].join('\n'))
@@ -43,7 +45,7 @@ if (argv.h || argv.help) {
 }
 else if (argv.u) {
 
-  var location = require('path').join(__dirname, '..', 'lib', 'sysdb')
+  var location = path.join(__dirname, '..', 'lib', 'sysdb')
 
   var opts = {
     encoding: 'json',
@@ -86,6 +88,10 @@ else if (argv.c) {
   require('../lib/certs').selfSign(function(err) {
     console.log(err || 'OK')
   })
+}
+else if (argv.b) {
+
+  require('../lib/addons').merge()
 }
 else {
 

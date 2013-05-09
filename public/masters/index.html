@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Levelweb</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="js/lib/codemirror-3.1/lib/codemirror.css">
+    <link rel="stylesheet" href="js/lib/codemirror-3.1/addon/lint/lint.css">
+    <link rel="stylesheet" href="css/jquery.tagsinput.css" />
+    <link rel="stylesheet" href="css/jquery.datepicker.css" />
+    <link href="/css/index.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <header>
+
+      <nav role="navigation" class="primary">
+        <ul class="cf">
+          <li>Database:</li>
+          <li id="pathtodb"></li>
+        </ul>
+      </nav>
+
+      <nav role="navigation" class="secondary">
+
+        <!-- input type="radio" id="nav-events" name="radio-nav" class="radio-nav" />
+        <label for="nav-events">
+          <div class="ss-icon">stopwatch</div>
+            Events
+          </div>
+        </label>
+
+        <input type="radio" id="nav-replicate" name="radio-nav" class="radio-nav" />
+        <label for="nav-replicate">
+          <div class="ss-icon">transfer</div>
+            Replicate
+          </div>
+        </label>
+
+        <input type="radio" id="nav-publish" name="radio-nav" class="radio-nav" />
+        <label for="nav-publish">
+          <div class="ss-icon">uploadcloud</div>
+            Publish
+          </div>
+        </label -->
+
+      </nav>
+    </header>
+
+    <div class="main-container">
+      {{HTML}}
+    </div>
+
+    <script src="/socket.js"></script>
+
+    <!-- the rest of the scripts are managed by browserify -->
+    <script src="/js/bundle.js"></script>
+
+  </body>
+</html>

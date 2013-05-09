@@ -1,4 +1,3 @@
-
 var messages = require('../messages')
 var query = require('./query')
 
@@ -61,7 +60,7 @@ keyList.request = function() {
   clearTimeout(inputBounce)
   inputBounce = setTimeout(function() {
 
-    messages.send({
+    messages.emit('data', {
       request: 'manage/keyListUpdate', 
       value: {
         query: query.val()
@@ -99,7 +98,7 @@ $keyList.on('change', function() {
     $selectOne.hide()
     currentSelection = this.value
 
-    messages.send({
+    messages.emit('data', {
       request: 'manage/editorUpdate', 
       value: { key: this.value }
     })
@@ -122,7 +121,7 @@ $('#delete-keys').on('click', function() {
     operations.push({ type: 'del', key: this.value })
   })
 
-  messages.send({
+  messages.emit('data', {
     request: 'manage/deleteValues',
     value: { 
       operations: operations, 
@@ -139,7 +138,7 @@ $('#delete-keys').on('click', function() {
 //
 $('#addto-tags').click(function() {
 
-  messages.send({
+  messages.emit('data', {
     request: 'manage/tag',
     value: {
       keys: getSelectedKeys()
