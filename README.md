@@ -2,71 +2,85 @@
 A LevelDB GUI. Includes simple data visualization tools.
 
 # USAGE
-## Run the server
-Installation
+
+## Installation
+Levelweb can be run as a process or used as a module on top of your own 
+LevelDB-based database.
 
 ```bash
 npm install levelweb -g
 ```
 
-Create an initial user account
+## Create an initial user account
+Levelweb supports encrypted login over https
+
 ```bash
 levelweb -u admin -p password
 ```
 
-Point levelweb at your database or a leveldb instance running multilevel. 
+## Connect to a local database 
+Levelweb can be a server and accept input from simple tcp, tls or [rpc][0].
 
 ```bash
 levelweb ./test/data
 ```
 
+## Connect to a remote database
+Levelweb can be a client and connect to a network enabled [Levelup][1] instance.
+
 ```bash
 levelweb --client 9099 --host 192.168.0.1
 ```
 
+## Log into the user interface
 ![screenshot](/screenshots/screenshot0.png)
 
-## Send data to the server
-You can connect to levelweb using the [multilevel][0] API. This is the exact
-same API as [levelup][1] but it magically works over the network.
+## Communicate with the database
 
-### Using Node.js
 ```js
 var client = require('multilevel').client();
 var net = require('net');
 
-var myPort = 8089; // the port on which your database is running.
+var myPort = 9099;
 
-//
-// connect the client 
-//
 client.pipe(net.connect(myPort)).pipe(client)
 
 // asynchronous methods
-client.get('foo', function () { /* */ });
+client.put('foo', 'bar', function (err) { 
+  if (!err) { /* the value is now in the database */ }
+});
 
 // streams
 client.createReadStream().on('data', function () { /* */ });
 ```
 
-## COMMANDLINE PARAMETERS
+# CLI PARAMETERS
 
-### Data
+## User Management
+```
+-u <username>   specify a username to create or check for
+-p <password>   specify a password for the given username
+```
+
+## User Interface
+```
+--https <n>     a port for the user-interface to run on
+--host <h>      ip or hostname for the web server if not localhost
+```
+
+## Data
 ```
 --protocol <p>  specify the protocol where `p` is `tls` or `tcp`
---in <n>        specify a port for inbound data where `n` is a number
---out <n>       specify a port for outbound data where `n` is a number
-
-
-```
---client        connect to a port and host using `--in` and `--host`
+--client <n>    the port to connect to as a client, `n` is a port
+--server <n>    the port to make available as a server, `n` is a port
 ```
 
-### Alternative Inputs
+Level web also accepts new-line-delimited data. Each line should be an object 
+that contains a key and value, like `{ key: 'foo', value: 'bar' }`.
 
-Level web accepts new-line-delimited data. Each line should be an object that 
-contains a key and value, like `{ key: 'foo', value: 'bar' }`. To send data in 
-this way, you need to specify the `--newline` option on the command line.
+```
+--newline       alternatively receive newline delimited streams.
+```
 
 If you use `tls` as your protocol, you'll need to supply the server's 
 certificate (you can copy this from the UI's settings tab) and generate a 
@@ -78,46 +92,10 @@ openssl req -new -key client-key.pem -out client-csr.pem
 openssl x509 -req -in client-csr.pem -signkey client-key.pem -out client-cert.pem
 ```
 
-```
---newline       alternatively receive newline delimited streams.
-```
-
-### User Interface
-```
---https <n>     a port for the web-server/user-interface to run on
---host <h>      ip or hostname for the web server if not localhost
-```
-
-### User Management
-```
--u <username>   specify a username to create or check for
--p <password>   specify a password for the given username
-```
-
-### Misc
-```
--c              regenerate private key and certificate for server
--b              compile all of the addon css and html
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Explore and manage keys and values
+# VISUALIZATIONS
 ![screenshot](/screenshots/screenshot.png)
 
-## Visualizations
-
-### Treemap
+## Treemap
 Provides a zoomable tree-map of the currently tagged keys. Treemaps display 
 hierarchical (tree-structured) data as a set of nested rectangles. Each branch
 of the tree is given a rectangle, which is then tiled with smaller rectangles 
@@ -134,7 +112,7 @@ simultaneously.
 
 ![screenshot](/screenshots/screenshot2.png)
 
-### Stacked Bar Chart
+## Stacked Bar Chart
 
 ![screenshot](/screenshots/screenshot5.png)
 
@@ -151,7 +129,12 @@ with color fill followed by the second attribute, and so on.
 ![screenshot](/screenshots/screenshot3.png)
 ![screenshot](/screenshots/screenshot4.png)
 
-## DEVELOPER NOTES
+# DEVELOPER NOTES
+
+## Making changes
+```
+-b              compile all of the addon css and html
+```
 
 ### How the code is organized
 
@@ -163,9 +146,6 @@ database project.
 ### `lib`
 Contains all of the server code. The index file is the point of entry and 
 handles static file serving as well as communication to and from the server.
-
-
-
 
 [0]:https://github.com/juliangruber/multilevel
 [1]:https://github.com/rvagg/node-levelup
