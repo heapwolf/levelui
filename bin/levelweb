@@ -96,12 +96,11 @@ else if (argv.b) {
 else {
 
   require('../lib')({
-    'in': argv['in'],
-    'out': argv['out'],
     host: argv.host,
     https: argv.https,
     protocol: argv.protocol,
     client: argv.client,
+    server: argv.server,
     location: argv._[0],
     encoding: argv.encoding,
     keyEncoding:argv.keyEncoding
