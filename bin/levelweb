@@ -16,9 +16,8 @@ if (argv.h || argv.help) {
     underline('DATA'),
 
     '--protocol <p>  specify the protocol where `p` is `tls` or `tcp`',
-    '--in <n>        specify a port for inbound data where `n` is a number',
-    '--out <n>       specify a port for outbound data where `n` is a number',
-    '--client        connect to a port and host using `--in` and `--host`',
+    '--client <n>    the port to connect to as a client, `n` is a port',
+    '--server <n>    the port to make available as a server, `n` is a port',
     '--newline       alternatively receive newline delimited streams.',
     '',
 
