@@ -4,31 +4,30 @@ var cm = require('../../js/widgets/cm')
 var query = require('../../js/widgets/query')
 
 exports.click = function(options) {
+
   messages.meta('dbname', 'usrdb')
   $('#' + options.id).show()
 }
 
 exports.load = function() {
 
-  //
-  // TODO: this file should get an API so that
-  // it's easy to add and invoke visualizations
-  //
-  var visualize = exports
+  var $selectKeys = $('#selectKeys')
+  var $chooseVisualization = $('#chooseVisualization')
+  var $visualize = $('#visualize')
+
+  var queryTemplate = [
+    '<a class="secondary" data-key="{{key}}">{{name}}',
+    '<div class="delete ss-icon">delete</div></a>'
+  ].join('')
+
+  var visualize = {}
+  var queries = {}
+  var poll
 
   visualize.barchart = require('./charts/barchart')
   visualize.stackedchart = require('./charts/stackedchart')
   visualize.treemap = require('./charts/treemap')
   visualize.timeseries = require('./charts/timeseries')
-
-  var $selectKeys = $('#selectKeys')
-  var $chooseVisualization = $('#chooseVisualization')
-  var $visualize = $('#visualize')
-
-  var queryTemplate = '<a class="secondary" data-key="{{key}}">{{name}}<div class="delete ss-icon">delete</div></a>'
-
-  var queries = {}
-  var poll
 
   visualize.fetch = function(value) {
 
@@ -58,6 +57,26 @@ exports.load = function() {
         .removeClass('invalid')
     }
   }
+
+  messages.on('visualize/validatekey', function(json) {
+    visualize.updateField(json.value)
+  })
+
+  messages.on('visualize/treemap', function(json) {
+    visualize.treemap(json.value)
+  })
+
+  messages.on('visualize/stackedchart', function(json) {
+    visualize.stackedchart(json.value)
+  })
+
+  messages.on('visualize/barchart', function(json) {
+    visualize.barchart(json.value)
+  })
+
+  messages.on('visualize/fetch', function(json) {
+    visualize.fetch(json.value)
+  })
 
   function serializeForm() {
 
@@ -134,8 +153,9 @@ exports.load = function() {
     var group = $link.parent().attr('data-group')
 
     var options = queries[group][key].value.options
-    var query = queries[group][key].value.query
+    var savedQuery = queries[group][key].value.query
 
+    var $visualization = $('.visualization:visible')
     var $optionsForm = $('.visualization:visible form')
     var $queryForm = $('#query')
 
@@ -158,20 +178,21 @@ exports.load = function() {
         .val(options[key])
     })
 
-    Object.keys(query).forEach(function(key) {
+    Object.keys(savedQuery).forEach(function(key) {
 
       if (key === 'reverse' && !!$('#reverse:checked').length === false) {
         $('#reverse').trigger('click')
       }
       else {
 
-        if (key === 'end' && query[key].length > 0 && !!$('#range:checked').length === false) {
-          $('#range').trigger('click')
+        if (key === 'end' && savedQuery[key].length > 0 && 
+          !!$('#range:checked').length === false) {
+            $('#range').trigger('click')
         }
 
         $queryForm
           .find('[data-id="' + key + '"]')
-          .val(query[key])
+          .val(savedQuery[key])
       }
     })
 
@@ -180,9 +201,11 @@ exports.load = function() {
     //
     function submit() {
 
-      if ($('.visualization:visible').length > 0 &&
-        $linkContainer.hasClass('selected') &&
-        cm.editing() === false) {
+      if ($visualization.is('visible')) {
+        return clearInterval(poll)
+      }
+
+      if ($linkContainer.hasClass('selected') && cm.editing() === false) {
 
         messages.emit('data', {
           request: 'visualize/' + group,
@@ -312,6 +335,10 @@ exports.load = function() {
     var that = this
 
     function submit() {
+
+      if ($(that).closest('.visualization:visible').length === 0) {
+        return clearInterval(poll)
+      }
 
       if (cm.editing() === false) {
 

@@ -1,7 +1,9 @@
 
+var moment = require('../../../js/lib/moment')
+
 module.exports = function(data) {
 
-  $("#treemap .container").empty();
+  $("#treemap .container").empty()
 
   var w = $("#treemap .container").width(),
       h = $("#treemap .container").height(),

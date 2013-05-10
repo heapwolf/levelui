@@ -54,15 +54,15 @@ editor.on('focus', function() {
 var saveBounce
 editor.on('change', function(cm, change) {
 
+  var value = {
+    key: keyList.val(),
+    value: JSON.parse(editor.doc.getValue())
+  }
+
   clearTimeout(saveBounce)
   saveBounce = setTimeout(function() {
 
     if(cm._lintState.marked.length === 0 && cm.doc.isClean() === false) {
-
-      var value = {
-        key: keyList.val(),
-        value: JSON.parse(editor.doc.getValue())
-      }
 
       messages.emit('data', {
         request: 'manage/updateValue',
@@ -70,5 +70,5 @@ editor.on('change', function(cm, change) {
       })
     }
 
-  }, 800)
+  }, 16)
 })

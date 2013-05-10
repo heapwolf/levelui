@@ -2,7 +2,9 @@ var $start = $('[data-id="start"]')
 var $end = $('[data-id="end"]')
 var $limit = $('[data-id="limit"]')
 
-exports.val = function() {
+var query = exports
+
+query.val = function() {
 
   var reverse = !!$('#reverse:checked').length
 

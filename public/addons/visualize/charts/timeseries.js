@@ -1,4 +1,6 @@
 
+var moment = require('../../../js/lib/moment')
+
 module.exports = function() {
 
   var metrics = [];
