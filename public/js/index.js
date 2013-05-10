@@ -17,6 +17,13 @@ require('./lib/jquery/jquery.datepicker')
 $(function() {
 
   var addons = require('./addons')
+  var messages = require('./messages')
+
+  messages.on('metaUpdate', function(json) {
+    if (json.value.path) {
+      $('#pathtodb').text(json.value.path)
+    }
+  })
 
   addons.create({
     id: 'allkeys',
