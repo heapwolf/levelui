@@ -18,6 +18,7 @@ if (argv.h || argv.help) {
     '--protocol <p>  specify the protocol where `p` is `tls` or `tcp`',
     '--in <n>        specify a port for inbound data where `n` is a number',
     '--out <n>       specify a port for outbound data where `n` is a number',
+    '--client        connect to a port and host using `--in` and `--host`',
     '--newline       alternatively receive newline delimited streams.',
     '',
 
@@ -96,11 +97,12 @@ else if (argv.b) {
 else {
 
   require('../lib')({
-    https: argv.https,
-    protocol: argv.protocol,
     'in': argv['in'],
     'out': argv['out'],
     host: argv.host,
+    https: argv.https,
+    protocol: argv.protocol,
+    client: argv.client,
     location: argv._[0],
     encoding: argv.encoding,
     keyEncoding:argv.keyEncoding

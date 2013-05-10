@@ -4,6 +4,7 @@ A LevelDB GUI. Includes simple data visualization tools.
 # USAGE
 ## Run the server
 Installation
+
 ```bash
 npm install levelweb -g
 ```
@@ -13,13 +14,14 @@ Create an initial user account
 levelweb -u admin -p password
 ```
 
-Point the app at your database. Specify `tls` or `tcp` as an input stream, for 
-example `--protocol tls`. You can also specify a port for the web interface to
-run on, for example `--https 8089`. If you are running in production, you will
-also want to specify the hostname or IP with `--host data.foobar.org`.
+Point levelweb at your database or a leveldb instance running multilevel. 
 
 ```bash
-levelweb ./test/data --protocol tcp
+levelweb ./test/data
+```
+
+```bash
+levelweb --client 9099 --host 192.168.0.1
 ```
 
 ![screenshot](/screenshots/screenshot0.png)
@@ -28,7 +30,7 @@ levelweb ./test/data --protocol tcp
 You can connect to levelweb using the [multilevel][0] API. This is the exact
 same API as [levelup][1] but it magically works over the network.
 
-### Using Node.js tcp or tls.
+### Using Node.js
 ```js
 var client = require('multilevel').client();
 var net = require('net');
@@ -47,11 +49,24 @@ client.get('foo', function () { /* */ });
 client.createReadStream().on('data', function () { /* */ });
 ```
 
-### Using anything else
-Level web accepts new-line-delimited data via tls. Each line should be an 
-object that contains a key and value, like `{ key: 'foo', value: 'bar' }`.
-To send data in this way, you need to specify the `--newline` option on the
-command line.
+## COMMANDLINE PARAMETERS
+
+### Data
+```
+--protocol <p>  specify the protocol where `p` is `tls` or `tcp`
+--in <n>        specify a port for inbound data where `n` is a number
+--out <n>       specify a port for outbound data where `n` is a number
+
+
+```
+--client        connect to a port and host using `--in` and `--host`
+```
+
+### Alternative Inputs
+
+Level web accepts new-line-delimited data. Each line should be an object that 
+contains a key and value, like `{ key: 'foo', value: 'bar' }`. To send data in 
+this way, you need to specify the `--newline` option on the command line.
 
 If you use `tls` as your protocol, you'll need to supply the server's 
 certificate (you can copy this from the UI's settings tab) and generate a 
@@ -62,6 +77,40 @@ openssl genrsa -out client-key.pem 1024
 openssl req -new -key client-key.pem -out client-csr.pem
 openssl x509 -req -in client-csr.pem -signkey client-key.pem -out client-cert.pem
 ```
+
+```
+--newline       alternatively receive newline delimited streams.
+```
+
+### User Interface
+```
+--https <n>     a port for the web-server/user-interface to run on
+--host <h>      ip or hostname for the web server if not localhost
+```
+
+### User Management
+```
+-u <username>   specify a username to create or check for
+-p <password>   specify a password for the given username
+```
+
+### Misc
+```
+-c              regenerate private key and certificate for server
+-b              compile all of the addon css and html
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Explore and manage keys and values
 ![screenshot](/screenshots/screenshot.png)
@@ -101,6 +150,22 @@ with color fill followed by the second attribute, and so on.
 
 ![screenshot](/screenshots/screenshot3.png)
 ![screenshot](/screenshots/screenshot4.png)
+
+## DEVELOPER NOTES
+
+### How the code is organized
+
+### `bin`
+Contains an executable file responsible for starting the app and passing 
+parameters to the levelweb module. Yes, you can add levelweb on top of your 
+database project.
+
+### `lib`
+Contains all of the server code. The index file is the point of entry and 
+handles static file serving as well as communication to and from the server.
+
+
+
 
 [0]:https://github.com/juliangruber/multilevel
 [1]:https://github.com/rvagg/node-levelup
