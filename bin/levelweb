@@ -15,28 +15,30 @@ if (argv.h || argv.help) {
 
     underline('DATA'),
 
-    '--protocol <p>  specify the protocol where `p` is `tls` or `tcp`',
-    '--client <n>    the port to connect to as a client, `n` is a port',
-    '--server <n>    the port to make available as a server, `n` is a port',
-    '--newline       alternatively receive newline delimited streams.',
+    '--protocol <p>      specify the protocol where `p` is `tls` or `tcp`',
+    '--client <n>        the port to connect to as a client, `n` is a port',
+    '--server <n>        the port to make available as a server, `n` is a port',
+    '--newline           alternatively receive newline delimited streams.',
+    '--valueEncoding <v> specify the value encoding, defaults to `json`',
+    '--keyEncoding <k>   specify the key encoding, defaults to `json`',
     '',
 
     underline('USER INTERFACE'),
 
-    '--https <n>     a port for the web-server/user-interface to run on',
-    '--host <h>      ip or hostname for the web server if not localhost',
+    '--https <n>         a port for the web-server/user-interface to run on',
+    '--host <h>          ip or hostname for the web server if not localhost',
     '',
 
     underline('USER MANAGEMENT'),
 
-    '-u <username>   specify a username to create or check for',
-    '-p <password>   specify a password for the given username',
+    '-u <username>       specify a username to create or check for',
+    '-p <password>       specify a password for the given username',
     '',
 
     underline('MISC'),
 
-    '-c              regenerate private key and certificate for server',
-    '-b              compile all of the addon css and html',
+    '-c                  regenerate private key and certificate for server',
+    '-b                  compile all of the addon css and html',
     ''
 
   ].join('\n'))
@@ -103,6 +105,7 @@ else {
     server: argv.server,
     location: argv._[0],
     encoding: argv.encoding,
+    valueEncoding: argv.valueEncoding || argv.encoding,
     keyEncoding:argv.keyEncoding
   })  
 }
