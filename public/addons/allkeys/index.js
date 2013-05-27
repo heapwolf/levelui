@@ -20,39 +20,3 @@ exports.click = function(options) {
   $('#' + options.id).show()
   keyList.request()
 }
-
-
-// var $selectOne = $('#selectOne')
-
-  // function applyMetaData(value) {
-
-  //   if (value.path) {
-  //     $('#pathtodb').text(value.path)
-  //   }
-
-  //   if (value.cert) {
-  //     $('#cert').text(value.cert)
-  //   }
-  // }
-
-  // socket.onmessage = function(message) {
-
-  //   try { message = JSON.parse(message.data) } catch(ex) {}
-
-  //   var response = message.response
-
-  //   if (response === 'manage/editorUpdate') {
-  //     cm.update(message.value)
-  //   }
-  //   else if (response === 'manage/keyListUpdate') {
-  //     if (cm.editing()) {
-  //       return
-  //     }
-  //     keyList.receive(message.value)
-  //   }
-  //   else if (response === 'metaUpdate') {
-  //     applyMetaData(message.value)
-  //   }
-
-  //   }
-  // }

@@ -5,7 +5,7 @@ var net = require('net')
 var db = multilevel.client()
 db.pipe(net.connect(9099)).pipe(db)
 
-var SIZE = 10
+var SIZE = 101
 
 var populate = function (id) {
 
