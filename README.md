@@ -1,5 +1,5 @@
 # SYNOPSIS
-A LevelDB GUI. Includes simple data visualization tools.
+A LevelDB GUI. Includes simple data visualization tools. See also the [`commandline version`][99].
 
 # USAGE
 
@@ -149,3 +149,4 @@ handles static file serving as well as communication to and from the server.
 
 [0]:https://github.com/juliangruber/multilevel
 [1]:https://github.com/rvagg/node-levelup
+[99]:https://github.com/hij1nx/lev
