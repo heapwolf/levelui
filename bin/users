@@ -1,0 +1,89 @@
+#!/usr/bin/env node
+var argv = require('optimist').argv
+var path = require('path')
+var level = require('level')
+
+var users = require('../lib/users')
+
+function underline(s) {
+  return '\x1B[4m' + s + '\x1B[24m'
+} 
+
+if (argv.h || argv.help) {
+
+  console.log([
+
+    underline('USERS'),
+    'users path/to/db [options]',
+    '',
+
+    '-d <username>   a username to delete',
+    '-u <username>   a username to create or check for',
+    '-p <password>   a password for the given username',
+    '-g <group>      a group for the user to belong to',
+    '',
+
+  ].join('\n'))
+
+  process.exit(0)
+}
+
+var location = argv._[0] || path.join(__dirname, '..', 'lib', 'sysdb')
+
+var opts = {
+  encoding: 'json',
+  keyEncoding: 'json',
+  valueEncoding: 'json'
+}
+
+level(location, opts, function(err, db) {
+
+  if (err && err.name === 'OpenError') {
+    console.log('The database can not be opened (LOCK).')
+    process.exit(1)
+  }
+  else if (err) {
+    throw new Error(err)
+  }
+
+  if (argv.p || argv.rm || argv.add) {
+
+    var value = {
+      user: argv.u,
+      pass: argv.p,
+      rm: argv.rm,
+      add: argv.add
+    }
+
+    users.create(db, value, function(err, user) {
+
+      if (err) {
+        console.log(err)
+        return process.exit(1)
+      }
+      console.log('Updated %s in the database', argv.u)
+    })
+  }
+  else if (argv.d) {
+    users.delete(db, { user: argv.d }, function(err) {
+      if (err) {
+        console.log(err)
+        return process.exit(1)
+      }
+      console.log('Deleted %s from the database', argv.d)
+    })
+  }
+  else {
+
+    var value = {
+      user: argv.u
+    }
+
+    users.get(db, value, function(err, value) {
+      if (err && err.name === 'NotFoundError') {
+        return console.log('No user named %s', argv.u)
+      }
+      console.log(value)
+    })
+  }
+})

@@ -1,17 +1,16 @@
 {
   "name": "levelweb",
-  "version": "0.4.1-1",
-  "description": "A front end for leveldb",
+  "private": "true",
+  "version": "0.4.0",
+  "description": "Level the web",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "levelweb": "./bin/levelweb"
+    "app": "./bin/app"
   },
   "dependencies": {
-    "ws": "~0.4.25",
-    "levelup": "0.8.0",
     "event-stream": "~3.0.12",
     "mime": "~1.2.9",
     "moment": "~2.0.0",
@@ -20,8 +19,18 @@
     "bcrypt": "~0.7.5",
     "node-uuid": "~1.4.0",
     "optimist": "~0.3.5",
-    "multilevel": "~3.0.0",
-    "browserify": "~2.13.2"
+    "multilevel": "~4.0.4",
+    "re-pair": "*",
+    "deepmerge": "~0.2.5",
+    "async": "~0.2.8",
+    "level": "~0.10.0",
+    "browserify": "~2.18.1",
+    "insert-css": "0.0.0",
+    "reconnect": "~1.3.4",
+    "ws": "~0.4.25",
+    "brfs": "git@github.com:hij1nx/brfs.git",
+    "engine.io-stream": "git@github.com:hij1nx/engine.io-stream.git",
+    "level-manifest": "~1.1.1"
   },
   "repository": "git@github.com:hij1nx/levelweb.git",
   "author": "hij1nx",
