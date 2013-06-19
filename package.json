@@ -32,9 +32,9 @@
     "paramify": "0.0.1",
     "formidable": "~1.0.14",
     "through": "~2.3.4",
-
     "node-forge": "git+ssh://git@github.com:digitalbazaar/forge.git",
-    "brfs": "git+ssh://git@github.com:hij1nx/brfs.git"
+    "brfs": "git+ssh://git@github.com:hij1nx/brfs.git",
+    "uniq": "0.0.2"
   },
   "repository": "git@github.com:hij1nx/levelweb.git",
   "author": "hij1nx",
