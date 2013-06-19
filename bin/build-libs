@@ -11,7 +11,6 @@ browserify \
 ../public/js/lib/canvg.min \
 ../public/js/lib/moment \
 ../public/js/lib/jquery/jquery \
-../public/js/lib/jquery/jquery.ui.min \
 ../public/js/lib/jquery/jquery.tagsinput.min \
 ../public/js/lib/jquery/jquery.datepicker \
 | uglifyjs > ../public/js/libs.min.js
