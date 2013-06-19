@@ -1,16 +1,6 @@
 #!/usr/bin/env sh
 
 browserify \
-../public/js/lib/codemirror-3.1/lib/codemirror \
-../public/js/lib/codemirror-3.1/mode/javascript/javascript \
-../public/js/lib/jsonlint \
-../public/js/lib/codemirror-3.1/addon/lint/lint \
-../public/js/lib/codemirror-3.1/addon/lint/json-lint \
-../public/js/lib/d3/d3.v3.min \
-../public/js/lib/d3/cubism.v1 \
-../public/js/lib/canvg.min \
-../public/js/lib/moment \
-../public/js/lib/jquery/jquery \
-../public/js/lib/jquery/jquery.tagsinput.min \
-../public/js/lib/jquery/jquery.datepicker \
+../public/js/lib/moment.js \
+../public/js/lib/jquery/jquery.js \
 | uglifyjs > ../public/js/libs.min.js

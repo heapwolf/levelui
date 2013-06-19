@@ -8,13 +8,13 @@ Levelweb is a simple modular front end for leveldb. Out of the box it does
 the following things.
 
  - Manage users and permissions
- - Secure login over HTTPS
+ - Opt-in secure login over HTTP or HTTPS
  - Automaticly reconnect the client to data sources
  - Provide a simple RPC and REST API for creating modules (([`see this example`][98]))
 
 # USAGE
 
-## Installation
+### Installation
 Levelweb can be run as a process or used as a module on top of your own 
 LevelDB-based database.
 
@@ -22,28 +22,28 @@ LevelDB-based database.
 npm install levelweb -g
 ```
 
-## Create an initial user account
+### To use levelweb with the `--auth` option, create an initial user account
 Levelweb supports encrypted login over https
 
 ```bash
 levelweb -u admin -p password -g admin
 ```
 
-## Connect to a local database 
+### Connect to a local database 
 Levelweb can be a server and accept input from simple tcp, tls or [rpc][0].
 
 ```bash
 levelweb ./test/data
 ```
 
-## Connect to a remote database
+### Connect to a remote database
 Levelweb can be a client and connect to a network enabled [Levelup][1] instance.
 
 ```bash
 levelweb --client 9099 --host 192.168.0.1
 ```
 
-## Log into the user interface
+### Log into the user interface
 ![screenshot](/screenshots/screenshot0.png)
 
 [0]:https://github.com/juliangruber/multilevel
