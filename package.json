@@ -1,8 +1,8 @@
 {
-  "name": "dashboard",
+  "name": "levelweb",
   "private": "true",
-  "version": "0.4.0",
-  "description": "A front end for leveldb",
+  "version": "0.5.0",
+  "description": "leveldb gui",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,9 +32,11 @@
     "paramify": "0.0.1",
     "formidable": "~1.0.14",
     "through": "~2.3.4",
+
+    "node-forge": "git+ssh://git@github.com:digitalbazaar/forge.git",
     "brfs": "git+ssh://git@github.com:hij1nx/brfs.git"
   },
-  "repository": "git@github.com:wayla/dashboard.git",
+  "repository": "git@github.com:hij1nx/levelweb.git",
   "author": "hij1nx",
   "license": "MIT"
 }

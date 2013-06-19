@@ -27,18 +27,6 @@ if (argv.h || argv.help) {
 
     '--https <n>         a port for the web-server/user-interface to run on',
     '--host <h>          ip or hostname for the web server if not localhost',
-    '',
-
-    underline('USER MANAGEMENT'),
-
-    '-u <username>       specify a username to create or check for',
-    '-p <password>       specify a password for the given username',
-    '',
-
-    underline('MISC'),
-
-    '-c                  regenerate private key and certificate for server',
-    '-b                  compile all of the addon css and html',
     ''
 
   ].join('\n'))
@@ -83,12 +71,6 @@ else if (argv.u) {
         
       })
     }
-  })
-}
-else if (argv.c) {
-
-  require('../lib/certs').selfSign(function(err) {
-    console.log(err || 'OK')
   })
 }
 else if (argv.b) {
