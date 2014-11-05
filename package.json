@@ -1,29 +1,19 @@
 {
   "name": "levelweb",
-  "version": "0.4.1-1",
-  "description": "A front end for leveldb",
+  "version": "1.0.0",
+  "description": "A LevelDB GUI. Includes simple data visualization tools. See also the [`commandline version`][99].",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin": {
-    "levelweb": "./bin/levelweb"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hij1nx/levelweb.git"
   },
-  "dependencies": {
-    "ws": "~0.4.25",
-    "levelup": "0.8.0",
-    "event-stream": "~3.0.12",
-    "mime": "~1.2.9",
-    "moment": "~2.0.0",
-    "keygrip": "~0.2.2",
-    "cookies": "~0.3.6",
-    "bcrypt": "~0.7.5",
-    "node-uuid": "~1.4.0",
-    "optimist": "~0.3.5",
-    "multilevel": "~3.0.0",
-    "browserify": "~2.13.2"
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hij1nx/levelweb/issues"
   },
-  "repository": "git@github.com:hij1nx/levelweb.git",
-  "author": "hij1nx",
-  "license": "MIT"
+  "homepage": "https://github.com/hij1nx/levelweb"
 }
