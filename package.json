@@ -4,7 +4,9 @@
   "description": "A LevelDB GUI. Includes simple data visualization tools. See also the [`commandline version`][99].",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "exec": "npm run styles && npm run layouts && node_modules/.bin/atom-shell .",
+    "styles": "node_modules/.bin/stylus ./styles/index.styl -o ./assets/css",
+    "layouts": "node_modules/.bin/jade ./layouts/index.jade -o ./assets/html"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/hij1nx/levelweb/issues"
   },
-  "homepage": "https://github.com/hij1nx/levelweb"
+  "homepage": "https://github.com/hij1nx/levelweb",
+  "dependencies": {
+    "atom-shell": "^1.1.7",
+    "codemirror": "^4.8.0",
+    "jade": "^1.7.0",
+    "level": "^0.18.0",
+    "stylus": "^0.49.3"
+  }
 }

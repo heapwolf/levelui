@@ -1,0 +1,40 @@
+/*------------------------------------------------------------------------------
+*
+*  Buttons
+*
+------------------------------------------------------------------------------*/
+
+button
+  border: none
+
+.button
+  font-family: $font-Carrois
+  display: inline-block
+  font-size: $font-size-base
+  text-align: center
+  color: white
+  cursor: pointer
+  border-radius: .1875rem
+  padding: .625em .9375rem
+  -webkit-appearance: none
+
+  &:hover
+    transition: all .3s ease-in
+    -webkit-transition: all .3s ease-in
+
+  &.button-large
+    padding: .9375rem 1.875rem
+    font-size: $font-size-large
+
+  &.button-primary
+    background-color: $phase-yellow
+
+    &:hover
+      background: darken(@background-color, 10%)
+
+  &.button-secondary
+    background-color: $legal-blue
+
+    &:hover
+      background: darken(@background-color, 10%)
+
