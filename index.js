@@ -1,6 +1,6 @@
 var app = require('app');
 var ipc = require('ipc');
-var level = require('level');
+var db = require('./lib/db');
 
 var BrowserWindow = require('browser-window');
 var cr = require('crash-reporter').start();
@@ -20,7 +20,7 @@ app.on('window-all-closed', function() {
 
 app.on('ready', function() {
 
-  mainWindow = new BrowserWindow({ width: 800, height: 600, frame: false });
+  mainWindow = new BrowserWindow({ width: 900, height: 600, 'min-width': 900, 'min-height': 600, frame: false });
 
   // dialog.showMessageBox([browserWindow], [options], [callback]);
 

@@ -1,9 +1,14 @@
-!= "<html>"
+html
   head
-    link(rel="stylesheet", href="../css/index.css")
-    script(src="../../client.js")
-  != "<body>"
-
+    link(rel='stylesheet', href='../css/index.css')
+    script(src='../../client.js')
+  body
     header
-      p HEAD
+      ul.horizontal
+        li
+          a.ss-icon.query(href='#') search
+        li
+          a.ss-icon.connections(h='h', ref='#') database
+        li
+          a.ss-icon.settings(href='#') cog
 

@@ -1,33 +1,42 @@
-/*------------------------------------------------------------------------------
-*
-*  Base
-*
-------------------------------------------------------------------------------*/
+@import url(../webfonts/ss-standard.css)
+
+@font-face
+  font-family: 'ProximaNova Italic'
+  src: url("../webfonts/ProximaNova-RegItalic.otf") format('opentype')
+  font-weight: medium
+  font-style: normal
+
+@font-face
+  font-family: 'ProximaNova Regular'
+  src: url("../webfonts/ProximaNova-Regular.otf") format('opentype')
+  font-weight: medium
+  font-style: normal
 
 *, *:after, *:before
   -moz-box-sizing: border-box
   -webkit-box-sizing: border-box
   box-sizing: border-box
 
-::-moz-selection
-  background: $cryogenic-blue
-  color: white
-  
 ::selection
-  background: $cryogenic-blue
+  background: $blue
   color: white
 
 html
   font-size: 100%
-
+ 
 body
-  font: 400 1rem/1.5 $font-Lora
+ font: 400 1rem/1.5 $font-Lora
   background-color: white
   color: $space-gray
   text-rendering: optimizeLegibility
   -webkit-font-smoothing: antialiased
   margin: 0px
   passing: 0px
+
+
+p
+  font-family sans-serif
+
 
 header
   font: 400 1rem/1.5 $font-Carrois
@@ -135,41 +144,4 @@ ul
   
   h3:first-of-type
     margin-top: 0
-
-  @media $desktop
-    float: left
-    width: 65%
-  
-  @media $mobile-devices
-    float: none
-    width: 100%
-
-/* Responsive */
-
-@media $mobile-devices
-  .content
-    width: 90%
-    
-  .column
-    float: none
-    width: 100%
-    padding: 0
-
-@media $desktop
-  .content
-    width: 70%
-    
-  .column
-    float: left
-    width: 50%
-    
-    &:first-of-type
-      padding-right: 3rem
-      
-    &:last-of-type
-      padding-left: 3rem
-
-@media $desktop-wide
-  .content
-    width: 60%
 

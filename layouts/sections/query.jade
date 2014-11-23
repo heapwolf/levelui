@@ -1,0 +1,28 @@
+section.query
+  .controls
+    .control
+      input.start(type="text" placeholder="Upper Bound")
+      label.custom-select
+        select(name="upper-bound")
+          option(value="start") START
+          option(value="gt") GT
+          option(value="gte") GTE
+    .control
+      input.end(type="text" placeholder="Lower Bound")
+      label.custom-select
+        select(name="lower-bound")
+          option(value="end") END
+          option(value="lt") LT
+          option(value="lte") LTE
+    .control
+      input(type="checkbox", id="reverse", name="reverse")
+      label.custom-checkbox(for="reverse") Reverse
+    .control
+      input(name="limit" type="text" placeholder="Limit")
+    .control
+      input(name="limit" type="button" value="Delete")
+  .results
+    .keys
+    .split
+    .value
+

@@ -1,0 +1,152 @@
+/*------------------------------------------------------------------------------
+*
+*  Inputs
+*
+------------------------------------------------------------------------------*/
+
+label
+  &.custom-select
+    position relative
+    font-family "ProximaNova Regular"
+    display inline-block
+
+.custom-select
+  transition: all .3
+
+  select
+    font-family "ProximaNova Regular"
+    min-width 100px
+    display inline-block
+    border 2px solid #ccc
+    padding 4px 3px 3px 5px
+    margin 0
+    font inherit
+    outline none
+    line-height 1.2
+    background white
+    -webkit-appearance none
+    -webkit-border-radius 2px
+    -moz-border-radius 2px
+    border-radius 2px
+  &:after
+    font-family "SSStandard"
+    content "navigatedown"
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    font-size 60%
+    line-height 36px
+    padding 0 7px
+    background #ccc
+    color white
+    pointer-events none
+    -webkit-border-radius 0 2px 2px 0
+    border-radius 0 2px 2px 0
+
+.no-pointer-events
+  .custom-select
+    &:after
+      content none
+
+[type="button"], 
+[type="text"]
+  -webkit-user-select: none
+  font-family "ProximaNova Regular" !important
+  min-width 100px
+  display inline-block
+  border 2px solid #ccc
+  padding 4px 3px 3px 5px
+  margin 0
+  font inherit
+  outline none
+  line-height 1.2
+  background white
+  -webkit-appearance none
+  -webkit-border-radius 2px
+  transition: all .1s ease-in
+  border-radius 2px
+
+[type="text"]:focus
+  transition: all .2s
+  border 2px solid $blue
+
+[type="button"]
+  color white
+  background #ccc
+  &:hover
+    transition: all .2s ease-in
+    background: darken(@background, 5%)
+
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked
+  position absolute
+  left -9999px
+
+[type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label
+  font-family: "ProximaNova Regular"
+  position: relative
+  padding: 7px 10px 7px 40px
+  color: white
+  cursor: pointer
+  background: #ccc
+  border-radius: 2px
+  height: 30px
+
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before
+  content: ''
+  position: absolute
+  left: 0
+  top: 0px
+  width: 30px
+  height: 30px
+  line-height: 30px
+  border: 2px solid #ccc
+  background: #fff
+  border-radius: 2px
+
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after
+  content "check"
+  font-family "SSStandard"
+  position absolute
+  top 6px
+  left 8px
+  line-height: 20px
+  font-size 14px
+  color $blue
+  transition all .2s
+
+[type="checkbox"]:not(:checked)
+  & + label
+    &:after
+      opacity 0
+      transform scale(0)
+
+[type="checkbox"]:checked
+  & + label
+    &:after
+      opacity 1
+      transform scale(1)
+
+[type="checkbox"]:disabled:not(:checked) + label:before,
+[type="checkbox"]:disabled:checked + label:before
+  box-shadow none
+  border-color #bbb
+  background-color #ddd
+
+[type="checkbox"]:disabled
+  &:checked
+    & + label
+      &:after
+        color #999
+  & + label
+    color #aaa
+
+[type="checkbox"]:checked:focus + label:before,
+[type="checkbox"]:not(:checked):focus + label:before
+  transition: all .1s ease-in
+  border 2px solid $blue
+

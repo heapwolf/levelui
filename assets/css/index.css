@@ -3,6 +3,19 @@
 *  Index
 *
 ------------------------------------------------------------------------------*/
+@import url("../webfonts/ss-standard.css");
+@font-face {
+  font-family: 'ProximaNova Italic';
+  src: url("../webfonts/ProximaNova-RegItalic.otf") format('opentype');
+  font-weight: medium;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ProximaNova Regular';
+  src: url("../webfonts/ProximaNova-Regular.otf") format('opentype');
+  font-weight: medium;
+  font-style: normal;
+}
 *,
 *:after,
 *:before {
@@ -10,19 +23,15 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-::-moz-selection {
-  background: #00aeb2;
-  color: #fff;
-}
 ::selection {
-  background: #00aeb2;
+  background: #4a90e2;
   color: #fff;
 }
 html {
   font-size: 100%;
 }
 body {
-  font: 400 1rem/1.5 "Lora", serif;
+  font: 400 1rem/1.5 $font-Lora;
   background-color: #fff;
   color: #415160;
   text-rendering: optimizeLegibility;
@@ -30,8 +39,11 @@ body {
   margin: 0px;
   passing: 0px;
 }
+p {
+  font-family: sans-serif;
+}
 header {
-  font: 400 1rem/1.5 "Carrois Gothic SC", sans-serif;
+  font: 400 1rem/1.5 $font-Carrois;
 }
 .cf:before,
 .cf:after {
@@ -142,84 +154,162 @@ ul.numbered li:before {
 .single-column h3:first-of-type {
   margin-top: 0;
 }
-@media $desktop {
-  .single-column {
-    float: left;
-    width: 65%;
-  }
-}
-@media $mobile-devices {
-  .single-column {
-    float: none;
-    width: 100%;
-  }
-}
-@media $mobile-devices {
-  .content {
-    width: 90%;
-  }
-  .column {
-    float: none;
-    width: 100%;
-    padding: 0;
-  }
-}
-@media $desktop {
-  .content {
-    width: 70%;
-  }
-  .column {
-    float: left;
-    width: 50%;
-  }
-  .column:first-of-type {
-    padding-right: 3rem;
-  }
-  .column:last-of-type {
-    padding-left: 3rem;
-  }
-}
-@media $desktop-wide {
-  .content {
-    width: 60%;
-  }
-}
-button {
-  border: none;
-}
-.button {
-  font-family: "Carrois Gothic SC", sans-serif;
+label.custom-select {
+  position: relative;
+  font-family: "ProximaNova Regular";
   display: inline-block;
-  font-size: 1rem;
-  text-align: center;
+}
+.custom-select {
+  transition: all 0.3;
+}
+.custom-select select {
+  font-family: "ProximaNova Regular";
+  min-width: 100px;
+  display: inline-block;
+  border: 2px solid #ccc;
+  padding: 4px 3px 3px 5px;
+  margin: 0;
+  font: inherit;
+  outline: none;
+  line-height: 1.2;
+  background: #fff;
+  -webkit-appearance: none;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.custom-select:after {
+  font-family: "SSStandard";
+  content: "navigatedown";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 60%;
+  line-height: 36px;
+  padding: 0 7px;
+  background: #ccc;
+  color: #fff;
+  pointer-events: none;
+  -webkit-border-radius: 0 2px 2px 0;
+  border-radius: 0 2px 2px 0;
+}
+.no-pointer-events .custom-select:after {
+  content: none;
+}
+[type="button"],
+[type="text"] {
+  -webkit-user-select: none;
+  font-family: "ProximaNova Regular" !important;
+  min-width: 100px;
+  display: inline-block;
+  border: 2px solid #ccc;
+  padding: 4px 3px 3px 5px;
+  margin: 0;
+  font: inherit;
+  outline: none;
+  line-height: 1.2;
+  background: #fff;
+  -webkit-appearance: none;
+  -webkit-border-radius: 2px;
+  transition: all 0.1s ease-in;
+  border-radius: 2px;
+}
+[type="text"]:focus {
+  transition: all 0.2s;
+  border: 2px solid #4a90e2;
+}
+[type="button"] {
+  color: #fff;
+  background: #ccc;
+}
+[type="button"]:hover {
+  transition: all 0.2s ease-in;
+  background: #c2c2c2;
+}
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+  position: absolute;
+  left: -9999px;
+}
+[type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label {
+  font-family: "ProximaNova Regular";
+  position: relative;
+  padding: 7px 10px 7px 40px;
   color: #fff;
   cursor: pointer;
-  border-radius: 0.1875rem;
-  padding: 0.625em 0.9375rem;
-  -webkit-appearance: none;
+  background: #ccc;
+  border-radius: 2px;
+  height: 30px;
 }
-.button:hover {
-  transition: all 0.3s ease-in;
-  -webkit-transition: all 0.3s ease-in;
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border: 2px solid #ccc;
+  background: #fff;
+  border-radius: 2px;
 }
-.button.button-large {
-  padding: 0.9375rem 1.875rem;
-  font-size: 1.25rem;
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after {
+  content: "check";
+  font-family: "SSStandard";
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  line-height: 20px;
+  font-size: 14px;
+  color: #4a90e2;
+  transition: all 0.2s;
 }
-.button.button-primary {
-  background-color: #f7cf07;
+[type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
 }
-.button.button-primary:hover {
-  background: #deba06;
+[type="checkbox"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
 }
-.button.button-secondary {
-  background-color: #4a90e2;
+[type="checkbox"]:disabled:not(:checked) + label:before,
+[type="checkbox"]:disabled:checked + label:before {
+  box-shadow: none;
+  border-color: #bbb;
+  background-color: #ddd;
 }
-.button.button-secondary:hover {
-  background: #3080de;
+[type="checkbox"]:disabled:checked + label:after {
+  color: #999;
+}
+[type="checkbox"]:disabled + label {
+  color: #aaa;
+}
+[type="checkbox"]:checked:focus + label:before,
+[type="checkbox"]:not(:checked):focus + label:before {
+  transition: all 0.1s ease-in;
+  border: 2px solid #4a90e2;
+}
+.controls {
+  -webkit-user-select: none;
+  display: block;
+  height: 70px;
+  padding-left: 8px;
+  background: #fafafa;
+}
+.controls .control {
+  margin: 20px 8px;
+  display: inline-block;
+}
+.controls .control [name="limit"] {
+  width: 50px;
 }
 header {
   -webkit-app-region: drag;
+  -webkit-user-select: none;
   cursor: default;
   color: #fff;
   background-color: #4a90e2;
@@ -229,10 +319,56 @@ header {
   margin: 0 auto;
 }
 header ul.horizontal {
+  padding: 0;
+  margin: auto;
+  height: inherit;
   min-width: 696px;
   list-style: none;
-  padding-top: 20px;
 }
 header ul.horizontal li {
   display: inline;
+}
+header ul.horizontal li a,
+header ul.horizontal li a:hover {
+  -webkit-app-region: no-drag;
+  display: inline-block;
+  margin: 24px;
+  font-size: 24px;
+  color: #fff;
+  text-decoration: none;
+}
+section.query [name="upper-bound"],
+section.query [name="lower-bound"] {
+  min-width: 22px;
+  width: 22px;
+}
+section.query .results {
+  position: absolute;
+  top: 150px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+}
+section.query .results .split {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 300px;
+  width: 10px;
+  background: #fafafa;
+  cursor: ew-resize;
+  z-index: 2;
+}
+section.query .results .keys,
+section.query .results values {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 300px;
+  bottom: 0px;
+  z-index: 1;
+}
+section.query .results .values {
+  left: 200px;
+  right: 0px;
 }
