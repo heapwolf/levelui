@@ -186,10 +186,10 @@ label.custom-select {
   right: 0;
   bottom: 0;
   font-size: 60%;
-  line-height: 36px;
+  line-height: 34px;
   padding: 0 7px;
   background: #ccc;
-  color: #fff;
+  color: #415160;
   pointer-events: none;
   -webkit-border-radius: 0 2px 2px 0;
   border-radius: 0 2px 2px 0;
@@ -200,13 +200,13 @@ label.custom-select {
 [type="button"],
 [type="text"] {
   -webkit-user-select: none;
-  font-family: "ProximaNova Regular" !important;
+  font: inherit;
+  font-family: "ProximaNova Regular";
   min-width: 100px;
   display: inline-block;
   border: 2px solid #ccc;
   padding: 4px 3px 3px 5px;
   margin: 0;
-  font: inherit;
   outline: none;
   line-height: 1.2;
   background: #fff;
@@ -217,15 +217,19 @@ label.custom-select {
 }
 [type="text"]:focus {
   transition: all 0.2s;
-  border: 2px solid #4a90e2;
 }
 [type="button"] {
-  color: #fff;
+  font: inherit;
+  font-family: "ProximaNova Regular";
+  color: #415160;
   background: #ccc;
 }
 [type="button"]:hover {
   transition: all 0.2s ease-in;
   background: #c2c2c2;
+}
+[type="button"]:disabled {
+  color: #97a8b9;
 }
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
@@ -237,7 +241,7 @@ label.custom-select {
   font-family: "ProximaNova Regular";
   position: relative;
   padding: 7px 10px 7px 40px;
-  color: #fff;
+  color: #415160;
   cursor: pointer;
   background: #ccc;
   border-radius: 2px;
@@ -291,7 +295,6 @@ label.custom-select {
 [type="checkbox"]:checked:focus + label:before,
 [type="checkbox"]:not(:checked):focus + label:before {
   transition: all 0.1s ease-in;
-  border: 2px solid #4a90e2;
 }
 .controls {
   -webkit-user-select: none;
@@ -312,7 +315,7 @@ header {
   -webkit-user-select: none;
   cursor: default;
   color: #fff;
-  background-color: #4a90e2;
+  background-color: #666;
   width: 100%;
   height: 80px;
   display: table;
@@ -342,6 +345,9 @@ section.query [name="lower-bound"] {
   min-width: 22px;
   width: 22px;
 }
+section.query input.delete {
+  display: none;
+}
 section.query .results {
   position: absolute;
   top: 150px;
@@ -359,8 +365,7 @@ section.query .results .split {
   cursor: ew-resize;
   z-index: 2;
 }
-section.query .results .keys,
-section.query .results values {
+section.query .results .keys {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -368,7 +373,56 @@ section.query .results values {
   bottom: 0px;
   z-index: 1;
 }
-section.query .results .values {
-  left: 200px;
-  right: 0px;
+section.query .results .keys select {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  outline: none;
+  border: none;
+}
+section.query .results .keys select option {
+  padding: 2px;
+  font-size: 12px;
+}
+section.query .results .value {
+  position: absolute;
+  top: 0;
+  left: 300px;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+.CodeMirror {
+  height: auto !important;
+  font-size: 14px;
+}
+.CodeMirror-scroll {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lint-marker-error,
+.CodeMirror-lint-message-error {
+  height: 10px;
+  width: 10px;
+  background-color: #f00;
+  border-radius: 99em;
+  margin-left: 2px;
+}
+.CodeMirror-focused .CodeMirror-selected {
+  background: #4a90e2;
+}
+.CodeMirror-selected {
+  background-color: #4a90e2;
+}
+.CodeMirror-gutters {
+  background-color: #fafafa;
+  border: none;
+}
+.cm-s-default .cm-string {
+  color: #3c7cd4 !important;
+}
+.cm-s-default .cm-string-2 {
+  color: #3c7cd4 !important;
 }

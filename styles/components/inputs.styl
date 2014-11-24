@@ -36,10 +36,10 @@ label
     right 0
     bottom 0
     font-size 60%
-    line-height 36px
+    line-height 34px
     padding 0 7px
     background #ccc
-    color white
+    color $space-gray
     pointer-events none
     -webkit-border-radius 0 2px 2px 0
     border-radius 0 2px 2px 0
@@ -52,31 +52,34 @@ label
 [type="button"], 
 [type="text"]
   -webkit-user-select: none
-  font-family "ProximaNova Regular" !important
-  min-width 100px
-  display inline-block
-  border 2px solid #ccc
-  padding 4px 3px 3px 5px
-  margin 0
-  font inherit
-  outline none
-  line-height 1.2
-  background white
-  -webkit-appearance none
-  -webkit-border-radius 2px
+  font: inherit
+  font-family: "ProximaNova Regular"
+  min-width: 100px
+  display: inline-block
+  border: 2px solid #ccc
+  padding: 4px 3px 3px 5px
+  margin: 0
+  outline: none
+  line-height: 1.2
+  background: white
+  -webkit-appearance: none
+  -webkit-border-radius: 2px
   transition: all .1s ease-in
-  border-radius 2px
+  border-radius: 2px
 
 [type="text"]:focus
   transition: all .2s
-  border 2px solid $blue
 
 [type="button"]
-  color white
+  font: inherit
+  font-family: "ProximaNova Regular"
+  color: $space-gray
   background #ccc
   &:hover
     transition: all .2s ease-in
     background: darken(@background, 5%)
+  &:disabled
+    color: lighten($space-gray, 50%)
 
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked
@@ -88,7 +91,7 @@ label
   font-family: "ProximaNova Regular"
   position: relative
   padding: 7px 10px 7px 40px
-  color: white
+  color: $space-gray
   cursor: pointer
   background: #ccc
   border-radius: 2px
@@ -148,5 +151,4 @@ label
 [type="checkbox"]:checked:focus + label:before,
 [type="checkbox"]:not(:checked):focus + label:before
   transition: all .1s ease-in
-  border 2px solid $blue
 
