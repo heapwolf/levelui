@@ -3,3 +3,4 @@
 !.gitignore
 !.npmignore
 /node_modules
+*.sw*

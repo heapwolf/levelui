@@ -237,7 +237,7 @@ label.custom-select {
   background: #c2c2c2;
 }
 [type="button"]:disabled {
-  color: #97a8b9;
+  opacity: 0.4;
 }
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
@@ -392,9 +392,6 @@ section.query [name="upper-bound"],
 section.query [name="lower-bound"] {
   min-width: 22px;
   width: 22px;
-}
-section.query input.delete {
-  display: none;
 }
 section.query .results {
   position: absolute;
