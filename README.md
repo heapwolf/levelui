@@ -1,3 +1,6 @@
+# STATUS
+Work in progress. Contributions welcome.
+
 # SYNOPSIS
 A LevelDB GUI. See also the [`commandline version`][0].
 
