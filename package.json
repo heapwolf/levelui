@@ -4,7 +4,7 @@
   "description": "A LevelDB GUI based on atom-shell.",
   "main": "index.js",
   "scripts": {
-    "exec": "npm run styles && npm run layouts && node_modules/.bin/atom-shell .",
+    "start": "npm run styles && npm run layouts && node_modules/.bin/atom-shell .",
     "styles": "node_modules/.bin/stylus ./styles/index.styl -o ./assets/css",
     "layouts": "node_modules/.bin/jade ./layouts/index.jade -o ./assets/html"
   },
