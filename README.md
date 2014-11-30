@@ -1,6 +1,8 @@
 # STATUS
 Work in progress. Contributions welcome.
 
+![img](/assets/img/leveldb.png)
+
 # SYNOPSIS
 A LevelDB GUI based on [`atom-shell`][1]. See also the [`command line version`][0].
 
