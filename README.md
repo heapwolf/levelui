@@ -1,6 +1,9 @@
 # SYNOPSIS
 A LevelDB GUI. See also the [`commandline version`][0].
 
+# SCREENSHOT
+![img](/docs/screenshot.png)
+
 # DEV
 You need a build of leveldown suitable for atom-shell.
 
