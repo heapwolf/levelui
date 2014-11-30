@@ -1,4 +1,5 @@
 { 
-  "valueEncoding": "json"
+  "valueEncoding": "json",
+  "limit": 1000
 }
 
