@@ -1,4 +1,10 @@
 section.query
+  position: absolute
+  top: 80px
+  bottom: 0px
+  right: 0px
+  left: 0px
+  background: #fafafa
 
   [name="upper-bound"],
   [name="lower-bound"]
@@ -10,10 +16,10 @@ section.query
 
   .results
     position: absolute
-    top: 150px
-    bottom: 0px
-    right: 0px
-    left: 0px
+    top: 70px
+    bottom: 25px
+    right: 25px
+    left: 25px
 
     .split
       position: absolute
@@ -37,7 +43,7 @@ section.query
         position: absolute
         top: 0
         bottom: 0
-        left: 0
+        left: 0px
         width: 100%
         outline: none
         border: none
@@ -49,40 +55,9 @@ section.query
     .value
       position: absolute
       top: 0
-      left: 300px
+      left: 310px
       right: 0
-      bottom: 0
+      bottom: 0px
       z-index: 1
 
-.CodeMirror
-  height: auto !important
-  font-size: 14px
-
-.CodeMirror-scroll
-  overflow-y hidden
-  overflow-x auto
-
-.CodeMirror-lint-marker-error, .CodeMirror-lint-message-error
-  height 10px
-  width 10px
-  background-color red
-  border-radius 99em
-  margin-left 2px
-
-.CodeMirror-focused
-  .CodeMirror-selected
-    background: $blue
-
-.CodeMirror-selected
-  background-color: $blue
-
-.CodeMirror-gutters
-  background-color: #fafafa
-  border: none
-
-.cm-s-default
-  .cm-string
-    color #3c7cd4 !important
-  .cm-string-2
-    color #3c7cd4 !important
 

@@ -154,6 +154,13 @@ ul.numbered li:before {
 .single-column h3:first-of-type {
   margin-top: 0;
 }
+.large-icon {
+  font-size: 40px;
+  display: inline-block;
+  color: #666;
+  position: relative;
+  top: 14px;
+}
 label.custom-select {
   position: relative;
   font-family: "ProximaNova Regular";
@@ -223,6 +230,7 @@ label.custom-select {
   font-family: "ProximaNova Regular";
   color: #415160;
   background: #ccc;
+  padding: 5px;
 }
 [type="button"]:hover {
   transition: all 0.2s ease-in;
@@ -300,7 +308,7 @@ label.custom-select {
   -webkit-user-select: none;
   display: block;
   height: 70px;
-  padding-left: 8px;
+  padding-left: 16px;
   background: #fafafa;
 }
 .controls .control {
@@ -309,90 +317,6 @@ label.custom-select {
 }
 .controls .control [name="limit"] {
   width: 50px;
-}
-header {
-  -webkit-app-region: drag;
-  -webkit-user-select: none;
-  cursor: default;
-  color: #fff;
-  background-color: #666;
-  width: 100%;
-  height: 80px;
-  display: table;
-  margin: 0 auto;
-}
-header ul.horizontal {
-  padding: 0;
-  margin: auto;
-  height: inherit;
-  min-width: 696px;
-  list-style: none;
-}
-header ul.horizontal li {
-  display: inline;
-}
-header ul.horizontal li a,
-header ul.horizontal li a:hover {
-  -webkit-app-region: no-drag;
-  display: inline-block;
-  margin: 24px;
-  font-size: 24px;
-  color: #fff;
-  text-decoration: none;
-}
-section.query [name="upper-bound"],
-section.query [name="lower-bound"] {
-  min-width: 22px;
-  width: 22px;
-}
-section.query input.delete {
-  display: none;
-}
-section.query .results {
-  position: absolute;
-  top: 150px;
-  bottom: 0px;
-  right: 0px;
-  left: 0px;
-}
-section.query .results .split {
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 300px;
-  width: 10px;
-  background: #fafafa;
-  cursor: ew-resize;
-  z-index: 2;
-}
-section.query .results .keys {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 300px;
-  bottom: 0px;
-  z-index: 1;
-}
-section.query .results .keys select {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  outline: none;
-  border: none;
-}
-section.query .results .keys select option {
-  padding: 8px;
-  font-size: 12px;
-}
-section.query .results .value {
-  position: absolute;
-  top: 0;
-  left: 300px;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
 }
 .CodeMirror {
   height: auto !important;
@@ -426,6 +350,98 @@ section.query .results .value {
 .cm-s-default .cm-string-2 {
   color: #3c7cd4 !important;
 }
+header {
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
+  cursor: default;
+  color: #fff;
+  background-color: #666;
+  width: 100%;
+  height: 80px;
+  display: table;
+  margin: 0 auto;
+}
+header ul.horizontal {
+  padding: 0;
+  margin: auto;
+  height: inherit;
+  min-width: 696px;
+  list-style: none;
+}
+header ul.horizontal li {
+  display: inline;
+}
+header ul.horizontal li a,
+header ul.horizontal li a:hover {
+  -webkit-app-region: no-drag;
+  display: inline-block;
+  margin: 24px;
+  font-size: 24px;
+  color: #fff;
+  text-decoration: none;
+}
+section.query {
+  position: absolute;
+  top: 80px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  background: #fafafa;
+}
+section.query [name="upper-bound"],
+section.query [name="lower-bound"] {
+  min-width: 22px;
+  width: 22px;
+}
+section.query input.delete {
+  display: none;
+}
+section.query .results {
+  position: absolute;
+  top: 70px;
+  bottom: 25px;
+  right: 25px;
+  left: 25px;
+}
+section.query .results .split {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 300px;
+  width: 10px;
+  background: #fafafa;
+  cursor: ew-resize;
+  z-index: 2;
+}
+section.query .results .keys {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 300px;
+  bottom: 0px;
+  z-index: 1;
+}
+section.query .results .keys select {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0px;
+  width: 100%;
+  outline: none;
+  border: none;
+}
+section.query .results .keys select option {
+  padding: 8px;
+  font-size: 12px;
+}
+section.query .results .value {
+  position: absolute;
+  top: 0;
+  left: 310px;
+  right: 0;
+  bottom: 0px;
+  z-index: 1;
+}
 section.put {
   background: #fafafa;
   position: absolute;
@@ -447,4 +463,46 @@ section.put .value {
   bottom: 25px;
   left: 0;
   right: 25px;
+}
+section.connections {
+  background: #fafafa;
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+section.connections .connection-options {
+  display: block;
+  padding: 15%;
+  position: relative;
+  height: auto;
+}
+section.connections .connection-options .option {
+  position: relative;
+  height: 80px;
+  display: block;
+}
+section.connections .connection-options .option input[type="text"] {
+  width: 80%;
+}
+section.connections .connection-options .option input[type="button"] {
+  margin-left: -2px;
+}
+section.connections .connection-options .heading {
+  height: 50px;
+  display: block;
+}
+section.connections .connection-options .heading h2 {
+  margin: 0;
+  font-family: "ProximaNova Regular";
+}
+section.connections .connection-options .heading h2,
+section.connections .connection-options .heading .large-icon {
+  float: left;
+}
+section.connections .connection-options .heading .large-icon {
+  line-height: 10px;
+  padding-right: 20px;
 }

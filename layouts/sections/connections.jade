@@ -1,7 +1,17 @@
 section.connections
-  .controls
-    .control
-      input.path(type="text")
-    .control
+ 
+  .connection-options
+    .heading
+      .large-icon.ss-icon folder
+      h2 Local Connection
+    .option
+      input.path(type="text", placeholder="/path/to/database")
       input.openDirectory(type="button", value="Open")
+
+    .heading
+      .large-icon.ss-icon cloud
+      h2 Network Connection
+    .option
+      input.address(type="text" placeholder="tcp://127.0.0.1:8001")
+      input.openConnection(type="button", value="Connect")
 

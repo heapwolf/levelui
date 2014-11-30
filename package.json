@@ -1,7 +1,7 @@
 {
-  "name": "levelweb",
-  "version": "1.0.0",
-  "description": "A LevelDB GUI. Includes simple data visualization tools. See also the [`commandline version`][99].",
+  "name": "levelui",
+  "version": "2.0.0",
+  "description": "A LevelDB GUI based on atom-shell.",
   "main": "index.js",
   "scripts": {
     "exec": "npm run styles && npm run layouts && node_modules/.bin/atom-shell .",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hij1nx/levelweb.git"
+    "url": "https://github.com/hij1nx/levelui.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "hij1nx",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hij1nx/levelweb/issues"
+    "url": "https://github.com/hij1nx/levelui/issues"
   },
-  "homepage": "https://github.com/hij1nx/levelweb",
+  "homepage": "https://github.com/hij1nx/levelui",
   "dependencies": {
     "atom-shell": "^1.1.7",
     "codemirror": "^4.8.0",
