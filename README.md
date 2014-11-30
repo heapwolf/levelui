@@ -1,6 +1,3 @@
-# STATUS
-Work in progress. Contributions welcome.
-
 ![img](/assets/img/leveldb.png)
 
 # SYNOPSIS
@@ -16,6 +13,9 @@ A LevelDB GUI based on [`atom-shell`][1]. See also the [`command line version`][
 
 ## INSERT
 ![img](/docs/screenshot3.png)
+
+# STATUS
+Work in progress. Contributions welcome.
 
 # DEVELOPMENT
 You need to rebuild leveldown so that it uses the correct C++ headers for atom-shell.
