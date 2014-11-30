@@ -2,7 +2,7 @@
 Work in progress. Contributions welcome.
 
 # SYNOPSIS
-A LevelDB GUI. See also the [`commandline version`][0].
+A LevelDB GUI based on [`atom-shell`][1]. See also the [`command line version`][0].
 
 # SCREENSHOT
 ![img](/docs/screenshot.png)
@@ -15,4 +15,5 @@ env HOME=~/.atom-shell-gyp node-gyp rebuild --target=0.19.4 --arch=ia64 --dist-u
 ```
 
 [0]:https://github.com/hij1nx/lev
+[1]:https://github.com/atom/atom-shell
 
