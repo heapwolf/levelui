@@ -383,7 +383,7 @@ section.query .results .keys select {
   border: none;
 }
 section.query .results .keys select option {
-  padding: 2px;
+  padding: 8px;
   font-size: 12px;
 }
 section.query .results .value {
@@ -425,4 +425,26 @@ section.query .results .value {
 }
 .cm-s-default .cm-string-2 {
   color: #3c7cd4 !important;
+}
+section.put {
+  background: #fafafa;
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+section.put .key {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 25px;
+  height: 100px;
+}
+section.put .value {
+  position: absolute;
+  top: 180px;
+  bottom: 25px;
+  left: 0;
+  right: 25px;
 }
