@@ -5,7 +5,8 @@ Work in progress. Contributions welcome.
 A LevelDB GUI based on [`atom-shell`][1]. See also the [`command line version`][0].
 
 # SCREENSHOT
-![img](/docs/screenshot.png)
+![img](/docs/screenshot1.png)
+![img](/docs/screenshot2.png)
 
 # DEV
 You need a build of leveldown suitable for atom-shell.
