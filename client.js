@@ -1,23 +1,21 @@
 var ipc = require('ipc');
 var fs = require('fs');
 var domready = require('domready');
-var db = require('leveldown');
 
-var menu = require('../../lib/menu');
-var header = require('../../lib/header');
-var query = require('../../lib/query');
+var root = '../../';
 
-menu();
+var menu = require(root + 'lib/menu')();
+var header = require(root + 'lib/header');
+var query = require(root + 'lib/query');
+
+var config = require(root + 'defaults.json');
+var rc = require('rc')('levelui', config);
+var db = require(root + 'lib/db')('../db', config);
 
 domready(function() {
 
-  header();
-  query();
+  header(db, config);
+  query(db, config);
 
-  ipc.on('asynchronous-reply', function(arg) {
-    console.log(arg); // prints "pong"
-  });
-
-  ipc.send('asynchronous-message', 'ping');
 });
 

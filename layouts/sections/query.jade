@@ -1,32 +1,22 @@
 section.query
   .controls
     .control
-      input.start(type="text" placeholder="Upper Bound")
-      label.custom-select
-        select(name="upper-bound")
-          option(value="start") START
-          option(value="gt") GT
-          option(value="gte") GTE
+      input.upperbound(type="text" placeholder="Upper Bound")
     .control
-      input.end(type="text" placeholder="Lower Bound")
-      label.custom-select
-        select(name="lower-bound")
-          option(value="end") END
-          option(value="lt") LT
-          option(value="lte") LTE
+      input.lowerbound(type="text" placeholder="Lower Bound")
     .control
       input(type="checkbox", id="reverse", name="reverse")
-      label.custom-checkbox(for="reverse") Reverse
+      label.reverse.custom-checkbox(for="reverse") Reverse
     .control
-      input(name="limit" type="text" placeholder="Limit")
+      input.limit(name="limit" type="text" placeholder="Limit")
     .control
       input.delete(name="limit" type="button" value="Delete")
   .results
     .keys
       select(multiple)
-        option as.dfjh.askdjfh,dfjkshsakdfhaskdfahskdjfahsdkfjhaskdflahsldfkjahsdlfkahjdfkajhdflakjdhfalkdjfhalkdshfalksdjhflaksdjhflakdsjhflaksjdfhlaksjdhfalkdjfha
-        option b
-        option c
+        option key.namea
+        option key.nameb
+        option key.namec
     .split
     .value
       textarea.codemirror
