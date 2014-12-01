@@ -1,22 +1,28 @@
 section.query
+
   .controls
     .control
       input.upperbound(type="text" placeholder="Upper Bound")
     .control
       input.lowerbound(type="text" placeholder="Lower Bound")
     .control
-      input(type="checkbox", id="reverse", name="reverse")
-      label.reverse.custom-checkbox(for="reverse") Reverse
-    .control
       input.limit(name="limit" type="text")
     .control
-      input.delete(type="button" value="Delete", disabled)
+      input.ss-icon.reverse(type="button" value="navigatedown", title="Reverse")
+    .control
+      input.ss-icon.delete(type="button" value="trash", disabled, title="Delete")
+    .control
+      input.ss-icon.sublevels(type="button" value="folder", title="Sublevels")
+
+  .tree-container
+    .tree
+      input#root(type="checkbox")
+      label(for="root") Root
+      ul.root
+
   .results
     .keys
       select(multiple)
-        option key.namea
-        option key.nameb
-        option key.namec
     .split
     .value
       textarea.codemirror

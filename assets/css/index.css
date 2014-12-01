@@ -157,9 +157,72 @@ ul.numbered li:before {
 .large-icon {
   font-size: 40px;
   display: inline-block;
-  color: #666;
   position: relative;
   top: 14px;
+}
+.tree ul,
+.tree li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.tree {
+  font: normal 16px "ProximaNova Regular", Arial, Sans-serif;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.tree input {
+  position: absolute;
+  opacity: 0;
+}
+.tree input + label + ul {
+  margin: 0 0 0 22px;
+}
+.tree input ~ ul {
+  display: none;
+}
+.tree input:disabled + label {
+  cursor: default;
+  opacity: 0.6;
+}
+.tree input:checked:not(:disabled) ~ ul {
+  display: block;
+}
+.tree input:checked + label::before {
+  font-family: "SSStandard";
+  content: 'navigateup';
+}
+.tree a {
+  color: #00f;
+  text-decoration: none;
+}
+.tree a:hover {
+  text-decoration: underline;
+}
+.tree label::before {
+  content: "";
+  width: 16px;
+  vertical-align: middle;
+  background-position: 0 -32px;
+}
+.tree label,
+.tree label::before {
+  font-family: "SSStandard";
+  cursor: pointer;
+  content: "folder";
+}
+.tree label,
+.tree a,
+.tree label::before {
+  display: inline-block;
+  height: 16px;
+  line-height: 16px;
+  vertical-align: middle;
+  margin: 10px;
+}
+.tree label {
+  font-family: "ProximaNova Regular";
 }
 label.custom-select {
   position: relative;
@@ -239,13 +302,22 @@ label.custom-select {
 [type="button"]:disabled {
   opacity: 0.4;
 }
-[type="checkbox"]:not(:checked),
-[type="checkbox"]:checked {
+[type="button"].ss-icon {
+  font-family: "SSStandard";
+  line-height: 10px;
+  padding: 10px 0px 6px 0px;
+  top: 3px;
+  position: relative;
+  min-width: 35px;
+  max-width: 35px;
+}
+[type="checkbox"].custom:not(:checked),
+[type="checkbox"].custom:checked {
   position: absolute;
   left: -9999px;
 }
-[type="checkbox"]:not(:checked) + label,
-[type="checkbox"]:checked + label {
+[type="checkbox"].custom:not(:checked) + label,
+[type="checkbox"].custom:checked + label {
   font-family: "ProximaNova Regular";
   position: relative;
   padding: 7px 10px 7px 40px;
@@ -255,8 +327,8 @@ label.custom-select {
   border-radius: 2px;
   height: 30px;
 }
-[type="checkbox"]:not(:checked) + label:before,
-[type="checkbox"]:checked + label:before {
+[type="checkbox"].custom:not(:checked) + label:before,
+[type="checkbox"].custom:checked + label:before {
   content: '';
   position: absolute;
   left: 0;
@@ -268,8 +340,8 @@ label.custom-select {
   background: #fff;
   border-radius: 2px;
 }
-[type="checkbox"]:not(:checked) + label:after,
-[type="checkbox"]:checked + label:after {
+[type="checkbox"].custom:not(:checked) + label:after,
+[type="checkbox"].custom:checked + label:after {
   content: "check";
   font-family: "SSStandard";
   position: absolute;
@@ -280,16 +352,16 @@ label.custom-select {
   color: #4a90e2;
   transition: all 0.2s;
 }
-[type="checkbox"]:not(:checked) + label:after {
+[type="checkbox"].custom:not(:checked) + label:after {
   opacity: 0;
   transform: scale(0);
 }
-[type="checkbox"]:checked + label:after {
+[type="checkbox"].custom:checked + label:after {
   opacity: 1;
   transform: scale(1);
 }
-[type="checkbox"]:disabled:not(:checked) + label:before,
-[type="checkbox"]:disabled:checked + label:before {
+[type="checkbox"].custom:disabled:not(:checked) + label:before,
+[type="checkbox"].custom:disabled:checked + label:before {
   box-shadow: none;
   border-color: #bbb;
   background-color: #ddd;
@@ -300,8 +372,8 @@ label.custom-select {
 [type="checkbox"]:disabled + label {
   color: #aaa;
 }
-[type="checkbox"]:checked:focus + label:before,
-[type="checkbox"]:not(:checked):focus + label:before {
+[type="checkbox"].custom:checked:focus + label:before,
+[type="checkbox"].custom:not(:checked):focus + label:before {
   transition: all 0.1s ease-in;
 }
 .controls {
@@ -393,14 +465,33 @@ section.query [name="lower-bound"] {
   min-width: 22px;
   width: 22px;
 }
+section.query .tree-container {
+  background: #fff;
+  position: absolute;
+  top: 70px;
+  bottom: 25px;
+  left: 25px;
+  width: 300px;
+  overflow: auto;
+}
+section.query .tree-container input.active + label {
+  color: #468dc9;
+}
 section.query .results {
   position: absolute;
   top: 70px;
   bottom: 25px;
   right: 25px;
   left: 25px;
+  z-index: 10;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
 }
-section.query .results .split {
+section.query .results.open {
+  left: 350px;
+}
+section.query .results .splitx {
   position: absolute;
   top: 0px;
   bottom: 0px;
@@ -434,7 +525,7 @@ section.query .results .keys select option {
 section.query .results .value {
   position: absolute;
   top: 0;
-  left: 310px;
+  left: 300px;
   right: 0;
   bottom: 0px;
   z-index: 1;

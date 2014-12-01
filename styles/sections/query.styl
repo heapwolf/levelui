@@ -10,15 +10,34 @@ section.query
   [name="lower-bound"]
     min-width: 22px
     width: 22px
-  
+
+  .tree-container
+    background: white
+    position: absolute
+    top: 70px
+    bottom: 25px
+    left: 25px
+    width: 300px
+    overflow: auto
+ 
+    input.active + label
+      color: #468DC9
+
   .results
     position: absolute
     top: 70px
     bottom: 25px
     right: 25px
     left: 25px
+    z-index: 10
+    -webkit-transition all 0.3s
+    -moz-transition all 0.3s
+    transition all 0.3s
 
-    .split
+    &.open
+      left: 350px
+
+    .splitx
       position: absolute
       top: 0px
       bottom: 0px
@@ -52,7 +71,7 @@ section.query
     .value
       position: absolute
       top: 0
-      left: 310px
+      left: 300px
       right: 0
       bottom: 0px
       z-index: 1

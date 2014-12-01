@@ -1,0 +1,60 @@
+.tree ul,
+.tree li
+  padding 0
+  margin 0
+  list-style none
+
+.tree
+  font normal 16px $font-proxima, Arial, Sans-serif
+  -moz-user-select none
+  -webkit-user-select none
+  user-select none
+  input
+    position absolute
+    opacity 0
+    & + label
+      & + ul
+        margin 0 0 0 22px
+    & ~ ul
+      display none
+    &:disabled
+      & + label
+        cursor default
+        opacity .6
+    &:checked
+      &:not(:disabled)
+        & ~ ul
+          display block
+      & + label
+        &::before
+          font-family: "SSStandard"
+          content: 'navigateup'
+  a
+    color #00f
+    text-decoration none
+    &:hover
+      text-decoration underline
+  label
+    &::before
+      content ""
+      width 16px
+      vertical-align middle
+      background-position 0 -32px
+
+.tree label,
+.tree label::before
+  font-family: "SSStandard"
+  cursor pointer
+  content: "folder"
+
+.tree label,
+.tree a,
+.tree label::before
+  display inline-block
+  height 16px
+  line-height 16px
+  vertical-align middle
+  margin: 10px
+
+.tree label
+  font-family: $font-proxima

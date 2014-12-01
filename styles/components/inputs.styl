@@ -82,13 +82,22 @@ label
   &:disabled
     opacity: 0.4
 
-[type="checkbox"]:not(:checked),
-[type="checkbox"]:checked
+[type="button"].ss-icon
+  font-family: "SSStandard"
+  line-height: 10px
+  padding: 10px 0px 6px 0px
+  top: 3px
+  position: relative
+  min-width: 35px
+  max-width: 35px
+
+[type="checkbox"].custom:not(:checked),
+[type="checkbox"].custom:checked
   position absolute
   left -9999px
 
-[type="checkbox"]:not(:checked) + label,
-[type="checkbox"]:checked + label
+[type="checkbox"].custom:not(:checked) + label,
+[type="checkbox"].custom:checked + label
   font-family: "ProximaNova Regular"
   position: relative
   padding: 7px 10px 7px 40px
@@ -98,8 +107,8 @@ label
   border-radius: 2px
   height: 30px
 
-[type="checkbox"]:not(:checked) + label:before,
-[type="checkbox"]:checked + label:before
+[type="checkbox"].custom:not(:checked) + label:before,
+[type="checkbox"].custom:checked + label:before
   content: ''
   position: absolute
   left: 0
@@ -111,8 +120,8 @@ label
   background: #fff
   border-radius: 2px
 
-[type="checkbox"]:not(:checked) + label:after,
-[type="checkbox"]:checked + label:after
+[type="checkbox"].custom:not(:checked) + label:after,
+[type="checkbox"].custom:checked + label:after
   content "check"
   font-family "SSStandard"
   position absolute
@@ -123,20 +132,20 @@ label
   color $blue
   transition all .2s
 
-[type="checkbox"]:not(:checked)
+[type="checkbox"].custom:not(:checked)
   & + label
     &:after
       opacity 0
       transform scale(0)
 
-[type="checkbox"]:checked
+[type="checkbox"].custom:checked
   & + label
     &:after
       opacity 1
       transform scale(1)
 
-[type="checkbox"]:disabled:not(:checked) + label:before,
-[type="checkbox"]:disabled:checked + label:before
+[type="checkbox"].custom:disabled:not(:checked) + label:before,
+[type="checkbox"].custom:disabled:checked + label:before
   box-shadow none
   border-color #bbb
   background-color #ddd
@@ -149,7 +158,7 @@ label
   & + label
     color #aaa
 
-[type="checkbox"]:checked:focus + label:before,
-[type="checkbox"]:not(:checked):focus + label:before
+[type="checkbox"].custom:checked:focus + label:before,
+[type="checkbox"].custom:not(:checked):focus + label:before
   transition: all .1s ease-in
 
