@@ -17,6 +17,27 @@
   "bugs": {
     "url": "https://github.com/hij1nx/levelui/issues"
   },
+  "keywords": [
+    "leveldb",
+    "levelDB",
+    "level-db",
+    "levelup",
+    "level",
+    "repl",
+    "database",
+    "databases",
+    "nodebase",
+    "db",
+    "gui",
+    "leveldown",
+    "hyperlevel",
+    "hyper-level",
+    "level-hyper",
+    "hyperdex",
+    "memdown",
+    "keyvalue",
+    "key/value"
+  ],
   "homepage": "https://github.com/hij1nx/levelui",
   "dependencies": {
     "atom-shell": "^1.1.7",
