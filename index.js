@@ -16,16 +16,7 @@ app.on('ready', function() {
 
   mainWindow = new BrowserWindow({ width: 900, height: 600, 'min-width': 900, 'min-height': 600, frame: false });
 
-  // dialog.showMessageBox([browserWindow], [options], [callback]);
   mainWindow.loadUrl('file://' + __dirname + '/assets/html/index.html');
-
-  //
-  // Explodes... atom-shell is a little broken.
-  //
-  //dialog.showOpenDialog(d, { title: 'ok', defaultPath: '/', properties: ['openDirectory'] }, function(savePath) { 
-  //  console.log(savePath); 
-  //});
-
 
   mainWindow.on('closed', function() {
     mainWindow = null;
