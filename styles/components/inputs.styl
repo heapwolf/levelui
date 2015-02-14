@@ -5,9 +5,9 @@
 ------------------------------------------------------------------------------*/
 
 label
+  font-family "ProximaNova Regular"
   &.custom-select
     position relative
-    font-family "ProximaNova Regular"
     display inline-block
 
 .custom-select
@@ -101,17 +101,16 @@ label
   font-family: "ProximaNova Regular"
   position: relative
   padding: 7px 10px 7px 40px
+  padding: 7px 40px 7px 0px
   color: $space-gray
   cursor: pointer
-  background: #ccc
-  border-radius: 2px
   height: 30px
 
 [type="checkbox"].custom:not(:checked) + label:before,
 [type="checkbox"].custom:checked + label:before
   content: ''
   position: absolute
-  left: 0
+  right: 0
   top: 0px
   width: 30px
   height: 30px
@@ -125,8 +124,8 @@ label
   content "check"
   font-family "SSStandard"
   position absolute
-  top 6px
-  left 8px
+  top 7px
+  right 8px
   line-height: 20px
   font-size 14px
   color $blue
@@ -147,8 +146,6 @@ label
 [type="checkbox"].custom:disabled:not(:checked) + label:before,
 [type="checkbox"].custom:disabled:checked + label:before
   box-shadow none
-  border-color #bbb
-  background-color #ddd
 
 [type="checkbox"]:disabled
   &:checked

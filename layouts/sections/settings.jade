@@ -1,3 +1,37 @@
 section.settings
-  p Settings
+
+  h2 Settings
+  h4 Database
+  .controls
+    .control.half
+      label Key Encoding 
+      input(id="keyEncoding", type="text", placeholder="utf8")
+    .control.half
+      label Value Encoding
+      input(id="valueEncoding" type="text" placeholder="json")
+
+  .controls
+    .control.half
+      input.custom(id="compression", type="checkbox")
+      label(for="compression") Use Compression
+    .control.half
+      label Cache Size
+      input(id="cacheSize", type="text" placeholder="8388608")
+
+  .controls
+    .control.half
+      input.custom(id="createIfMissing", type="checkbox")
+      label(for="createIfMissing") Create If Missing
+    .control.half
+      input.custom(id="errorIfExists", type="checkbox")
+      label(for="errorIfExists") Error If Exists
+
+  h4 Connections
+  .controls
+    .control.half
+      label Remote Host 
+      input(id="host", type="text", placeholder="localhost")
+    .control.half
+      label Remote Port
+      input(id="port", type="text", placeholder="3000")
 

@@ -73,6 +73,7 @@ h2,
 h3,
 h4 {
   margin: 2.5rem 0;
+  font-family: "ProximaNova Regular";
   line-height: 1;
 }
 h1 {
@@ -92,6 +93,7 @@ h3 {
 }
 h4 {
   font-size: 1.125rem;
+  margin: 20px;
 }
 ul {
   list-style-type: none;
@@ -155,79 +157,66 @@ ul.numbered li:before {
 .single-column h3:first-of-type {
   margin-top: 0;
 }
+.CodeMirror {
+  height: auto !important;
+  font-size: 14px;
+}
+.CodeMirror-scroll {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lint-marker-error,
+.CodeMirror-lint-message-error {
+  height: 10px;
+  width: 10px;
+  background-color: #f00;
+  border-radius: 99em;
+  margin-left: 2px;
+}
+.CodeMirror-focused .CodeMirror-selected {
+  background: #4a90e2;
+}
+.CodeMirror-selected {
+  background-color: #4a90e2;
+}
+.CodeMirror-gutters {
+  background-color: #fafafa;
+  border: none;
+}
+.cm-s-default .cm-string {
+  color: #3c7cd4 !important;
+}
+.cm-s-default .cm-string-2 {
+  color: #3c7cd4 !important;
+}
+.controls {
+  -webkit-user-select: none;
+  display: block;
+  height: 70px;
+  padding-left: 16px;
+  background: #fafafa;
+}
+.controls .control {
+  padding: 20px 8px;
+  display: inline-block;
+}
+.controls .control.half {
+  width: 50%;
+}
+.controls .control [name="limit"] {
+  width: 50px;
+}
 .large-icon {
   font-size: 40px;
   display: inline-block;
   position: relative;
   top: 14px;
 }
-.tree ul,
-.tree li {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-.tree {
-  font: normal 16px "ProximaNova Regular", Arial, Sans-serif;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-}
-.tree input {
-  position: absolute;
-  opacity: 0;
-}
-.tree input + label + ul {
-  margin: 0 0 0 22px;
-}
-.tree input ~ ul {
-  display: none;
-}
-.tree input:disabled + label {
-  cursor: default;
-  opacity: 0.6;
-}
-.tree input:checked:not(:disabled) ~ ul {
-  display: block;
-}
-.tree input:checked + label::before {
-  font-family: "SSStandard";
-  content: 'navigateup';
-}
-.tree a {
-  color: #00f;
-  text-decoration: none;
-}
-.tree a:hover {
-  text-decoration: underline;
-}
-.tree label::before {
-  content: "";
-  width: 16px;
-  vertical-align: middle;
-  background-position: 0 -32px;
-}
-.tree label,
-.tree label::before {
-  font-family: "SSStandard";
-  cursor: pointer;
-  content: "folder";
-}
-.tree label,
-.tree a,
-.tree label::before {
-  display: inline-block;
-  height: 16px;
-  line-height: 16px;
-  vertical-align: middle;
-  margin: 10px;
-}
-.tree label {
+label {
   font-family: "ProximaNova Regular";
 }
 label.custom-select {
   position: relative;
-  font-family: "ProximaNova Regular";
   display: inline-block;
 }
 .custom-select {
@@ -322,17 +311,16 @@ label.custom-select {
   font-family: "ProximaNova Regular";
   position: relative;
   padding: 7px 10px 7px 40px;
+  padding: 7px 40px 7px 0px;
   color: #415160;
   cursor: pointer;
-  background: #ccc;
-  border-radius: 2px;
   height: 30px;
 }
 [type="checkbox"].custom:not(:checked) + label:before,
 [type="checkbox"].custom:checked + label:before {
   content: '';
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0px;
   width: 30px;
   height: 30px;
@@ -346,8 +334,8 @@ label.custom-select {
   content: "check";
   font-family: "SSStandard";
   position: absolute;
-  top: 6px;
-  left: 8px;
+  top: 7px;
+  right: 8px;
   line-height: 20px;
   font-size: 14px;
   color: #4a90e2;
@@ -364,8 +352,6 @@ label.custom-select {
 [type="checkbox"].custom:disabled:not(:checked) + label:before,
 [type="checkbox"].custom:disabled:checked + label:before {
   box-shadow: none;
-  border-color: #bbb;
-  background-color: #ddd;
 }
 [type="checkbox"]:disabled:checked + label:after {
   color: #999;
@@ -377,51 +363,110 @@ label.custom-select {
 [type="checkbox"].custom:not(:checked):focus + label:before {
   transition: all 0.1s ease-in;
 }
-.controls {
+.tree ul,
+.tree li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.tree {
+  font: normal 16px "ProximaNova Regular", Arial, Sans-serif;
+  -moz-user-select: none;
   -webkit-user-select: none;
+  user-select: none;
+}
+.tree input {
+  position: absolute;
+  opacity: 0;
+}
+.tree input + label + ul {
+  margin: 0 0 0 22px;
+}
+.tree input ~ ul {
+  display: none;
+}
+.tree input:disabled + label {
+  cursor: default;
+  opacity: 0.6;
+}
+.tree input:checked:not(:disabled) ~ ul {
   display: block;
-  height: 70px;
-  padding-left: 16px;
-  background: #fafafa;
 }
-.controls .control {
-  margin: 20px 8px;
+.tree input:checked + label::before {
+  font-family: "SSStandard";
+  content: 'navigateup';
+}
+.tree a {
+  color: #00f;
+  text-decoration: none;
+}
+.tree a:hover {
+  text-decoration: underline;
+}
+.tree label::before {
+  content: "";
+  width: 16px;
+  vertical-align: middle;
+  background-position: 0 -32px;
+}
+.tree label,
+.tree label::before {
+  font-family: "SSStandard";
+  cursor: pointer;
+  content: "folder";
+}
+.tree label,
+.tree a,
+.tree label::before {
   display: inline-block;
+  height: 16px;
+  line-height: 16px;
+  vertical-align: middle;
+  margin: 10px;
 }
-.controls .control [name="limit"] {
-  width: 50px;
+.tree label {
+  font-family: "ProximaNova Regular";
 }
-.CodeMirror {
-  height: auto !important;
-  font-size: 14px;
+section.connections {
+  background: #fafafa;
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
-.CodeMirror-scroll {
-  overflow-y: hidden;
-  overflow-x: auto;
+section.connections .connection-options {
+  display: block;
+  padding: 15%;
+  position: relative;
+  height: auto;
 }
-.CodeMirror-lint-marker-error,
-.CodeMirror-lint-message-error {
-  height: 10px;
-  width: 10px;
-  background-color: #f00;
-  border-radius: 99em;
-  margin-left: 2px;
+section.connections .connection-options .option {
+  position: relative;
+  height: 80px;
+  display: block;
 }
-.CodeMirror-focused .CodeMirror-selected {
-  background: #4a90e2;
+section.connections .connection-options .option input[type="text"] {
+  width: 80%;
 }
-.CodeMirror-selected {
-  background-color: #4a90e2;
+section.connections .connection-options .option input[type="button"] {
+  margin-left: -2px;
 }
-.CodeMirror-gutters {
-  background-color: #fafafa;
-  border: none;
+section.connections .connection-options .heading {
+  height: 50px;
+  display: block;
 }
-.cm-s-default .cm-string {
-  color: #3c7cd4 !important;
+section.connections .connection-options .heading h2 {
+  margin: 0;
 }
-.cm-s-default .cm-string-2 {
-  color: #3c7cd4 !important;
+section.connections .connection-options .heading h2,
+section.connections .connection-options .heading .large-icon {
+  float: left;
+}
+section.connections .connection-options .heading .large-icon {
+  line-height: 10px;
+  padding-right: 20px;
 }
 header {
   -webkit-app-region: drag;
@@ -447,11 +492,49 @@ header ul.horizontal li {
 header ul.horizontal li a,
 header ul.horizontal li a:hover {
   -webkit-app-region: no-drag;
+  position: relative;
   display: inline-block;
-  margin: 24px;
-  font-size: 24px;
+  margin: 25px;
+  font-size: 25px;
   color: #fff;
   text-decoration: none;
+}
+header ul.horizontal li a.active:after,
+header ul.horizontal li a:hover.active:after {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(255,255,255,0);
+  border-bottom-color: #fafafa;
+  border-width: 10px;
+  margin-left: -10px;
+}
+section.put {
+  background: #fafafa;
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+section.put .key {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 25px;
+  height: 100px;
+}
+section.put .value {
+  position: absolute;
+  top: 180px;
+  bottom: 25px;
+  left: 0;
+  right: 25px;
 }
 section.query {
   position: absolute;
@@ -531,67 +614,18 @@ section.query .results .value {
   bottom: 0px;
   z-index: 1;
 }
-section.put {
-  background: #fafafa;
-  position: absolute;
-  top: 80px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-section.put .key {
-  position: absolute;
-  top: 70px;
-  left: 0;
-  right: 25px;
-  height: 100px;
-}
-section.put .value {
-  position: absolute;
-  top: 180px;
-  bottom: 25px;
-  left: 0;
-  right: 25px;
-}
-section.connections {
-  background: #fafafa;
-  position: absolute;
-  top: 80px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-}
-section.connections .connection-options {
-  display: block;
-  padding: 15%;
-  position: relative;
-  height: auto;
-}
-section.connections .connection-options .option {
-  position: relative;
-  height: 80px;
-  display: block;
-}
-section.connections .connection-options .option input[type="text"] {
-  width: 80%;
-}
-section.connections .connection-options .option input[type="button"] {
-  margin-left: -2px;
-}
-section.connections .connection-options .heading {
-  height: 50px;
-  display: block;
-}
-section.connections .connection-options .heading h2 {
+section.settings h2 {
+  padding: 20px;
   margin: 0;
-  font-family: "ProximaNova Regular";
+  background: #fafafa;
 }
-section.connections .connection-options .heading h2,
-section.connections .connection-options .heading .large-icon {
-  float: left;
+section.settings .controls {
+  background: #fff;
 }
-section.connections .connection-options .heading .large-icon {
-  line-height: 10px;
-  padding-right: 20px;
+section.settings label {
+  min-width: 150px;
+  display: inline-block;
+}
+section.settings .custom + label {
+  width: 180px;
 }

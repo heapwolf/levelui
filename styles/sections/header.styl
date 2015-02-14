@@ -23,9 +23,24 @@ header
 
       a, a:hover
         -webkit-app-region: no-drag
+        position: relative
         display: inline-block
-        margin: 24px
-        font-size: 24px
+        margin: 25px
+        font-size: 25px
         color: white
         text-decoration: none
 
+        &.active:after
+          top: 100%
+          left: 50%
+          border: solid transparent
+          content: " "
+          height: 0
+          width: 0
+          position: absolute
+          pointer-events: none
+          border-color: rgba(255, 255, 255, 0)
+          border-bottom-color: #fafafa
+          border-width: 10px
+          margin-left: -10px
+ 
