@@ -180,7 +180,7 @@ ul.numbered li:before {
   background-color: #4a90e2;
 }
 .CodeMirror-gutters {
-  background-color: #fafafa;
+  background-color: #ededed;
   border: none;
 }
 .cm-s-default .cm-string {
@@ -192,9 +192,13 @@ ul.numbered li:before {
 .controls {
   -webkit-user-select: none;
   display: block;
-  height: 70px;
+  position: relative;
   padding-left: 16px;
+}
+.controls.top {
   background: #fafafa;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 100;
 }
 .controls .control {
   padding: 20px 8px;
@@ -394,7 +398,7 @@ label.custom-select {
 }
 .tree input:checked + label::before {
   font-family: "SSStandard";
-  content: 'navigateup';
+  content: 'remove';
 }
 .tree a {
   color: #00f;
@@ -473,7 +477,7 @@ header {
   -webkit-user-select: none;
   cursor: default;
   color: #fff;
-  background-color: #666;
+  background-color: #aaa;
   width: 100%;
   height: 80px;
   display: table;
@@ -515,7 +519,7 @@ header ul.horizontal li a:hover.active:after {
   margin-left: -10px;
 }
 section.put {
-  background: #fafafa;
+  background: #ededed;
   position: absolute;
   top: 80px;
   bottom: 0;
@@ -526,15 +530,15 @@ section.put .key {
   position: absolute;
   top: 70px;
   left: 0;
-  right: 25px;
+  right: 0;
   height: 100px;
 }
 section.put .value {
   position: absolute;
   top: 180px;
-  bottom: 25px;
+  bottom: 0;
   left: 0;
-  right: 25px;
+  right: 0;
 }
 section.query {
   position: absolute;
@@ -550,11 +554,11 @@ section.query [name="lower-bound"] {
   width: 22px;
 }
 section.query .tree-container {
-  background: #fff;
+  background: #ededed;
   position: absolute;
   top: 70px;
-  bottom: 25px;
-  left: 25px;
+  bottom: 0;
+  left: 0;
   width: 300px;
   overflow: auto;
 }
@@ -563,17 +567,17 @@ section.query .tree-container input.active + label {
 }
 section.query .results {
   position: absolute;
-  top: 70px;
-  bottom: 25px;
-  right: 25px;
-  left: 25px;
+  top: 73px;
+  bottom: 0;
+  right: 0;
+  left: 0;
   z-index: 10;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
 }
 section.query .results.open {
-  left: 350px;
+  left: 300px;
 }
 section.query .results .splitx {
   position: absolute;
@@ -581,7 +585,7 @@ section.query .results .splitx {
   bottom: 0px;
   left: 300px;
   width: 10px;
-  background: #fafafa;
+  background: #ededed;
   cursor: ew-resize;
   z-index: 2;
 }
@@ -615,12 +619,8 @@ section.query .results .value {
   z-index: 1;
 }
 section.settings h2 {
-  padding: 20px;
+  padding: 20px 0;
   margin: 0;
-  background: #fafafa;
-}
-section.settings .controls {
-  background: #fff;
 }
 section.settings label {
   min-width: 150px;

@@ -1,9 +1,13 @@
 .controls
   -webkit-user-select none
   display block
-  height 70px
+  position relative
   padding-left 16px
-  background #fafafa
+
+  &.top
+    background #fafafa
+    box-shadow 0 2px 4px rgba(0, 0, 0, 0.2)
+    z-index: 100
 
   .control
     padding 20px 8px
