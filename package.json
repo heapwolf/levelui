@@ -4,7 +4,7 @@
   "description": "A LevelDB GUI based on atom-shell.",
   "main": "index.js",
   "scripts": {
-    "start": "npm run styles && npm run layouts && atom-shell .",
+    "start": "npm run styles && npm run layouts && electron .",
     "styles": "node_modules/.bin/stylus ./styles/index.styl -o ./assets/css",
     "layouts": "node_modules/.bin/jade ./layouts/index.jade -o ./assets/html"
   },
@@ -40,13 +40,13 @@
   ],
   "homepage": "https://github.com/hij1nx/levelui",
   "dependencies": {
-    "atom-shell": "git://github.com/hij1nx/atom-shell.git",
+    "electron-prebuilt": "^0.28.1",
     "codemirror": "^4.8.0",
     "debounce": "^1.0.0",
     "dom-events": "^0.1.1",
     "domready": "^1.0.7",
     "jade": "^1.7.0",
-    "level": "^0.18.0",
+    "level": "~1.0.0",
     "level-sublevel": "^6.4.5",
     "level-subtree": "^2.0.1",
     "multilevel": "^6.0.1",
