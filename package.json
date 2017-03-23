@@ -44,7 +44,7 @@
     "debounce": "^1.0.0",
     "dom-events": "^0.1.1",
     "domready": "^1.0.7",
-    "electron-prebuilt": "^0.28.1",
+    "electron": "^1.6.2",
     "jade": "^1.7.0",
     "level": "^1.4.0",
     "level-sublevel": "^6.5.2",

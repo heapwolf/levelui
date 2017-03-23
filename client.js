@@ -1,4 +1,4 @@
-var ipc = require('ipc');
+var ipc = require('electron').ipcRenderer;
 var fs = require('fs');
 var domready = require('domready');
 
@@ -27,4 +27,3 @@ domready(function() {
   settings.init(database, config);
   connections.init(database, config);
 });
-
