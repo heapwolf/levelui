@@ -22,7 +22,7 @@ You need to rebuild leveldown so that it uses the correct C++ headers for electr
 
 ```bash
 $ npm install
-$ cd node_modules/level/node_modules/leveldown
+$ cd node_modules/leveldown
 $ env HOME=~/.electron-gyp && node-gyp rebuild --target=0.28.1 --arch=x64 --dist-url=https://atom.io/download/atom-shell
 ```
 
